@@ -25,6 +25,6 @@
    ============================================================ */
 
 const SUPABASE_CONFIG = {
-  url: "https://yutwpnqvqhjmvgbsyigy.supabase.co",       // e.g. "https://abcdefghijklm.supabase.co"
-  anonKey: "sb_publishable_AhyOp7g93hMgGOTozfOLdg_5sBRKPyo"    // e.g. "sb_publishable_..." or "eyJhbGciOiJIUzI1NiIs..."
+  url: "https://syvmtbilijekilsffzik.supabase.co",       // e.g. "https://abcdefghijklm.supabase.co"
+  anonKey: "sb_publishable_YW5gjn-AELtgiLJsKV7naA_gYmdQ9Ig"    // e.g. "sb_publishable_..." or "eyJhbGciOiJIUzI1NiIs..."
 };
