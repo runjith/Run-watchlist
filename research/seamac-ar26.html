@@ -1,0 +1,3038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEAMEC Ltd — Deep Fundamental Study FY2025-26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg-primary: #080b12;
+    --bg-secondary: #0f1420;
+    --bg-card: #131a2a;
+    --bg-card-hover: #1a2338;
+    --border: #1c2740;
+    --border-light: #2a3a5c;
+    --text-primary: #eef2f8;
+    --text-secondary: #94a3b8;
+    --text-muted: #5a6b85;
+    --accent: #00e5b8;
+    --accent-dim: #00b894;
+    --accent-glow: rgba(0, 229, 184, 0.12);
+    --gold: #f5b942;
+    --gold-dim: #c98f1a;
+    --red: #ff4d5e;
+    --red-dim: #c42a3a;
+    --blue: #4a9eff;
+    --blue-dim: #2563eb;
+    --purple: #a78bfa;
+    --orange: #ff8c42;
+    --radius: 18px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --shadow-lg: 0 16px 60px rgba(0,0,0,0.5);
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-optical-sizing: auto;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.75;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── PROGRESS BAR ─── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--blue), var(--gold));
+    z-index: 1002;
+    width: 0%;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+
+  /* ─── NAVIGATION ─── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(8, 11, 18, 0.72);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid transparent;
+    transition: var(--transition);
+  }
+  .nav.scrolled {
+    background: rgba(8, 11, 18, 0.92);
+    border-bottom-color: var(--border);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  }
+  .nav-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .nav-logo .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+  .nav-links {
+    display: flex;
+    gap: 2px;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 11px;
+    border-radius: 8px;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  /* ─── READING TIME PILL ─── */
+  .reading-pill {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 998;
+    background: rgba(19, 26, 42, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+  }
+  .reading-pill:hover {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+  .reading-pill .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s infinite;
+  }
+  @media (max-width: 768px) { .reading-pill { display: none; } }
+
+  /* ─── SECTION NAV DOTS ─── */
+  .section-nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .section-nav a {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--border-light);
+    transition: var(--transition);
+    position: relative;
+    display: block;
+  }
+  .section-nav a:hover, .section-nav a.active {
+    background: var(--accent);
+    box-shadow: 0 0 16px var(--accent);
+    transform: scale(1.35);
+  }
+  .section-nav a .tooltip {
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(19, 26, 42, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+  }
+  .section-nav a:hover .tooltip { opacity: 1; }
+  @media (max-width: 1024px) { .section-nav { display: none; } }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 25% 20%, rgba(0, 229, 184, 0.10) 0%, transparent 45%),
+      radial-gradient(ellipse at 75% 65%, rgba(74, 158, 255, 0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 85%, rgba(245, 185, 66, 0.05) 0%, transparent 45%);
+    animation: hero-bg 24s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes hero-bg {
+    0% { transform: translate(0,0) rotate(0deg); }
+    100% { transform: translate(-4%, -3%) rotate(4deg); }
+  }
+  /* Sonar rings */
+  .sonar {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 229, 184, 0.15);
+    animation: sonar-ping 4s ease-out infinite;
+    pointer-events: none;
+  }
+  .sonar:nth-child(2) { animation-delay: 1.3s; }
+  .sonar:nth-child(3) { animation-delay: 2.6s; }
+  @keyframes sonar-ping {
+    0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 960px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 100px;
+    background: rgba(0, 229, 184, 0.08);
+    border: 1px solid rgba(0, 229, 184, 0.25);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeInUp 0.8s ease both;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 7vw, 82px);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    margin-bottom: 22px;
+    animation: fadeInUp 0.8s ease 0.1s both;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--blue) 45%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .hero p.subtitle {
+    font-size: clamp(15px, 1.9vw, 18px);
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto 44px;
+    line-height: 1.75;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    max-width: 960px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease 0.3s both;
+  }
+  .hero-stat {
+    background: rgba(19, 26, 42, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 16px;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .hero-stat:hover {
+    border-color: var(--accent-dim);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 229, 184, 0.12);
+  }
+  .hero-stat:hover::before { opacity: 1; }
+  .hero-stat .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .hero-stat .unit {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-left: 2px;
+  }
+  .hero-stat .label {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 8px;
+    font-weight: 700;
+  }
+  .scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    animation: bounce 2.2s infinite;
+  }
+  .scroll-indicator .line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 24px;
+    position: relative;
+  }
+  .section-header {
+    margin-bottom: 48px;
+  }
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 14px;
+    opacity: 0.85;
+  }
+  .section-header h2 {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .section-header .lead {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 760px;
+    line-height: 1.75;
+  }
+
+  /* ─── TL;DR PILL ─── */
+  .tldr {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    background: rgba(0, 229, 184, 0.05);
+    border: 1px solid rgba(0, 229, 184, 0.15);
+    margin-bottom: 32px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 800px;
+  }
+  .tldr .tldr-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  /* ─── THE NUMBER THAT MATTERS ─── */
+  .number-matters {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 32px 36px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(0, 229, 184, 0.06), rgba(74, 158, 255, 0.03));
+    border: 1px solid rgba(0, 229, 184, 0.18);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .number-matters::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(180deg, var(--accent), var(--blue));
+  }
+  .number-matters .nm-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(42px, 7vw, 76px);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    flex-shrink: 0;
+  }
+  .number-matters .nm-value .nm-unit {
+    font-size: 0.42em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-left: 4px;
+  }
+  .number-matters .nm-content .nm-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .number-matters .nm-content .nm-text {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 620px;
+  }
+  @media (max-width: 640px) {
+    .number-matters { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
+  }
+
+  /* ─── CHAPTER DIVIDER ─── */
+  .chapter-divider {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .chapter-divider .cd-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--border-light);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    flex-shrink: 0;
+  }
+  .chapter-divider .cd-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-light), transparent);
+  }
+  .chapter-divider .cd-text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    padding: 1px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    transition: var(--transition);
+  }
+  .card:hover {
+    border-color: var(--border-light);
+    background: var(--bg-card-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .card:hover::after {
+    background: linear-gradient(135deg, var(--accent-dim), transparent 50%, var(--blue-dim));
+  }
+  .card-grid {
+    display: grid;
+    gap: 20px;
+  }
+  .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ─── TABLES ─── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    position: relative;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  thead {
+    background: rgba(0, 229, 184, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  th {
+    text-align: left;
+    padding: 14px 16px;
+    font-weight: 800;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    background: var(--bg-card);
+  }
+  td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(0, 229, 184, 0.025); }
+  td strong, td .highlight {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .up { color: var(--accent) !important; font-weight: 700; }
+  .down { color: var(--red) !important; font-weight: 700; }
+  .flat { color: var(--text-muted) !important; }
+
+  /* ─── STAT CARDS ─── */
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    border-radius: 0 3px 3px 0;
+  }
+  .stat-card.gold::before { background: var(--gold); }
+  .stat-card.red::before { background: var(--red); }
+  .stat-card.blue::before { background: var(--blue); }
+  .stat-card.purple::before { background: var(--purple); }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .stat-card .stat-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .stat-card .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .stat-card .stat-value .unit {
+    font-size: 0.55em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-left: 3px;
+  }
+  .stat-card .stat-change {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(0, 229, 184, 0.08);
+  }
+  .stat-change.up { color: var(--accent); background: rgba(0, 229, 184, 0.08); }
+  .stat-change.down { color: var(--red); background: rgba(255, 77, 94, 0.08); }
+
+  /* ─── CHART CONTAINER ─── */
+  .chart-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    position: relative;
+  }
+  .chart-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .chart-title .chart-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(0, 229, 184, 0.1);
+    padding: 3px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+  }
+  .chart-canvas-wrap {
+    position: relative;
+    height: 300px;
+  }
+  .chart-canvas-wrap.tall { height: 360px; }
+
+  /* ─── BAR CHART (CSS) ─── */
+  .bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .bar-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .bar-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    min-width: 130px;
+    font-weight: 600;
+  }
+  .bar-track {
+    flex: 1;
+    height: 26px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    width: 0;
+  }
+  .bar-fill.gold { background: linear-gradient(90deg, var(--gold-dim), var(--gold)); }
+  .bar-fill.blue { background: linear-gradient(90deg, var(--blue-dim), var(--blue)); }
+  .bar-fill.red { background: linear-gradient(90deg, var(--red-dim), var(--red)); }
+  .bar-fill.purple { background: linear-gradient(90deg, #7c3aed, var(--purple)); }
+  .bar-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 80px;
+    text-align: right;
+  }
+  .bar-value .pct {
+    color: var(--accent);
+    font-size: 10px;
+    margin-left: 4px;
+  }
+  .bar-value .pct.neg { color: var(--red); }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--blue), var(--gold), var(--purple), transparent);
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: var(--transition);
+  }
+  .timeline-item:hover {
+    border-color: var(--accent-dim);
+    transform: translateX(6px);
+    box-shadow: var(--shadow);
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 28px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg-primary);
+    box-shadow: 0 0 0 3px rgba(0, 229, 184, 0.2);
+  }
+  .timeline-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .timeline-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .timeline-desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .timeline-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  /* ─── TAGS ─── */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .tag.green { background: rgba(0,229,184,0.1); color: var(--accent); border: 1px solid rgba(0,229,184,0.22); }
+  .tag.gold { background: rgba(245,185,66,0.1); color: var(--gold); border: 1px solid rgba(245,185,66,0.22); }
+  .tag.red { background: rgba(255,77,94,0.1); color: var(--red); border: 1px solid rgba(255,77,94,0.22); }
+  .tag.blue { background: rgba(74,158,255,0.1); color: var(--blue); border: 1px solid rgba(74,158,255,0.22); }
+  .tag.purple { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.22); }
+
+  /* ─── FLAGS ─── */
+  .flag {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    transition: var(--transition);
+  }
+  .flag:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .flag-indicator {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .flag-indicator.green { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  .flag-indicator.yellow { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+  .flag-indicator.red { background: var(--red); box-shadow: 0 0 12px var(--red); }
+  .flag-content h4 {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+  }
+  .flag-content p {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ─── BUSINESS TREE ─── */
+  .tree {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 2.1;
+    padding: 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    color: var(--text-secondary);
+  }
+  .tree .root { color: var(--gold); font-weight: 700; font-size: 14px; }
+  .tree .branch { color: var(--blue); }
+  .tree .leaf { color: var(--accent); font-weight: 600; }
+  .tree .highlight-node {
+    background: rgba(0, 229, 184, 0.12);
+    padding: 3px 10px;
+    border-radius: 6px;
+    color: var(--accent);
+    font-weight: 800;
+    border: 1px solid rgba(0, 229, 184, 0.35);
+    box-shadow: 0 0 16px rgba(0, 229, 184, 0.15);
+  }
+
+  /* ─── THESIS CARDS ─── */
+  .thesis-card {
+    border-radius: var(--radius);
+    padding: 28px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+  }
+  .thesis-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .thesis-card.bull { background: linear-gradient(135deg, rgba(0,229,184,0.06), transparent 70%); border-color: rgba(0,229,184,0.22); }
+  .thesis-card.base { background: linear-gradient(135deg, rgba(74,158,255,0.06), transparent 70%); border-color: rgba(74,158,255,0.22); }
+  .thesis-card.bear { background: linear-gradient(135deg, rgba(255,77,94,0.06), transparent 70%); border-color: rgba(255,77,94,0.22); }
+  .thesis-card h3 {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .thesis-card.bull h3 { color: var(--accent); }
+  .thesis-card.base h3 { color: var(--blue); }
+  .thesis-card.bear h3 { color: var(--red); }
+  .thesis-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+  .thesis-card li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    padding-left: 22px;
+    position: relative;
+  }
+  .thesis-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  /* ─── SCENARIO SLIDER ─── */
+  .scenario-toggle {
+    display: inline-flex;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .scenario-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 2;
+  }
+  .scenario-toggle button.active {
+    color: var(--bg-primary);
+  }
+  .scenario-toggle .slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    border-radius: 100px;
+    transition: var(--transition);
+    z-index: 1;
+  }
+  .scenario-toggle .slider.bull { background: var(--accent); width: calc(33.33% - 3px); left: 4px; }
+  .scenario-toggle .slider.base { background: var(--blue); width: calc(33.33% - 3px); left: calc(33.33% + 1px); }
+  .scenario-toggle .slider.bear { background: var(--red); width: calc(33.33% - 3px); left: calc(66.66% - 2px); }
+
+  .scenario-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .scenario-metric {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    transition: var(--transition);
+  }
+  .scenario-metric .sm-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .scenario-metric .sm-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    transition: var(--transition);
+  }
+  .scenario-metric .sm-value .unit {
+    font-size: 0.55em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-left: 3px;
+  }
+  .scenario-metric .sm-context {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .scenario-metrics { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    padding: 20px 24px;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent);
+    background: rgba(0,229,184,0.05);
+    margin: 24px 0;
+  }
+  .callout.gold { border-left-color: var(--gold); background: rgba(245,185,66,0.05); }
+  .callout.red { border-left-color: var(--red); background: rgba(255,77,94,0.05); }
+  .callout p {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .callout strong { color: var(--text-primary); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+    margin: 0 auto;
+    border: none;
+    max-width: 1200px;
+  }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(0,229,184,0.06), rgba(74,158,255,0.03));
+    border: 1px solid rgba(0,229,184,0.18);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .highlight-box h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .highlight-box p {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  /* ─── NUMBERED LIST ─── */
+  .numbered-list {
+    counter-reset: item;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .numbered-list li {
+    counter-increment: item;
+    padding-left: 52px;
+    position: relative;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .numbered-list li::before {
+    content: counter(item);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0,229,184,0.08);
+    border: 1px solid rgba(0,229,184,0.25);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .numbered-list li strong { color: var(--text-primary); }
+
+  /* ─── KV GRID ─── */
+  .kv-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .kv-item {
+    background: var(--bg-card);
+    padding: 18px 22px;
+    transition: var(--transition);
+  }
+  .kv-item:hover { background: var(--bg-card-hover); }
+  .kv-key {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .kv-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  @media (max-width: 600px) { .kv-grid { grid-template-columns: 1fr; } }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 60px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.8;
+    background: var(--bg-secondary);
+  }
+  .footer .brand {
+    font-weight: 800;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .card-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4 { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .section { padding: 60px 16px; }
+    .timeline { padding-left: 28px; }
+    .timeline-item::before { left: -25px; }
+    .bar-label { min-width: 100px; font-size: 11px; }
+    .bar-value { min-width: 65px; font-size: 11px; }
+  }
+  @media (max-width: 480px) {
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hero-stat { padding: 16px 10px; }
+    .hero-stat .value { font-size: 20px; }
+  }
+
+  @media print {
+    .nav, .section-nav, .progress-bar, .reading-pill, .scroll-indicator { display: none !important; }
+    body { background: white; color: black; }
+    .section { page-break-inside: avoid; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <span class="dot"></span>
+      SEAMEC · Deep Study
+    </a>
+    <ul class="nav-links">
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#part1">Business</a></li>
+      <li><a href="#part2">Vessel Economics</a></li>
+      <li><a href="#part3">Fleet History</a></li>
+      <li><a href="#part4">ANANT</a></li>
+      <li><a href="#part5">Revenue</a></li>
+      <li><a href="#part6">Profitability</a></li>
+      <li><a href="#part7">Cash Flow</a></li>
+      <li><a href="#part8">Balance Sheet</a></li>
+      <li><a href="#part9">Customers</a></li>
+      <li><a href="#part10">Management</a></li>
+      <li><a href="#part11">Governance</a></li>
+      <li><a href="#part12">Industry</a></li>
+      <li><a href="#part13">Business Tree</a></li>
+      <li><a href="#part14">Thesis</a></li>
+      <li><a href="#final">Before Valuation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- READING TIME PILL -->
+<div class="reading-pill">
+  <span class="dot"></span>
+  ~18 min read · 15 chapters
+</div>
+
+<!-- SECTION NAV DOTS -->
+<div class="section-nav" id="sectionNav">
+  <a href="#hero"><span class="tooltip">Top</span></a>
+  <a href="#summary"><span class="tooltip">Summary</span></a>
+  <a href="#part1"><span class="tooltip">Part 1 · Business</span></a>
+  <a href="#part2"><span class="tooltip">Part 2 · Economics</span></a>
+  <a href="#part3"><span class="tooltip">Part 3 · Fleet</span></a>
+  <a href="#part4"><span class="tooltip">Part 4 · ANANT</span></a>
+  <a href="#part5"><span class="tooltip">Part 5 · Revenue</span></a>
+  <a href="#part6"><span class="tooltip">Part 6 · Profitability</span></a>
+  <a href="#part7"><span class="tooltip">Part 7 · Cash Flow</span></a>
+  <a href="#part8"><span class="tooltip">Part 8 · Balance Sheet</span></a>
+  <a href="#part9"><span class="tooltip">Part 9 · Customers</span></a>
+  <a href="#part10"><span class="tooltip">Part 10 · Management</span></a>
+  <a href="#part11"><span class="tooltip">Part 11 · Governance</span></a>
+  <a href="#part12"><span class="tooltip">Part 12 · Industry</span></a>
+  <a href="#part13"><span class="tooltip">Part 13 · Tree</span></a>
+  <a href="#part14"><span class="tooltip">Part 14 · Thesis</span></a>
+  <a href="#final"><span class="tooltip">Before Valuation</span></a>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="sonar"></div>
+  <div class="sonar"></div>
+  <div class="sonar"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
+      39th Annual Report · FY2025-26 · Deep Fundamental Study
+    </div>
+    <h1>
+      SEAMEC Ltd<br>
+      <span class="gradient">Offshore Subsea, Decoded</span>
+    </h1>
+    <p class="subtitle">
+      A first-principles teardown of India's specialist Diving Support Vessel operator — 
+      its fleet, its revenue engine, its cash flows, and the variables that will decide 
+      whether FY26's breakout earnings are structural or cyclical.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="value" data-count="901.9" data-decimals="1">0<span class="unit">Cr</span></div>
+        <div class="label">Revenue · FY26</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value" data-count="242.4" data-decimals="1">0<span class="unit">Cr</span></div>
+        <div class="label">PAT · FY26</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value" data-count="1859" data-decimals="0">0<span class="unit">d</span></div>
+        <div class="label">Deployment Days</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value" data-count="8" data-decimals="0">0<span class="unit">v</span></div>
+        <div class="label">Owned Vessels</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ EXECUTIVE SUMMARY ═══════════════ -->
+<section class="section" id="summary">
+  <div class="section-header reveal">
+    <span class="section-number">00 · Executive Summary</span>
+    <h2>SEAMEC in One Page</h2>
+    <p class="lead">
+      A Mumbai-headquartered offshore oilfield services company that owns and operates a fleet of 
+      specialised Diving Support Vessels (DSVs), an Offshore Support Vessel (OSV), and an Accommodation Barge.
+    </p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">46.1<span class="nm-unit">%</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Revenue growth in FY2025-26 — from ₹617.33 Cr to ₹901.94 Cr — driven by higher deployment days 
+        (1,859 vs. 1,454, +27.9%), new contracts at premium day rates, and the acquisition of SEAMEC AGASTYA.
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal">
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--accent);">The Business in One Sentence</h3>
+      <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.75;">
+        SEAMEC charters specialised offshore vessels — primarily DSVs — on day-rate contracts to oil &amp; gas 
+        operators and their contractors, earning revenue as a function of <strong style="color:var(--text-primary);">vessels × utilisation × day rate × operating days</strong>, 
+        with a largely fixed cost base that creates significant operating leverage.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--gold);">FY2025-26 in One Sentence</h3>
+      <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.75;">
+        Revenue rose <strong style="color:var(--accent);">46.1%</strong> to ₹901.94 Cr and PAT rose <strong style="color:var(--accent);">109.7%</strong> to ₹242.35 Cr, 
+        driven by higher deployment days (1,859 vs. 1,454), new contracts at premium day rates, and 
+        the acquisition of SEAMEC AGASTYA — but free cash flow turned negative due to heavy capex.
+      </p>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal">
+    <h3>⚓ The Central Investment Question</h3>
+    <p>
+      Are the current high day rates and near-full utilisation <strong>structural</strong> (driven by global DSV scarcity — 
+      only ~58 high-spec vessels worldwide, with only 2 new builds vs. mid-single-digit retirements over 3 years) 
+      or <strong>cyclical</strong> (driven by a temporary spike in offshore activity)? Management's actions — fleet 
+      rejuvenation, long-term ONGC contracts via HAL, and the USD 70 million (₹674.57 Cr) ANANT acquisition — suggest 
+      they believe the scarcity thesis is structural.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 01 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">01</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Business Fundamentals</div>
+</div>
+
+<section class="section" id="part1">
+  <div class="section-header reveal">
+    <span class="section-number">Part 01</span>
+    <h2>What Does SEAMEC Actually Do?</h2>
+    <p class="lead">Explained from first principles — starting from the customer and working backwards to the vessel.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>SEAMEC owns specialised DSVs that oil &amp; gas operators hire on day-rate contracts to inspect, maintain, and repair subsea infrastructure. The customer is ONGC (directly or via HAL), and the work is essential IMR that cannot be done by ordinary vessels.</span>
+  </div>
+
+  <div class="card-grid cols-2 reveal">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;">Who Are SEAMEC's Customers?</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;font-size:13px;color:var(--text-secondary);">
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);font-weight:700;">01</span> <strong style="color:var(--text-primary);">Oil &amp; gas E&amp;P companies</strong> — primarily ONGC, India's largest upstream company.</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);font-weight:700;">02</span> <strong style="color:var(--text-primary);">Large EPC and marine contractors</strong> — L&amp;T, Safeen Al Behar (UAE), Mubarak Marine (UAE), A D Engineers.</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);font-weight:700;">03</span> <strong style="color:var(--text-primary);">International oil companies</strong> — Saudi Aramco, UAE operators.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;">What Problem Are They Solving?</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+        <strong style="color:var(--text-primary);">Underwater inspection, maintenance, and repair (IMR)</strong> of offshore oil &amp; gas 
+        infrastructure — subsea pipelines, wellheads, platforms, and mooring systems. Without it, corrosion and 
+        structural degradation can lead to catastrophic failures and production loss.
+      </p>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:20px;">
+    <h3 style="font-size:15px;font-weight:800;margin-bottom:18px;">What Exactly Does a Diving Support Vessel (DSV) Do?</h3>
+    <div class="card-grid cols-2" style="gap:20px;">
+      <div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;margin-bottom:14px;">
+          A DSV is a floating base for professional divers and ROVs. It has a 
+          <strong style="color:var(--text-primary);">moonpool</strong> — a hole in the middle of the vessel open to the sea — through 
+          which divers, ROVs, and equipment pass to and from the worksite.
+        </p>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+          It uses <strong style="color:var(--text-primary);">Dynamic Positioning (DP)</strong> — computer-controlled thrusters with DGPS 
+          and transponder inputs — to maintain precise station over a dive site, compensating for swell and currents.
+        </p>
+      </div>
+      <div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;margin-bottom:14px;">
+          DSVs are equipped for <strong style="color:var(--text-primary);">saturation diving</strong> — divers live in a pressurised habitat 
+          on the vessel and are transferred to the worksite in a diving bell, allowing extended work at depth 
+          without repeated decompression.
+        </p>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+          They carry <strong style="color:var(--text-primary);">ROVs</strong> for unmanned subsea operations, and heavy cranes and winches 
+          for subsea construction.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:20px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;">Typical Offshore Project Flow</h3>
+      <ol class="numbered-list" style="font-size:13px;">
+        <li><strong>Survey &amp; prep</strong> — Operator identifies subsea infrastructure needing work.</li>
+        <li><strong>Vessel mobilisation</strong> — DSV moves to field, often after drydock.</li>
+        <li><strong>Offshore ops</strong> — DSV maintains station; divers/ROVs work. Days to months.</li>
+        <li><strong>Demobilisation</strong> — Work completed; vessel moves on.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;">Why Not Use an Ordinary Vessel?</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text-secondary);">
+        <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">✕</span> Cannot maintain precise station over subsea worksite.</li>
+        <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">✕</span> Cannot support saturation diving.</li>
+        <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">✕</span> Cannot launch/recover ROVs through moonpool.</li>
+        <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">✕</span> Cannot handle heavy subsea construction equipment.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:20px;">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:16px;">What Determines a DSV's Value?</h3>
+    <div class="card-grid cols-4" style="gap:12px;">
+      <div style="padding:16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--accent);font-weight:800;margin-bottom:6px;letter-spacing:0.05em;">DIVING DEPTH</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Deeper-capable vessels command higher rates.</div>
+      </div>
+      <div style="padding:16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--accent);font-weight:800;margin-bottom:6px;letter-spacing:0.05em;">DP CLASS</div>
+        <div style="font-size:12px;color:var(--text-secondary);">DP2/DP3 allows ops in more challenging conditions.</div>
+      </div>
+      <div style="padding:16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--accent);font-weight:800;margin-bottom:6px;letter-spacing:0.05em;">AGE</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Some NOCs bar vessels &gt;20 years from IMR work.</div>
+      </div>
+      <div style="padding:16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--accent);font-weight:800;margin-bottom:6px;letter-spacing:0.05em;">EQUIPMENT</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Modern ROVs + larger crew capacity enable longer campaigns.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:20px;">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:16px;">Ownership &amp; Contract Flow</h3>
+    <div class="card-grid cols-2" style="gap:20px;align-items:center;">
+      <div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;margin-bottom:12px;">
+          The <strong style="color:var(--text-primary);">offshore asset</strong> is owned by the operator (ONGC). 
+          The <strong style="color:var(--text-primary);">contract</strong> is awarded by the operator or a main EPC contractor.
+        </p>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+          In SEAMEC's case, significant domestic work flows through <strong style="color:var(--text-primary);">HAL Offshore</strong> (promoter), 
+          which holds the prime ONGC contract and subcontracts vessels from SEAMEC.
+        </p>
+      </div>
+      <div style="text-align:center;padding:20px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-secondary);line-height:2.4;">
+          <span style="color:var(--gold);font-weight:800;">ONGC</span><br>
+          <span style="color:var(--text-muted);font-size:11px;">↓ prime contract</span><br>
+          <span style="color:var(--blue);font-weight:800;">HAL Offshore</span><br>
+          <span style="color:var(--text-muted);font-size:11px;">↓ sub-contract</span><br>
+          <span style="color:var(--accent);font-weight:800;">SEAMEC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout reveal">
+    <p>
+      <strong>Hypothetical Example:</strong> ONGC identifies a corroded subsea pipeline in Mumbai High. 
+      It awards a contract to HAL Offshore, which subcontracts a DSV from SEAMEC at <strong>USD 25,000/day</strong> for 60 days. 
+      SEAMEC deploys the vessel, completes the repair with saturation divers and ROVs, and earns 
+      <strong>USD 1.5 million (~₹12.6 Cr)</strong> in charter hire for the project.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 02 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">02</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Unit Economics</div>
+</div>
+
+<section class="section" id="part2">
+  <div class="section-header reveal">
+    <span class="section-number">Part 02</span>
+    <h2>Understand the Economics of a Vessel</h2>
+    <p class="lead">For each vessel: deployment, client, contract type, and the variables that actually matter.</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">1,859<span class="nm-unit">days</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Total deployment days in FY2025-26, up <strong style="color:var(--accent);">+27.9%</strong> from 1,454 days in FY2024-25. 
+        Domestic deployment was 1,648 days (88.6%); overseas was 211 days (11.4%).
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>Vessel</th>
+          <th>Type</th>
+          <th>Client / Deployment</th>
+          <th>Days (FY26)</th>
+          <th>Utilisation</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SEAMEC II</strong></td>
+          <td>MSV/DSV</td>
+          <td>ONGC (via HAL)</td>
+          <td class="mono up">279</td>
+          <td class="mono">76.4%</td>
+          <td>Contract till Aug 2026</td>
+        </tr>
+        <tr>
+          <td><strong>SEAMEC III</strong></td>
+          <td>MSV/DSV</td>
+          <td>Mubarak Marine, A D Engineers, G R Infra, L&amp;T</td>
+          <td class="mono up">221</td>
+          <td class="mono">60.5%</td>
+          <td>Drydock due June 2026</td>
+        </tr>
+        <tr>
+          <td><strong>SEAMEC PRINCESS</strong></td>
+          <td>MSV/DSV</td>
+          <td>Supreme Offshore (ONGC West Coast)</td>
+          <td class="mono up">278</td>
+          <td class="mono">76.2%</td>
+          <td>SAT &amp; Air Diving</td>
+        </tr>
+        <tr>
+          <td><strong>SEAMEC PALADIN</strong></td>
+          <td>MSV/DSV</td>
+          <td>ONGC (via HAL)</td>
+          <td class="mono up">285</td>
+          <td class="mono">78.1%</td>
+          <td>Contract till 2028</td>
+        </tr>
+        <tr>
+          <td><strong>SEAMEC GLORIOUS</strong></td>
+          <td>Accommodation Barge</td>
+          <td>L&amp;T</td>
+          <td class="mono up">183</td>
+          <td class="mono">50.1%</td>
+          <td>Upgraded to 250 personnel</td>
+        </tr>
+        <tr>
+          <td><strong>SEAMEC SWORDFISH</strong></td>
+          <td>MSV/DSV</td>
+          <td>Safeen Al Behar (UAE)</td>
+          <td class="mono up">211</td>
+          <td class="mono">57.8%</td>
+          <td>2-year charter from Aug 2025</td>
+        </tr>
+        <tr>
+          <td><strong>SEAMEC DIAMOND</strong></td>
+          <td>OSV</td>
+          <td>ONGC (via HAL)</td>
+          <td class="mono up">318</td>
+          <td class="mono" style="color:var(--accent);font-weight:800;">87.1%</td>
+          <td>3-year contract</td>
+        </tr>
+        <tr>
+          <td><strong>SEAMEC AGASTYA</strong></td>
+          <td>MSV/DSV</td>
+          <td>ONGC (via HAL)</td>
+          <td class="mono">84</td>
+          <td class="mono">23.0%</td>
+          <td>Commenced Jan 2026; contract till 2029</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid cols-3 reveal" style="margin-top:24px;">
+    <div class="stat-card">
+      <div class="stat-label">Total Deployment Days FY26</div>
+      <div class="stat-value">1,859<span class="unit">d</span></div>
+      <div class="stat-change up">↑ 27.9% vs. 1,454</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">Domestic Deployment</div>
+      <div class="stat-value">1,648<span class="unit">d</span></div>
+      <div class="stat-change up">88.6% of total</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-label">Overseas Deployment</div>
+      <div class="stat-value">211<span class="unit">d</span></div>
+      <div class="stat-change down">11.4% of total</div>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:24px;">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:16px;">Key Economic Variables</h3>
+    <div class="kv-grid">
+      <div class="kv-item">
+        <div class="kv-key">Acquisition Cost (Most Vessels)</div>
+        <div class="kv-value">Not disclosed</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">ANANT Acquisition Cost</div>
+        <div class="kv-value" style="color:var(--gold);">USD 70M · ₹674.57 Cr</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">AGASTYA Day Rate</div>
+        <div class="kv-value" style="color:var(--accent);">USD 25,000/day</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">ANANT Day Rate (charter-back)</div>
+        <div class="kv-value" style="color:var(--accent);">USD 45,000/day</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">Economic Life (MSV)</div>
+        <div class="kv-value">15–20 years</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">Economic Life (Bulk Carrier)</div>
+        <div class="kv-value">25 years</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">Fleet &amp; Equipment (Gross)</div>
+        <div class="kv-value">₹1,184.61 Cr</div>
+      </div>
+      <div class="kv-item">
+        <div class="kv-key">Fleet &amp; Equipment (Net)</div>
+        <div class="kv-value">₹496.30 Cr</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container reveal" style="margin-top:24px;">
+    <div class="chart-title">📊 Deployment Days by Vessel · FY2025-26 <span class="chart-badge">365 days available</span></div>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC DIAMOND</div>
+        <div class="bar-track"><div class="bar-fill" data-width="87.1%"></div></div>
+        <div class="bar-value">318<span class="pct">87.1%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC PALADIN</div>
+        <div class="bar-track"><div class="bar-fill" data-width="78.1%"></div></div>
+        <div class="bar-value">285<span class="pct">78.1%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC II</div>
+        <div class="bar-track"><div class="bar-fill" data-width="76.4%"></div></div>
+        <div class="bar-value">279<span class="pct">76.4%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC PRINCESS</div>
+        <div class="bar-track"><div class="bar-fill" data-width="76.2%"></div></div>
+        <div class="bar-value">278<span class="pct">76.2%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC III</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="60.5%"></div></div>
+        <div class="bar-value">221<span class="pct">60.5%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC SWORDFISH</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="57.8%"></div></div>
+        <div class="bar-value">211<span class="pct">57.8%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC GLORIOUS</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="50.1%"></div></div>
+        <div class="bar-value">183<span class="pct">50.1%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">SEAMEC AGASTYA</div>
+        <div class="bar-track"><div class="bar-fill red" data-width="23.0%"></div></div>
+        <div class="bar-value">84<span class="pct neg">23.0%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal">
+    <h3>📐 The Revenue Equation</h3>
+    <p style="font-size:15px;font-family:'JetBrains Mono',monospace;text-align:center;padding:14px 0;color:var(--accent);font-weight:800;">
+      Revenue = Vessels × Utilisation × Day Rate × Operating Days
+    </p>
+    <p>
+      For SEAMEC, <strong>utilisation and day rate</strong> matter most. The number of vessels is growing 
+      (from 7 to 8+ANANT), but the real earnings driver is whether each vessel is working and at what rate.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 03 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">03</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Fleet Evolution</div>
+</div>
+
+<section class="section" id="part3">
+  <div class="section-header reveal">
+    <span class="section-number">Part 03</span>
+    <h2>Fleet History</h2>
+    <p class="lead">A chronological history of SEAMEC's fleet — acquisitions, disposals, refurbishments, and deployments.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>SEAMEC has grown from a single vessel in 1989 to 8 owned vessels in FY26, with the AGASTYA acquisition (FY26) and ANANT acquisition (FY27, USD 70M / ₹674.57 Cr) representing the most significant recent additions.</span>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-year">1989</div>
+      <div class="timeline-title">Acquired Peerless Stena I (Ex Drive Ocean)</div>
+      <div class="timeline-desc">Entry into offshore services. Commenced ONGC subsea operations.</div>
+      <div class="timeline-meta">
+        <span class="tag green">Entry</span>
+        <span class="tag blue">ONGC</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-1">
+      <div class="timeline-year">1993</div>
+      <div class="timeline-title">Purchased 2 Multi-Purpose Support Vessels</div>
+      <div class="timeline-desc">Fleet expansion. Capital committed: <strong style="color:var(--gold);">₹135.50 Cr</strong>. Added capacity.</div>
+      <div class="timeline-meta">
+        <span class="tag gold">₹135.50 Cr</span>
+        <span class="tag blue">Capacity</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-2">
+      <div class="timeline-year">2022-23</div>
+      <div class="timeline-title">Acquired SUBTECH SWORDFISH (MSV)</div>
+      <div class="timeline-desc">Fleet rejuvenation. Deployed to UAE; 211 days (57.8% utilisation) in FY26.</div>
+      <div class="timeline-meta">
+        <span class="tag green">Rejuvenation</span>
+        <span class="tag blue">UAE</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-3">
+      <div class="timeline-year">FY2025-26</div>
+      <div class="timeline-title">Acquired SEAMEC AGASTYA (erstwhile NPP Nusantara)</div>
+      <div class="timeline-desc">Replaced older capacity; secured ONGC contract. 84 deployment days (23.0%) in FY26; full year from FY27.</div>
+      <div class="timeline-meta">
+        <span class="tag green">Acquisition</span>
+        <span class="tag blue">ONGC</span>
+        <span class="tag gold">USD 25,000/day</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-4">
+      <div class="timeline-year">FY2026-27</div>
+      <div class="timeline-title">Agreed to acquire SEAMEC ANANT from HAL</div>
+      <div class="timeline-desc">High-spec DSV; ONGC demand. Price: <strong style="color:var(--gold);">USD 70M (~₹674.57 Cr)</strong>. Delivery expected Aug 31, 2026.</div>
+      <div class="timeline-meta">
+        <span class="tag gold">USD 70M</span>
+        <span class="tag purple">Related Party</span>
+        <span class="tag green">High-Spec DSV</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 04 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">04</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">The ANANT Bet</div>
+</div>
+
+<section class="section" id="part4">
+  <div class="section-header reveal">
+    <span class="section-number">Part 04</span>
+    <h2>ANANT Acquisition — Separate Analysis</h2>
+    <p class="lead">The largest single bet in SEAMEC's recent history. Transformational or just another vessel?</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">USD 70<span class="nm-unit">M</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Acquisition cost of SEAMEC ANANT — approximately <strong style="color:var(--accent);">₹674.57 Cr</strong> — from parent HAL Offshore. 
+        Charter-back rate of <strong style="color:var(--accent);">USD 45,000/day</strong> implies ~16.8% gross yield on acquisition cost 
+        at 300 operating days/year.
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Acquisition price</strong></td><td class="mono" style="color:var(--gold);font-weight:700;">USD 70M · ₹674.57 Cr</td></tr>
+        <tr><td><strong>Seller</strong></td><td>HAL Offshore Limited (promoter/holding company)</td></tr>
+        <tr><td><strong>Funding method</strong></td><td>Not disclosed in excerpt</td></tr>
+        <tr><td><strong>Delivery date</strong></td><td>On or around <strong>August 31, 2026</strong></td></tr>
+        <tr><td><strong>Vessel type</strong></td><td>Diving Support Vessel (DSV)</td></tr>
+        <tr><td><strong>IMO number</strong></td><td class="mono">9412206</td></tr>
+        <tr><td><strong>Charter-back to HAL</strong></td><td class="mono" style="color:var(--accent);font-weight:700;">USD 45,000/day</td></tr>
+        <tr><td><strong>Expected deployment</strong></td><td>Q1 FY27 (from Q3 FY26 concall)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-container reveal" style="margin-top:24px;">
+    <div class="chart-title">💰 Implied Annual Economics · ANANT <span class="chart-badge">300 operating days assumption</span></div>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label">Gross Charter Revenue</div>
+        <div class="bar-track"><div class="bar-fill" data-width="100%"></div></div>
+        <div class="bar-value">₹113.2 Cr<span class="pct">/yr</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Acquisition Cost</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="100%"></div></div>
+        <div class="bar-value">₹674.6 Cr</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Gross Yield</div>
+        <div class="bar-track"><div class="bar-fill blue" data-width="16.8%"></div></div>
+        <div class="bar-value">16.8%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal">
+    <h3>💰 Implied Economics</h3>
+    <p>
+      At USD 45,000/day and, say, 300 operating days/year, annual gross charter revenue would be 
+      <strong>~USD 13.5 million (~₹113 Cr)</strong>. Against an acquisition cost of USD 70 million (~₹674.57 Cr), 
+      that implies a <strong>gross yield of ~16.8%</strong> on acquisition cost. Even after operating costs 
+      (crew, fuel, insurance, maintenance), the vessel should generate strong cash flows. 
+      The key risk is <strong>utilisation</strong> — if the ONGC contract runs for only part of the year, returns are lower.
+    </p>
+  </div>
+
+  <div class="card reveal" style="margin-top:24px;">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:12px;">Is This Transformational?</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.75;">
+      It is <strong style="color:var(--gold);">material but not transformational</strong> — it adds one high-spec DSV to a fleet of 8, 
+      increasing capacity by ~12%. However, at USD 45,000/day (nearly double the AGASTYA rate of USD 25,000/day), 
+      it signals that SEAMEC is moving up the value chain toward higher-spec, higher-rate assets.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 05 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">05</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Revenue Engine</div>
+</div>
+
+<section class="section" id="part5">
+  <div class="section-header reveal">
+    <span class="section-number">Part 05</span>
+    <h2>Revenue Model</h2>
+    <p class="lead">Breaking down revenue by segment, geography, and contract type — and identifying what actually drove growth.</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">₹901.94<span class="nm-unit">Cr</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Standalone revenue from operations in FY2025-26, up <strong style="color:var(--accent);">+46.1%</strong> from ₹617.33 Cr. 
+        Consolidated revenue was ₹952.46 Cr, up <strong style="color:var(--accent);">+46.1%</strong> from ₹651.82 Cr.
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>Segment</th>
+          <th>FY2026 (₹ Cr)</th>
+          <th>FY2025 (₹ Cr)</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tonnage income (charter hire)</strong></td>
+          <td class="mono">811.24</td>
+          <td class="mono">553.52</td>
+          <td class="mono up">+46.6%</td>
+        </tr>
+        <tr>
+          <td><strong>Non-Tonnage income (diving/services)</strong></td>
+          <td class="mono">81.62</td>
+          <td class="mono">57.68</td>
+          <td class="mono up">+41.5%</td>
+        </tr>
+        <tr>
+          <td><strong>Other operating revenue</strong></td>
+          <td class="mono">9.08</td>
+          <td class="mono">6.12</td>
+          <td class="mono up">+48.4%</td>
+        </tr>
+        <tr style="background:rgba(0,229,184,0.05);">
+          <td><strong>Total revenue from operations</strong></td>
+          <td class="mono up" style="font-size:14px;">901.94</td>
+          <td class="mono up" style="font-size:14px;">617.33</td>
+          <td class="mono up" style="font-size:14px;">+46.1%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-container reveal" style="margin-top:24px;">
+    <div class="chart-title">📊 Revenue Growth Drivers · FY2026 vs FY2025 <span class="chart-badge">Estimated contribution</span></div>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label">Deployment Days</div>
+        <div class="bar-track"><div class="bar-fill" data-width="27.9%"></div></div>
+        <div class="bar-value">+27.9%</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Day Rates</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="18%"></div></div>
+        <div class="bar-value">+18%*</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">New Vessels</div>
+        <div class="bar-track"><div class="bar-fill blue" data-width="12%"></div></div>
+        <div class="bar-value">+12%*</div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--text-muted);margin-top:16px;">* Estimated contribution; not separately disclosed. Revenue growth of 46.1% is a combination of these factors.</p>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--accent);">Geographic Split (Standalone)</h3>
+      <div class="bar-chart" style="margin-top:12px;">
+        <div class="bar-item">
+          <div class="bar-label">Domestic</div>
+          <div class="bar-track"><div class="bar-fill" data-width="82.7%"></div></div>
+          <div class="bar-value">82.7%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Overseas</div>
+          <div class="bar-track"><div class="bar-fill gold" data-width="17.3%"></div></div>
+          <div class="bar-value">17.3%</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:14px;">Domestic ₹745.43 Cr · Overseas ₹156.51 Cr</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--gold);">What Drove Growth?</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span> Higher deployment days (1,859 vs. 1,454)</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span> New contracts at higher day rates (AGASTYA, SWORDFISH)</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span> Acquisition of AGASTYA (partial year contribution)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 06 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">06</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Profitability</div>
+</div>
+
+<section class="section" id="part6">
+  <div class="section-header reveal">
+    <span class="section-number">Part 06</span>
+    <h2>Profitability</h2>
+    <p class="lead">Revenue, EBITDA, PAT, margins — and the critical question: why did margins expand?</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">+820<span class="nm-unit">bps</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        PAT margin expansion in FY2025-26, from 18.7% to 26.9%. EBITDA margin expanded from 42.7% to 45.1% 
+        (+240 bps). The expansion is driven by operating leverage, higher day rates, and a lower effective tax rate.
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-4 reveal">
+    <div class="stat-card">
+      <div class="stat-label">Revenue</div>
+      <div class="stat-value">901.94<span class="unit">Cr</span></div>
+      <div class="stat-change up">↑ 46.1% YoY</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-label">EBITDA</div>
+      <div class="stat-value">406.89<span class="unit">Cr</span></div>
+      <div class="stat-change up">↑ 54.3% YoY</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">PAT</div>
+      <div class="stat-value">242.35<span class="unit">Cr</span></div>
+      <div class="stat-change up">↑ 109.7% YoY</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-label">PAT Margin</div>
+      <div class="stat-value">26.9<span class="unit">%</span></div>
+      <div class="stat-change up">↑ 820 bps</div>
+    </div>
+  </div>
+
+  <div class="chart-container reveal" style="margin-top:24px;">
+    <div class="chart-title">📈 Margin Expansion · FY2026 vs FY2025</div>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label">EBITDA Margin FY25</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="42.7%"></div></div>
+        <div class="bar-value">42.7%</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">EBITDA Margin FY26</div>
+        <div class="bar-track"><div class="bar-fill" data-width="45.1%"></div></div>
+        <div class="bar-value">45.1%<span class="pct">+240bps</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">PAT Margin FY25</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="18.7%"></div></div>
+        <div class="bar-value">18.7%</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">PAT Margin FY26</div>
+        <div class="bar-track"><div class="bar-fill" data-width="26.9%"></div></div>
+        <div class="bar-value">26.9%<span class="pct">+820bps</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:24px;">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:16px;">Why Did Margins Expand?</h3>
+    <div class="card-grid cols-3" style="gap:14px;">
+      <div style="padding:20px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <div style="font-size:12px;color:var(--accent);font-weight:800;margin-bottom:8px;letter-spacing:0.05em;">01 · OPERATING LEVERAGE</div>
+        <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.65;">Revenue grew 46.1% while total expenses grew only 36.6%, because vessel costs (crew, insurance, depreciation) are largely fixed.</p>
+      </div>
+      <div style="padding:20px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <div style="font-size:12px;color:var(--gold);font-weight:800;margin-bottom:8px;letter-spacing:0.05em;">02 · HIGHER DAY RATES</div>
+        <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.65;">New contracts (AGASTYA at USD 25,000/day, SWORDFISH) were signed at premium rates versus older contracts.</p>
+      </div>
+      <div style="padding:20px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <div style="font-size:12px;color:var(--blue);font-weight:800;margin-bottom:8px;letter-spacing:0.05em;">03 · LOWER TAX RATE</div>
+        <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.65;">Tonnage Tax Scheme (Sec 115VT) effective rate of 6.89% vs. 13.61% in FY25 — a 672 bps reduction.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:24px;">
+    <p>
+      <strong>Classification:</strong> The margin expansion appears <strong>partially structural</strong> (fleet rejuvenation, 
+      higher-spec vessels) and <strong>partially cyclical</strong> (favourable day-rate environment driven by DSV scarcity). 
+      Sustainability depends on whether day rates hold.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 07 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">07</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Cash Flow Truth</div>
+</div>
+
+<section class="section" id="part7">
+  <div class="section-header reveal">
+    <span class="section-number">Part 07</span>
+    <h2>Cash Flow vs Accounting Profit</h2>
+    <p class="lead">Are reported profits converting into cash? This section is critical.</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">-₹58.09<span class="nm-unit">Cr</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Free cash flow in FY2025-26 — negative, despite PAT of ₹242.35 Cr — because capex of ₹379.38 Cr 
+        exceeded operating cash flow of ₹321.30 Cr. This reflects the growth investment phase (AGASTYA acquisition, drydocks).
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>FY2026 (₹ Cr)</th><th>FY2025 (₹ Cr)</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>PAT</strong></td><td class="mono">242.35</td><td class="mono">115.55</td><td class="mono up">+109.7%</td></tr>
+        <tr><td><strong>Operating Cash Flow</strong></td><td class="mono up">321.30</td><td class="mono up">298.52</td><td class="mono up">+7.6%</td></tr>
+        <tr><td><strong>Capex (investing outflow)</strong></td><td class="mono down">379.38</td><td class="mono">53.88</td><td class="mono down">+604.2%</td></tr>
+        <tr style="background:rgba(255,77,94,0.05);">
+          <td><strong>Free Cash Flow</strong></td>
+          <td class="mono down" style="font-size:14px;">-58.09</td>
+          <td class="mono up" style="font-size:14px;">244.64</td>
+          <td class="mono down">Turned negative</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-container reveal" style="margin-top:24px;">
+    <div class="chart-title">🌊 Cash Flow Bridge · FY2025-26 <span class="chart-badge">Waterfall</span></div>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label">PAT</div>
+        <div class="bar-track"><div class="bar-fill" data-width="63.9%"></div></div>
+        <div class="bar-value">+242.35</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">+ Depreciation</div>
+        <div class="bar-track"><div class="bar-fill blue" data-width="34.5%"></div></div>
+        <div class="bar-value">+130.87</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">+ Working Capital</div>
+        <div class="bar-track"><div class="bar-fill blue" data-width="13.2%"></div></div>
+        <div class="bar-value">+50.10</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">− Capex</div>
+        <div class="bar-track"><div class="bar-fill red" data-width="100%"></div></div>
+        <div class="bar-value">−379.38</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label" style="color:var(--text-primary);font-weight:800;">= FCF</div>
+        <div class="bar-track"><div class="bar-fill red" data-width="15.3%"></div></div>
+        <div class="bar-value down">−58.09</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout red reveal" style="margin-top:24px;">
+    <p>
+      <strong>Key Observation:</strong> Despite strong PAT growth, <strong>free cash flow was negative</strong> in FY2026 
+      because of heavy capex (vessel acquisition, drydocking). This is not necessarily a red flag — it reflects a 
+      growth investment phase — but it means the company is <strong>not yet self-funding its growth</strong>; 
+      it relied on borrowings of ₹150 Cr raised during the year.
+    </p>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:12px;color:var(--gold);">Working Capital Watch</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+        Trade receivables increased from <strong style="color:var(--text-primary);">₹159.20 Cr to ₹308.53 Cr</strong> (standalone), 
+        growing faster than revenue (+93.8% vs. +46.1%). This warrants monitoring. However, a large portion relates to 
+        related-party receivables (₹20.31 Cr) and credit-impaired Swiber receivables (₹113.47 Cr fully provided).
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:12px;color:var(--accent);">Cash Flow Quality</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+        Operating cash flow (₹321.30 Cr) exceeded PAT (₹242.35 Cr) — a positive sign. The cash conversion ratio 
+        (OCF/PAT) is <strong style="color:var(--accent);">1.33x</strong>, suggesting accounting profits are backed by cash. 
+        The negative FCF is entirely due to the investment phase, not operational weakness.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 08 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">08</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Balance Sheet &amp; Capital Allocation</div>
+</div>
+
+<section class="section" id="part8">
+  <div class="section-header reveal">
+    <span class="section-number">Part 08</span>
+    <h2>Balance Sheet &amp; Capital Allocation</h2>
+    <p class="lead">Where has SEAMEC deployed capital — and was it value-creating?</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">25<span class="nm-unit">%</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Consolidated debt-equity ratio as of March 31, 2026, up from 21% in FY2025. Net debt stands at 
+        <strong style="color:var(--red);">₹380.38 Cr</strong> versus net worth of ₹1,303.77 Cr.
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr><th>Item</th><th>₹ Cr (Consolidated)</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cash &amp; equivalents</td><td class="mono">77.16</td><td class="mono up">+116.7%</td></tr>
+        <tr><td>Borrowings (non-current + current)</td><td class="mono" style="color:var(--gold);">328.49</td><td class="mono down">+55.1%</td></tr>
+        <tr><td><strong>Net debt</strong></td><td class="mono down" style="font-weight:700;">380.38</td><td class="mono down">+61.8%</td></tr>
+        <tr><td>Lease liabilities</td><td class="mono">24.43</td><td class="mono">+29.9%</td></tr>
+        <tr><td>PPE (net)</td><td class="mono">880.84</td><td class="mono up">+37.7%</td></tr>
+        <tr><td>Goodwill</td><td class="mono">15.61</td><td class="mono flat">—</td></tr>
+        <tr><td>Investments (non-current)</td><td class="mono">367.00</td><td class="mono up">+10.2%</td></tr>
+        <tr><td>Net worth (equity)</td><td class="mono up" style="font-weight:700;">1,303.77</td><td class="mono up">+29.5%</td></tr>
+        <tr style="background:rgba(0,229,184,0.05);">
+          <td><strong>Debt-equity ratio</strong></td>
+          <td class="mono up" style="font-weight:800;">25%</td>
+          <td class="mono">vs. 21% in FY25</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card reveal" style="margin-top:24px;">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:16px;">Capital Allocation Philosophy</h3>
+    <div class="card-grid cols-2" style="gap:20px;">
+      <div>
+        <h4 style="font-size:12px;color:var(--accent);font-weight:800;margin-bottom:12px;letter-spacing:0.05em;">WHERE CAPITAL HAS BEEN DEPLOYED</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--text-secondary);">
+          <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);font-weight:700;">1</span> <strong style="color:var(--text-primary);">Fleet acquisition</strong> — AGASTYA (FY26), SWORDFISH (FY23), ANANT (FY27, ₹674.57 Cr)</li>
+          <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);font-weight:700;">2</span> <strong style="color:var(--text-primary);">Drydocking and refurbishment</strong> — Regular drydocks for all vessels; GLORIOUS upgraded to 250 personnel</li>
+          <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);font-weight:700;">3</span> <strong style="color:var(--text-primary);">Financial investments</strong> — NCDs, MFs, PMS, AIFs (₹367 Cr non-current + ₹193.70 Cr FVTPL)</li>
+          <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);font-weight:700;">4</span> <strong style="color:var(--text-primary);">Dividends</strong> — Modest: ₹2/share (20%) proposed for FY2025-26, total payout ₹5.08 Cr</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size:12px;color:var(--gold);font-weight:800;margin-bottom:12px;letter-spacing:0.05em;">WAS IT VALUE-CREATING?</h4>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+          The fleet rejuvenation programme has clearly created value — EBITDA margins expanded from 
+          <strong style="color:var(--accent);">31.6% (FY23) to 42.9% (FY26)</strong>. However, the large investment portfolio 
+          suggests SEAMEC is also parking surplus cash in financial assets rather than reinvesting all of it 
+          in the core business.
+        </p>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;margin-top:12px;">
+          The negative FCF in FY26 is a deliberate choice — management is choosing to grow the fleet 
+          rather than maximise near-term cash returns.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 09 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">09</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Customer Concentration</div>
+</div>
+
+<section class="section" id="part9">
+  <div class="section-header reveal">
+    <span class="section-number">Part 09</span>
+    <h2>Customer Concentration</h2>
+    <p class="lead">How dependent is SEAMEC on its largest customers — and what happens if they disappear?</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">81.7<span class="nm-unit">%</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Revenue share of the top 5 customers in FY2025-26. The largest customer alone accounts for 
+        <strong style="color:var(--accent);">22.4%</strong> of consolidated revenue — a significant concentration risk.
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container reveal">
+    <div class="chart-title">🏢 Revenue by Major Customer · FY2025-26 (Consolidated)</div>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label">Customer A (ONGC/HAL)</div>
+        <div class="bar-track"><div class="bar-fill" data-width="22.4%"></div></div>
+        <div class="bar-value">₹213.39 Cr<span class="pct">22.4%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Customer B</div>
+        <div class="bar-track"><div class="bar-fill blue" data-width="16.53%"></div></div>
+        <div class="bar-value">₹157.48 Cr<span class="pct">16.5%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Customer C</div>
+        <div class="bar-track"><div class="bar-fill blue" data-width="16.07%"></div></div>
+        <div class="bar-value">₹153.10 Cr<span class="pct">16.1%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Customer D</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="13.81%"></div></div>
+        <div class="bar-value">₹131.51 Cr<span class="pct">13.8%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Customer E</div>
+        <div class="bar-track"><div class="bar-fill gold" data-width="12.92%"></div></div>
+        <div class="bar-value">₹123.08 Cr<span class="pct">12.9%</span></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Others</div>
+        <div class="bar-track"><div class="bar-fill purple" data-width="18.26%"></div></div>
+        <div class="bar-value">₹173.90 Cr<span class="pct">18.3%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout gold reveal" style="margin-top:24px;">
+    <p>
+      <strong>Customer concentration is HIGH.</strong> The top 5 customers account for ~81.7% of revenue. 
+      The largest customer alone accounts for 22.4%. If the largest customer disappeared, SEAMEC would 
+      lose roughly a quarter of its revenue and would need to redeploy vessels to other clients — 
+      a significant disruption.
+    </p>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--accent);">Geographic Concentration</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.65;">Domestic India ~82.7%, Overseas ~17.3%. Within overseas, the Middle East (UAE, Saudi Arabia) is dominant.</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--gold);">Public-Sector Dependence</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.65;">ONGC is a public-sector company; HAL Offshore (promoter) derives most of its revenue from ONGC contracts. This creates indirect dependence on ONGC's capital expenditure plans.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 10 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">10</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Management Execution</div>
+</div>
+
+<section class="section" id="part10">
+  <div class="section-header reveal">
+    <span class="section-number">Part 10</span>
+    <h2>Management Execution</h2>
+    <p class="lead">Analyzing management through what they actually DID rather than what they said.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Management has generally executed on stated plans — AGASTYA deployment, GLORIOUS upgrade, and SWORDFISH charter all proceeded as communicated. The ANANT acquisition remains to be validated.</span>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>Statement</th>
+          <th>Date</th>
+          <th>Expectation</th>
+          <th>Actual Outcome</th>
+          <th>Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Acquire AGASTYA and deploy on ONGC contract</td>
+          <td>2025</td>
+          <td>Vessel to commence charter</td>
+          <td>Commenced Jan 2026; 84 days deployed by Mar 2026</td>
+          <td><span class="tag green">✅ On track</span></td>
+        </tr>
+        <tr>
+          <td>Upgrade GLORIOUS to 250 personnel</td>
+          <td>2025</td>
+          <td>Barge to be chartered by L&amp;T</td>
+          <td>150-day charter from Nov 2025</td>
+          <td><span class="tag green">✅ Executed</span></td>
+        </tr>
+        <tr>
+          <td>SWORDFISH 2-year charter with Safeen</td>
+          <td>Aug 2025</td>
+          <td>Commence charter</td>
+          <td>211 days deployed in FY26 (57.8% utilisation)</td>
+          <td><span class="tag green">✅ On track</span></td>
+        </tr>
+        <tr>
+          <td>ANANT acquisition at USD 70M</td>
+          <td>Jul 2026</td>
+          <td>Delivery Aug 31, 2026</td>
+          <td>Pending (as of report date)</td>
+          <td><span class="tag gold">⏳ Pending</span></td>
+        </tr>
+        <tr>
+          <td>Related party cap increase to USD 65M</td>
+          <td>May 2026</td>
+          <td>Enhance limit</td>
+          <td>Approved by Board</td>
+          <td><span class="tag green">✅ Executed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout reveal" style="margin-top:24px;">
+    <p>
+      <strong>Overall assessment:</strong> Management has generally <strong>executed on stated plans</strong>. 
+      The AGASTYA acquisition and deployment, GLORIOUS upgrade, and SWORDFISH charter all proceeded as communicated. 
+      The ANANT acquisition is the largest bet and remains to be validated.
+    </p>
+    <p style="margin-top:12px;">
+      <strong>Caution:</strong> The ANANT acquisition is a <strong>related-party transaction</strong> — SEAMEC is buying 
+      a vessel from its parent, HAL Offshore, at a price determined via a Memorandum of Agreement. While the 
+      company states it is at arm's length, the related-party nature warrants scrutiny.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 11 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">11</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Governance Review</div>
+</div>
+
+<section class="section" id="part11">
+  <div class="section-header reveal">
+    <span class="section-number">Part 11</span>
+    <h2>Accounting / Governance Red Flags</h2>
+    <p class="lead">A forensic review of the annual report — classified as Green, Yellow, or Red.</p>
+  </div>
+
+  <div class="card-grid cols-2 reveal">
+    <div class="flag">
+      <div class="flag-indicator yellow"></div>
+      <div class="flag-content">
+        <h4>Related-Party Transactions</h4>
+        <p>Extensive: charter hire from HAL, diving services, management fees, rent to director's spouse. Cap raised to USD 65M p.a.</p>
+      </div>
+    </div>
+    <div class="flag">
+      <div class="flag-indicator green"></div>
+      <div class="flag-content">
+        <h4>Auditor</h4>
+        <p>T R Chadha &amp; Co LLP — no qualifications, no changes. Unmodified opinion for FY26.</p>
+      </div>
+    </div>
+    <div class="flag">
+      <div class="flag-indicator yellow"></div>
+      <div class="flag-content">
+        <h4>Contingent Liabilities</h4>
+        <p>FERA matter (₹100 Cr), Service tax/GST (₹87.48 Cr), Customs (not ascertainable), GST SCN on MRO (₹124.90 Cr).</p>
+      </div>
+    </div>
+    <div class="flag">
+      <div class="flag-indicator yellow"></div>
+      <div class="flag-content">
+        <h4>Receivables</h4>
+        <p>Swiber receivables ₹113.47 Cr fully provided. Trade receivables growing faster than revenue (+93.8% vs +46.1%).</p>
+      </div>
+    </div>
+    <div class="flag">
+      <div class="flag-indicator green"></div>
+      <div class="flag-content">
+        <h4>Capitalisation</h4>
+        <p>Drydock costs capitalised and amortised over interval to next drydock — standard industry practice.</p>
+      </div>
+    </div>
+    <div class="flag">
+      <div class="flag-indicator green"></div>
+      <div class="flag-content">
+        <h4>Tax</h4>
+        <p>Tonnage Tax Scheme — effective tax rate 6.89%, structurally low. In compliance with Sec 115VT.</p>
+      </div>
+    </div>
+    <div class="flag">
+      <div class="flag-indicator yellow"></div>
+      <div class="flag-content">
+        <h4>Investments</h4>
+        <p>Large portfolio of financial investments (NCDs, MFs, PMS, AIFs — ₹367 Cr non-current) suggests surplus cash not fully deployed in core business.</p>
+      </div>
+    </div>
+    <div class="flag">
+      <div class="flag-indicator green"></div>
+      <div class="flag-content">
+        <h4>Promoter Pledging / Share Dilution</h4>
+        <p>Not disclosed as pledged. No dilution; share capital unchanged at 2,54,25,000 shares.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout gold reveal" style="margin-top:24px;">
+    <p>
+      <strong>No RED flags identified</strong> based on the annual report excerpt. However, the 
+      <strong>related-party nature of the ANANT acquisition</strong> and the <strong>growing related-party transaction cap</strong> 
+      are the most significant governance considerations.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 12 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">12</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Industry Context</div>
+</div>
+
+<section class="section" id="part12">
+  <div class="section-header reveal">
+    <span class="section-number">Part 12</span>
+    <h2>Industry Introduction</h2>
+    <p class="lead">The offshore oilfield services industry — in plain English, before the jargon.</p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">58<span class="nm-unit">vessels</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Global high-spec DSV fleet size — with only <strong style="color:var(--accent);">2 new builds</strong> versus 
+        mid-single-digit retirements expected over 3 years. This structural supply constraint is the core of 
+        the bull case for day rates.
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:12px;">What Industry Does SEAMEC Operate In?</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.75;">
+      SEAMEC operates in the <strong style="color:var(--text-primary);">offshore oilfield services industry</strong>, specifically 
+      the niche segment of <strong style="color:var(--text-primary);">Diving Support Vessels (DSVs) and Multi Support Vessels (MSVs)</strong>.
+    </p>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:20px;">
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:12px;color:var(--accent);">Position in the Value Chain</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        SEAMEC sits <strong style="color:var(--text-primary);">downstream</strong> of oil &amp; gas E&amp;P companies. 
+        When ONGC or an international oil company develops or maintains an offshore field, they hire 
+        vessels for subsea construction, inspection, and repair. SEAMEC provides the 
+        <strong style="color:var(--text-primary);">vessels and marine crew</strong>.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:12px;color:var(--gold);">Demand Drivers</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> <strong style="color:var(--text-primary);">Oil prices</strong> — Higher prices encourage E&amp;P spending.</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> <strong style="color:var(--text-primary);">Offshore development</strong> — New fields require DSV support.</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> <strong style="color:var(--text-primary);">Ageing infrastructure</strong> — Existing pipelines need inspection.</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> <strong style="color:var(--text-primary);">Offshore wind</strong> — Emerging demand for DSVs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:20px;">
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:12px;color:var(--red);">Supply Constraints</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        The global high-spec DSV fleet is <strong style="color:var(--text-primary);">structurally supply-constrained</strong> — 
+        only ~58 vessels worldwide, with only 2 new builds vs. mid-single-digit retirements expected over 3 years. 
+        Some NOCs restrict vessels older than 20 years from IMR work, further shrinking the addressable fleet.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:12px;color:var(--blue);">Cyclicality &amp; Contracts</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        The industry is <strong style="color:var(--text-primary);">highly cyclical</strong>, tied to oil &amp; gas capex cycles. 
+        Contracts are typically <strong style="color:var(--text-primary);">time-charter contracts</strong> (day-rate based) 
+        ranging from a few months to 5+ years, with options for extension.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 13 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">13</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Value Chain Position</div>
+</div>
+
+<section class="section" id="part13">
+  <div class="section-header reveal">
+    <span class="section-number">Part 13</span>
+    <h2>Build the Business Tree</h2>
+    <p class="lead">Where exactly does SEAMEC sit in the offshore energy value chain?</p>
+  </div>
+
+  <div class="tree reveal">
+    <div class="root">OFFSHORE ENERGY</div>
+    <div>├── <span class="branch">Offshore exploration/development</span></div>
+    <div>│&nbsp;&nbsp;&nbsp;└── Requires: Seismic surveys, drilling rigs, subsea infrastructure</div>
+    <div>├── <span class="branch">Offshore production</span></div>
+    <div>│&nbsp;&nbsp;&nbsp;└── Requires: Platforms, pipelines, FPSOs</div>
+    <div>├── <span class="branch">Subsea infrastructure</span></div>
+    <div>│&nbsp;&nbsp;&nbsp;├── Inspection, Maintenance &amp; Repair (IMR)</div>
+    <div>│&nbsp;&nbsp;&nbsp;├── Construction / Installation</div>
+    <div>│&nbsp;&nbsp;&nbsp;└── Decommissioning</div>
+    <div>├── <span class="branch">Diving / Construction</span></div>
+    <div>│&nbsp;&nbsp;&nbsp;├── Saturation diving</div>
+    <div>│&nbsp;&nbsp;&nbsp;├── ROV operations</div>
+    <div>│&nbsp;&nbsp;&nbsp;└── Subsea intervention</div>
+    <div>└── <span class="branch">DSVs</span></div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="highlight-node">SEAMEC</span> <span style="color:var(--text-muted);font-size:11px;">(owns/operates DSVs, MSVs, OSV, Barge)</span></div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:24px;">
+    <p>
+      SEAMEC sits in the <strong>IMR and subsea construction</strong> part of the chain. It is most exposed to 
+      <strong>brownfield spending</strong> (maintaining existing fields) rather than <strong>greenfield spending</strong> 
+      (new field development). The ageing of India's offshore infrastructure (Mumbai High, etc.) is a 
+      <strong>tailwind</strong> for IMR demand.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAPTER 14 ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">14</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Investment Framework</div>
+</div>
+
+<section class="section" id="part14">
+  <div class="section-header reveal">
+    <span class="section-number">Part 14</span>
+    <h2>Investment Thesis</h2>
+    <p class="lead">Bull, Base, and Bear cases — with the key variables that determine success. Use the toggle to compare scenarios.</p>
+  </div>
+
+  <div class="scenario-toggle reveal" id="scenarioToggle">
+    <div class="slider bull" id="scenarioSlider"></div>
+    <button class="active" data-scenario="bull">🟢 Bull</button>
+    <button data-scenario="base">🔵 Base</button>
+    <button data-scenario="bear">🔴 Bear</button>
+  </div>
+
+  <div class="scenario-metrics reveal" id="scenarioMetrics">
+    <div class="scenario-metric">
+      <div class="sm-label">Revenue Growth</div>
+      <div class="sm-value" data-metric="revenue">+20<span class="unit">%</span></div>
+      <div class="sm-context" data-context="revenue">CAGR over FY26–FY29E</div>
+    </div>
+    <div class="scenario-metric">
+      <div class="sm-label">EBITDA Margin</div>
+      <div class="sm-value" data-metric="ebitda">45<span class="unit">%</span></div>
+      <div class="sm-context" data-context="ebitda">Sustained at current levels</div>
+    </div>
+    <div class="scenario-metric">
+      <div class="sm-label">PAT Margin</div>
+      <div class="sm-value" data-metric="pat">27<span class="unit">%</span></div>
+      <div class="sm-context" data-context="pat">Stable or improving</div>
+    </div>
+    <div class="scenario-metric">
+      <div class="sm-label">Free Cash Flow</div>
+      <div class="sm-value" data-metric="fcf">Positive</div>
+      <div class="sm-context" data-context="fcf">Turns positive after ANANT</div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-3 reveal" style="margin-top:24px;">
+    <div class="thesis-card bull">
+      <h3>🟢 Bull Thesis</h3>
+      <ul>
+        <li><strong>Structural DSV scarcity</strong> — Only ~58 high-spec DSVs globally, with net supply contracting. Day rates have room to rise.</li>
+        <li><strong>Fleet rejuvenation</strong> — AGASTYA, SWORDFISH, and ANANT are modern, higher-spec vessels commanding premium rates.</li>
+        <li><strong>ONGC relationship</strong> — HAL Offshore (promoter) provides a pipeline of ONGC contracts, providing revenue visibility.</li>
+        <li><strong>Operating leverage</strong> — Fixed cost base means incremental revenue drops through at high margins.</li>
+        <li><strong>Tonnage tax</strong> — Structurally low tax rate (6.89%) boosts PAT conversion.</li>
+        <li><strong>Analyst estimates</strong> — Revenue/EBITDA/PAT CAGR of 15%/15%/26% over FY26–FY29E.</li>
+      </ul>
+    </div>
+    <div class="thesis-card base">
+      <h3>🔵 Base Thesis</h3>
+      <ul>
+        <li>Revenue grows 15–20% annually driven by new vessels (AGASTYA full year, ANANT from FY27) and stable day rates.</li>
+        <li>EBITDA margins stabilise at 40–43%.</li>
+        <li>Capex moderates after ANANT; free cash flow turns positive.</li>
+        <li>Dividend modest but growing.</li>
+        <li>Balance sheet remains healthy with debt-equity below 30%.</li>
+      </ul>
+    </div>
+    <div class="thesis-card bear">
+      <h3>🔴 Bear Thesis</h3>
+      <ul>
+        <li><strong>Day rates decline</strong> — If oil prices fall or offshore activity slows, day rates could contract sharply.</li>
+        <li><strong>Utilisation risk</strong> — If ONGC contracts are delayed or cancelled, vessels sit idle but costs continue.</li>
+        <li><strong>Related-party dependence</strong> — Heavy reliance on HAL/ONGC for revenue; ANANT acquisition at a price that may not be arm's length.</li>
+        <li><strong>Execution risk</strong> — ANANT delivery and deployment could be delayed.</li>
+        <li><strong>Working capital strain</strong> — Receivables growing faster than revenue; negative FCF if capex remains high.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:24px;">
+    <h3 style="font-size:14px;font-weight:800;margin-bottom:16px;">Key Variables to Monitor</h3>
+    <div class="card-grid cols-2" style="gap:10px;">
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">1.</strong> Day rates for DSV contracts (AGASTYA: USD 25k; ANANT: USD 45k)
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">2.</strong> Utilisation — deployment days per vessel
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">3.</strong> ONGC capex and contract awards
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">4.</strong> Global DSV supply — new builds, retirements
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">5.</strong> Oil prices — Brent crude
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">6.</strong> Related-party transaction volume with HAL
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">7.</strong> Capex — ANANT completion, future fleet additions
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">8.</strong> Receivables — collection cycle and provisioning
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">9.</strong> Free cash flow — when does it turn positive?
+      </div>
+      <div style="padding:12px 16px;background:var(--bg-secondary);border-radius:var(--radius-xs);border:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);">
+        <strong style="color:var(--accent);">10.</strong> Dividend policy — payout ratio
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FINAL ═══════════════ -->
+<div class="chapter-divider reveal">
+  <div class="cd-number">✦</div>
+  <div class="cd-line"></div>
+  <div class="cd-text">Before Valuation</div>
+</div>
+
+<section class="section" id="final">
+  <div class="section-header reveal">
+    <span class="section-number">Final Output</span>
+    <h2>What I Should Understand Before I Even Think About Valuation</h2>
+    <p class="lead">15 concepts that must be understood before looking at the stock price.</p>
+  </div>
+
+  <ol class="numbered-list reveal">
+    <li><strong>This is a charter-hire business</strong> — Revenue = vessels × utilisation × day rate × operating days. Small changes in any variable have outsized impact.</li>
+    <li><strong>DSVs are specialised, scarce assets</strong> — Only ~58 high-spec vessels globally. New supply is constrained. This scarcity is the core of the bull case.</li>
+    <li><strong>The business has high operating leverage</strong> — Costs are largely fixed. When utilisation and day rates rise, margins expand rapidly. When they fall, margins collapse.</li>
+    <li><strong>Related-party transactions are pervasive</strong> — SEAMEC buys vessels from HAL, charters vessels to HAL, pays rent to a director's spouse, and pays management fees to MMG Advisors.</li>
+    <li><strong>ONGC is the dominant end-customer</strong> — Directly or indirectly, ONGC's capex drives SEAMEC's revenue.</li>
+    <li><strong>The Tonnage Tax Scheme</strong> — SEAMEC pays tax based on net tonnage, not profits. Structurally low effective tax rate (6.89%).</li>
+    <li><strong>Fleet age and condition matter</strong> — Older vessels face restrictions and higher maintenance. SEAMEC has been rejuvenating its fleet.</li>
+    <li><strong>Drydocking is a major cost</strong> — Vessels must periodically drydock. This is a cash outflow and a period of zero revenue.</li>
+    <li><strong>Revenue is USD-denominated</strong> — Most contracts are in USD, providing a natural hedge against rupee depreciation.</li>
+    <li><strong>Working capital can be volatile</strong> — Receivables from ONGC and other clients can be slow. Swiber receivables (₹113.47 Cr fully provided) are a reminder of credit risk.</li>
+    <li><strong>Capital allocation is a key question</strong> — SEAMEC holds ₹367 Cr of non-current financial investments while raising debt for vessel acquisitions.</li>
+    <li><strong>The ANANT acquisition is the largest single bet</strong> — USD 70M (₹674.57 Cr) for a DSV chartered back at USD 45,000/day. Implied gross yield ~16.8%, but utilisation is the risk.</li>
+    <li><strong>Industry is cyclical</strong> — Oil &amp; gas capex drives demand. DSV scarcity provides some insulation, but a prolonged downturn would hurt.</li>
+    <li><strong>Free cash flow was negative in FY26</strong> — Due to heavy capex (₹379.38 Cr). Acceptable for a growth phase but needs to reverse.</li>
+    <li><strong>Valuation hinges on day rates and utilisation</strong> — At 14x P/E (FY26 PAT of ₹242.35 Cr, market cap ~₹3,684 Cr), the market is pricing in continued growth.</li>
+  </ol>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="brand">SEAMEC Ltd — Deep Fundamental Study</div>
+  <p>Based on the 39th Annual Report FY2025-26 · All figures in ₹ crores unless otherwise stated</p>
+  <p style="margin-top:10px;font-size:11px;color:var(--text-muted);">
+    This analysis is for educational purposes only and does not constitute investment advice.<br>
+    Source citations refer to the annual report pages and external sources as noted.
+  </p>
+</footer>
+
+<script>
+  // ─── PROGRESS BAR ───
+  const progressBar = document.getElementById('progressBar');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        progressBar.style.width = ((scrollTop / docHeight) * 100) + '%';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // ─── NAV SCROLL ───
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ─── REVEAL ON SCROLL ───
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const bars = entry.target.querySelectorAll('.bar-fill');
+        bars.forEach((bar, i) => {
+          const width = bar.getAttribute('data-width');
+          if (width) {
+            setTimeout(() => { bar.style.width = width; }, 200 + i * 80);
+          }
+        });
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // ─── COUNTER ANIMATION ───
+  const counters = document.querySelectorAll('[data-count]');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-count'));
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0');
+        const duration = 1800;
+        const startTime = performance.now();
+        const unitHTML = el.querySelector('.unit') ? el.querySelector('.unit').outerHTML : '';
+        
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          const current = target * eased;
+          const formatted = decimals > 0 
+            ? current.toFixed(decimals) 
+            : Math.floor(current).toLocaleString('en-IN');
+          el.innerHTML = formatted + unitHTML;
+          if (progress < 1) requestAnimationFrame(updateCounter);
+        }
+        requestAnimationFrame(updateCounter);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterObserver.observe(el));
+
+  // ─── SECTION NAV DOTS ───
+  const sections = document.querySelectorAll('section[id]');
+  const navDots = document.querySelectorAll('.section-nav a');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navDots.forEach(dot => {
+          dot.classList.toggle('active', dot.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(section => sectionObserver.observe(section));
+
+  // ─── SMOOTH SCROLL ───
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ─── SCENARIO SLIDER ───
+  const scenarioData = {
+    bull: {
+      revenue: { value: '+20', unit: '%', context: 'CAGR over FY26–FY29E' },
+      ebitda: { value: '45', unit: '%', context: 'Sustained at current levels' },
+      pat: { value: '27', unit: '%', context: 'Stable or improving' },
+      fcf: { value: 'Positive', unit: '', context: 'Turns positive after ANANT' }
+    },
+    base: {
+      revenue: { value: '+15', unit: '%', context: 'CAGR over FY26–FY29E' },
+      ebitda: { value: '42', unit: '%', context: 'Stabilises at 40–43%' },
+      pat: { value: '24', unit: '%', context: 'Modest expansion' },
+      fcf: { value: 'Break-even', unit: '', context: 'Turns positive by FY28' }
+    },
+    bear: {
+      revenue: { value: '+5', unit: '%', context: 'Slowdown in day rates' },
+      ebitda: { value: '35', unit: '%', context: 'Margin compression' },
+      pat: { value: '18', unit: '%', context: 'Decline from FY26 peak' },
+      fcf: { value: 'Negative', unit: '', context: 'Capex overhang persists' }
+    }
+  };
+
+  const toggle = document.getElementById('scenarioToggle');
+  const slider = document.getElementById('scenarioSlider');
+  const buttons = toggle.querySelectorAll('button');
+  const metrics = document.querySelectorAll('.scenario-metric');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const scenario = btn.getAttribute('data-scenario');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      slider.className = 'slider ' + scenario;
+      
+      // Update metrics with fade
+      metrics.forEach(m => {
+        const valEl = m.querySelector('.sm-value');
+        const ctxEl = m.querySelector('.sm-context');
+        const key = valEl.getAttribute('data-metric');
+        const data = scenarioData[scenario][key];
+        valEl.style.opacity = '0';
+        valEl.style.transform = 'translateY(8px)';
+        ctxEl.style.opacity = '0';
+        setTimeout(() => {
+          valEl.innerHTML = data.value + (data.unit ? '<span class="unit">' + data.unit + '</span>' : '');
+          ctxEl.textContent = data.context;
+          valEl.style.opacity = '1';
+          valEl.style.transform = 'translateY(0)';
+          ctxEl.style.opacity = '1';
+        }, 180);
+      });
+    });
+  });
+
+  // ─── BAR FILL ON LOAD ───
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      const rect = bar.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const width = bar.getAttribute('data-width');
+        if (width) setTimeout(() => { bar.style.width = width; }, 400);
+      }
+    });
+  });
+
+  // ─── PARALLAX HERO ───
+  const heroContent = document.querySelector('.hero-content');
+  let heroTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!heroTicking && heroContent) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < window.innerHeight) {
+          heroContent.style.transform = `translateY(${y * 0.12}px)`;
+          heroContent.style.opacity = Math.max(0, 1 - (y / window.innerHeight) * 0.7);
+        }
+        heroTicking = false;
+      });
+      heroTicking = true;
+    }
+  });
+</script>
+
+</body>
+</html>

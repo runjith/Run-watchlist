@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEAMEC Ltd — Management & Earnings-Call Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-primary:#070a11;--bg-secondary:#0d1220;--bg-card:#121a2b;--bg-card-hover:#1a2340;
+  --border:#1b2642;--border-light:#2a3a5c;
+  --text-primary:#eef2f8;--text-secondary:#94a3b8;--text-muted:#5a6b85;
+  --accent:#00e5b8;--accent-dim:#00b894;--accent-glow:rgba(0,229,184,.12);
+  --gold:#f5b942;--gold-dim:#c98f1a;--red:#ff4d5e;--red-dim:#c42a3a;
+  --blue:#4a9eff;--blue-dim:#2563eb;--purple:#a78bfa;--orange:#ff8c42;
+  --r:16px;--r-sm:11px;--r-xs:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.4);--shadow-lg:0 16px 60px rgba(0,0,0,.5);
+  --t:all .4s cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Inter',-apple-system,sans-serif;font-optical-sizing:auto;background:var(--bg-primary);color:var(--text-primary);line-height:1.75;font-size:15px;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:var(--accent-dim)}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--blue),var(--gold));z-index:1002;width:0;box-shadow:0 0 12px var(--accent-glow)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(7,10,17,.72);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid transparent;transition:var(--t)}
+.nav.scrolled{background:rgba(7,10,17,.92);border-bottom-color:var(--border);box-shadow:0 4px 30px rgba(0,0,0,.4)}
+.nav-inner{max-width:1440px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:-.02em;color:var(--text-primary);text-decoration:none}
+.nav-logo .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.nav-links{display:flex;gap:2px;list-style:none;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:11.5px;font-weight:500;padding:6px 10px;border-radius:8px;transition:var(--t);white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:var(--accent-glow)}
+.reading-pill{position:fixed;bottom:24px;left:24px;z-index:998;background:rgba(18,26,43,.85);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:100px;padding:8px 16px;font-size:11px;font-weight:600;color:var(--text-secondary);display:flex;align-items:center;gap:8px;transition:var(--t)}
+.reading-pill:hover{border-color:var(--accent-dim);color:var(--accent)}
+.reading-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@media(max-width:768px){.reading-pill{display:none}}
+.section-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:999;display:flex;flex-direction:column;gap:11px}
+.section-nav a{width:9px;height:9px;border-radius:50%;background:var(--border-light);transition:var(--t);position:relative;display:block}
+.section-nav a:hover,.section-nav a.active{background:var(--accent);box-shadow:0 0 16px var(--accent);transform:scale(1.35)}
+.section-nav a .tip{position:absolute;right:22px;top:50%;transform:translateY(-50%);background:rgba(18,26,43,.95);backdrop-filter:blur(12px);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;color:var(--text-primary);white-space:nowrap;opacity:0;pointer-events:none;transition:var(--t)}
+.section-nav a:hover .tip{opacity:1}
+@media(max-width:1024px){.section-nav{display:none}}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 25% 20%,rgba(0,229,184,.10) 0%,transparent 45%),radial-gradient(ellipse at 75% 65%,rgba(74,158,255,.08) 0%,transparent 45%),radial-gradient(ellipse at 50% 85%,rgba(245,185,66,.05) 0%,transparent 45%);animation:heroBg 24s ease-in-out infinite alternate;pointer-events:none}
+@keyframes heroBg{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(-4%,-3%) rotate(4deg)}}
+.sonar{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;border:1px solid rgba(0,229,184,.15);animation:sonarPing 4s ease-out infinite;pointer-events:none}
+.sonar:nth-child(2){animation-delay:1.3s}.sonar:nth-child(3){animation-delay:2.6s}
+@keyframes sonarPing{0%{transform:translate(-50%,-50%) scale(.3);opacity:.6}100%{transform:translate(-50%,-50%) scale(3.5);opacity:0}}
+.hero-content{position:relative;z-index:2;max-width:960px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:100px;background:rgba(0,229,184,.08);border:1px solid rgba(0,229,184,.25);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:28px;animation:fadeInUp .8s ease both}
+.hero h1{font-size:clamp(36px,7vw,78px);font-weight:900;letter-spacing:-.04em;line-height:1.02;margin-bottom:22px;animation:fadeInUp .8s ease .1s both}
+.hero h1 .gradient{background:linear-gradient(135deg,var(--accent) 0%,var(--blue) 45%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:gradShift 8s ease infinite}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero p.subtitle{font-size:clamp(15px,1.9vw,18px);color:var(--text-secondary);max-width:760px;margin:0 auto 44px;line-height:1.75;animation:fadeInUp .8s ease .2s both}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:960px;margin:0 auto;animation:fadeInUp .8s ease .3s both}
+.hero-stat{background:rgba(18,26,43,.65);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--r);padding:22px 16px;text-align:center;transition:var(--t);position:relative;overflow:hidden}
+.hero-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:var(--t)}
+.hero-stat:hover{border-color:var(--accent-dim);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,229,184,.12)}
+.hero-stat:hover::before{opacity:1}
+.hero-stat .value{font-family:'JetBrains Mono',monospace;font-size:clamp(20px,3vw,28px);font-weight:800;color:var(--accent);line-height:1.1;letter-spacing:-.02em}
+.hero-stat .unit{font-size:12px;color:var(--text-muted);font-weight:600;margin-left:2px}
+.hero-stat .label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-top:8px;font-weight:700}
+.scroll-ind{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text-muted);font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;animation:bounce 2.2s infinite}
+.scroll-ind .line{width:1px;height:32px;background:linear-gradient(180deg,var(--accent),transparent)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.section{max-width:1200px;margin:0 auto;padding:100px 24px;position:relative}
+.section-header{margin-bottom:40px}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:14px;opacity:.85}
+.section-header h2{font-size:clamp(26px,4.5vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+.section-header .lead{font-size:15.5px;color:var(--text-secondary);max-width:800px;line-height:1.75}
+.tldr{display:inline-flex;align-items:flex-start;gap:12px;padding:14px 18px;border-radius:var(--r-sm);background:rgba(0,229,184,.05);border:1px solid rgba(0,229,184,.15);margin-bottom:28px;font-size:13px;color:var(--text-secondary);line-height:1.65;max-width:880px}
+.tldr .tldr-label{font-size:10px;font-weight:800;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;white-space:nowrap;padding-top:2px}
+.number-matters{display:flex;align-items:center;gap:28px;padding:30px 34px;border-radius:var(--r);background:linear-gradient(135deg,rgba(0,229,184,.06),rgba(74,158,255,.03));border:1px solid rgba(0,229,184,.18);margin-bottom:36px;position:relative;overflow:hidden}
+.number-matters::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--accent),var(--blue))}
+.number-matters .nm-value{font-family:'JetBrains Mono',monospace;font-size:clamp(36px,6vw,64px);font-weight:800;color:var(--accent);line-height:1;letter-spacing:-.04em;flex-shrink:0}
+.number-matters .nm-value .nm-unit{font-size:.4em;color:var(--text-muted);font-weight:600;margin-left:4px}
+.number-matters .nm-label{font-size:10px;font-weight:800;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.number-matters .nm-text{font-size:14px;color:var(--text-secondary);line-height:1.65;max-width:660px}
+@media(max-width:640px){.number-matters{flex-direction:column;align-items:flex-start;gap:16px;padding:24px}}
+.chapter-div{max-width:1200px;margin:0 auto;padding:60px 24px 20px;display:flex;align-items:center;gap:24px}
+.chapter-div .cd-num{font-family:'JetBrains Mono',monospace;font-size:clamp(48px,8vw,96px);font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--border-light);line-height:1;letter-spacing:-.04em;flex-shrink:0}
+.chapter-div .cd-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border-light),transparent)}
+.chapter-div .cd-text{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:26px;transition:var(--t);position:relative;overflow:hidden}
+.card:hover{border-color:var(--border-light);background:var(--bg-card-hover);transform:translateY(-3px);box-shadow:var(--shadow)}
+.card-grid{display:grid;gap:18px}
+.card-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.card-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.card-grid.cols-4{grid-template-columns:repeat(4,1fr)}
+.table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border);background:var(--bg-card);position:relative}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{background:rgba(0,229,184,.05);position:sticky;top:0;z-index:2}
+th{text-align:left;padding:12px 14px;font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);border-bottom:1px solid var(--border);white-space:nowrap;background:var(--bg-card)}
+td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(0,229,184,.025)}
+td strong{color:var(--text-primary);font-weight:600}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600}
+.up{color:var(--accent)!important;font-weight:700}
+.down{color:var(--red)!important;font-weight:700}
+.flat{color:var(--text-muted)!important}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:22px;position:relative;overflow:hidden;transition:var(--t)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);border-radius:0 3px 3px 0}
+.stat-card.gold::before{background:var(--gold)}.stat-card.red::before{background:var(--red)}.stat-card.blue::before{background:var(--blue)}.stat-card.purple::before{background:var(--purple)}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.stat-card .stat-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);font-weight:700;margin-bottom:10px}
+.stat-card .stat-value{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:800;color:var(--text-primary);line-height:1.1;letter-spacing:-.02em}
+.stat-card .stat-value .unit{font-size:.55em;color:var(--text-muted);font-weight:600;margin-left:3px}
+.stat-card .stat-change{font-size:11.5px;font-weight:700;margin-top:8px;display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;background:rgba(0,229,184,.08)}
+.stat-change.up{color:var(--accent);background:rgba(0,229,184,.08)}
+.stat-change.down{color:var(--red);background:rgba(255,77,94,.08)}
+.bar-chart{display:flex;flex-direction:column;gap:13px}
+.bar-item{display:flex;align-items:center;gap:14px}
+.bar-label{font-size:12px;color:var(--text-secondary);min-width:140px;font-weight:600}
+.bar-track{flex:1;height:24px;background:rgba(255,255,255,.03);border-radius:8px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--accent-dim),var(--accent));transition:width 1.4s cubic-bezier(.16,1,.3,1);width:0}
+.bar-fill.gold{background:linear-gradient(90deg,var(--gold-dim),var(--gold))}
+.bar-fill.blue{background:linear-gradient(90deg,var(--blue-dim),var(--blue))}
+.bar-fill.red{background:linear-gradient(90deg,var(--red-dim),var(--red))}
+.bar-fill.purple{background:linear-gradient(90deg,#7c3aed,var(--purple))}
+.bar-value{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:var(--text-primary);min-width:90px;text-align:right}
+.bar-value .pct{color:var(--accent);font-size:10px;margin-left:4px}
+.bar-value .pct.neg{color:var(--red)}
+.chart-container{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:26px}
+.chart-title{font-size:13px;font-weight:800;color:var(--text-primary);margin-bottom:22px;display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.chart-title .chart-badge{font-size:10px;font-weight:700;color:var(--accent);background:rgba(0,229,184,.1);padding:3px 8px;border-radius:100px;letter-spacing:.05em}
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:'';position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--accent),var(--blue),var(--gold),var(--purple),transparent);border-radius:2px}
+.tl-item{position:relative;margin-bottom:22px;padding:22px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);transition:var(--t)}
+.tl-item:hover{border-color:var(--accent-dim);transform:translateX(6px);box-shadow:var(--shadow)}
+.tl-item::before{content:'';position:absolute;left:-33px;top:26px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg-primary);box-shadow:0 0 0 3px rgba(0,229,184,.2)}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.tl-title{font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:8px;letter-spacing:-.01em}
+.tl-desc{font-size:13px;color:var(--text-secondary);line-height:1.7}
+.tl-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{display:inline-block;padding:3px 10px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:.03em}
+.tag.green{background:rgba(0,229,184,.1);color:var(--accent);border:1px solid rgba(0,229,184,.22)}
+.tag.gold{background:rgba(245,185,66,.1);color:var(--gold);border:1px solid rgba(245,185,66,.22)}
+.tag.red{background:rgba(255,77,94,.1);color:var(--red);border:1px solid rgba(255,77,94,.22)}
+.tag.blue{background:rgba(74,158,255,.1);color:var(--blue);border:1px solid rgba(74,158,255,.22)}
+.tag.purple{background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.22)}
+.flag{display:flex;gap:16px;padding:20px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--bg-card);transition:var(--t)}
+.flag:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.flag-ind{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.flag-ind.green{background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.flag-ind.yellow{background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.flag-ind.red{background:var(--red);box-shadow:0 0 12px var(--red)}
+.flag-content h4{font-size:13.5px;font-weight:700;color:var(--text-primary);margin-bottom:5px}
+.flag-content p{font-size:12.5px;color:var(--text-secondary);line-height:1.65}
+.thesis-card{border-radius:var(--r);padding:26px;border:1px solid var(--border);position:relative;transition:var(--t)}
+.thesis-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.thesis-card.bull{background:linear-gradient(135deg,rgba(0,229,184,.06),transparent 70%);border-color:rgba(0,229,184,.22)}
+.thesis-card.base{background:linear-gradient(135deg,rgba(74,158,255,.06),transparent 70%);border-color:rgba(74,158,255,.22)}
+.thesis-card.bear{background:linear-gradient(135deg,rgba(255,77,94,.06),transparent 70%);border-color:rgba(255,77,94,.22)}
+.thesis-card h3{font-size:17px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.thesis-card.bull h3{color:var(--accent)}.thesis-card.base h3{color:var(--blue)}.thesis-card.bear h3{color:var(--red)}
+.thesis-card ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.thesis-card li{font-size:12.5px;color:var(--text-secondary);line-height:1.65;padding-left:22px;position:relative}
+.thesis-card li::before{content:'→';position:absolute;left:0;color:var(--text-muted);font-weight:700}
+.callout{padding:18px 22px;border-radius:var(--r-sm);border-left:3px solid var(--accent);background:rgba(0,229,184,.05);margin:20px 0}
+.callout.gold{border-left-color:var(--gold);background:rgba(245,185,66,.05)}
+.callout.red{border-left-color:var(--red);background:rgba(255,77,94,.05)}
+.callout.blue{border-left-color:var(--blue);background:rgba(74,158,255,.05)}
+.callout.purple{border-left-color:var(--purple);background:rgba(167,139,250,.05)}
+.callout p{font-size:13px;color:var(--text-secondary);line-height:1.7}
+.callout strong{color:var(--text-primary)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-light),transparent);margin:0 auto;border:none;max-width:1200px}
+.highlight-box{background:linear-gradient(135deg,rgba(0,229,184,.06),rgba(74,158,255,.03));border:1px solid rgba(0,229,184,.18);border-radius:var(--r);padding:26px;margin:20px 0}
+.highlight-box h3{font-size:15px;font-weight:800;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.highlight-box p{font-size:13px;color:var(--text-secondary);line-height:1.75}
+.num-list{counter-reset:item;list-style:none;display:flex;flex-direction:column;gap:16px}
+.num-list li{counter-increment:item;padding-left:48px;position:relative;font-size:13.5px;color:var(--text-secondary);line-height:1.7}
+.num-list li::before{content:counter(item);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:rgba(0,229,184,.08);border:1px solid rgba(0,229,184,.25);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.num-list li strong{color:var(--text-primary)}
+.kv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.kv-item{background:var(--bg-card);padding:16px 20px;transition:var(--t)}
+.kv-item:hover{background:var(--bg-card-hover)}
+.kv-key{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:5px}
+.kv-val{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--text-primary);letter-spacing:-.01em}
+@media(max-width:600px){.kv-grid{grid-template-columns:1fr}}
+.scenario-toggle{display:inline-flex;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;padding:4px;margin-bottom:24px;position:relative}
+.scenario-toggle button{background:transparent;border:none;color:var(--text-secondary);font-family:inherit;font-size:12px;font-weight:700;padding:9px 22px;border-radius:100px;cursor:pointer;transition:var(--t);letter-spacing:.02em;position:relative;z-index:2}
+.scenario-toggle button.active{color:var(--bg-primary)}
+.scenario-toggle .slider{position:absolute;top:4px;height:calc(100% - 8px);border-radius:100px;transition:var(--t);z-index:1}
+.scenario-toggle .slider.bull{background:var(--accent);width:calc(33.33% - 3px);left:4px}
+.scenario-toggle .slider.base{background:var(--blue);width:calc(33.33% - 3px);left:calc(33.33% + 1px)}
+.scenario-toggle .slider.bear{background:var(--red);width:calc(33.33% - 3px);left:calc(66.66% - 2px)}
+.scenario-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.scenario-metric{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px;transition:var(--t)}
+.scenario-metric .sm-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);font-weight:700;margin-bottom:8px}
+.scenario-metric .sm-value{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--text-primary);letter-spacing:-.02em;transition:var(--t)}
+.scenario-metric .sm-value .unit{font-size:.55em;color:var(--text-muted);font-weight:600;margin-left:3px}
+.scenario-metric .sm-context{font-size:10.5px;color:var(--text-muted);margin-top:4px;font-weight:500}
+@media(max-width:768px){.scenario-metrics{grid-template-columns:repeat(2,1fr)}}
+/* Valuation Playground */
+.val-playground{background:linear-gradient(135deg,rgba(0,229,184,.04),rgba(74,158,255,.02));border:1px solid rgba(0,229,184,.18);border-radius:var(--r);padding:32px;margin-top:24px}
+.val-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:28px;margin-top:24px}
+@media(max-width:1024px){.val-grid{grid-template-columns:1fr}}
+.val-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:24px}
+.val-panel h4{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.val-input-row{display:flex;flex-direction:column;gap:16px}
+.val-field{display:flex;flex-direction:column;gap:6px}
+.val-field label{font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.val-field .input-wrap{display:flex;align-items:center;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--r-xs);padding:0 12px;transition:var(--t)}
+.val-field .input-wrap:focus-within{border-color:var(--accent-dim);box-shadow:0 0 0 3px var(--accent-glow)}
+.val-field .input-prefix{color:var(--text-muted);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;margin-right:6px}
+.val-field input{flex:1;background:transparent;border:none;color:var(--text-primary);font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;padding:10px 0;outline:none;font-variant-numeric:tabular-nums}
+.val-slider-row{display:flex;flex-direction:column;gap:20px}
+.val-slider-item{display:flex;flex-direction:column;gap:8px}
+.val-slider-item .slider-head{display:flex;justify-content:space-between;align-items:baseline}
+.val-slider-item .slider-label{font-size:12px;color:var(--text-secondary);font-weight:600}
+.val-slider-item .slider-value{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;color:var(--accent)}
+.val-slider-item input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--accent-dim),var(--blue));outline:none;cursor:pointer}
+.val-slider-item input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid var(--bg-primary);box-shadow:0 0 0 3px rgba(0,229,184,.3);cursor:pointer;transition:var(--t)}
+.val-slider-item input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.1);box-shadow:0 0 0 5px rgba(0,229,184,.35)}
+.val-slider-item input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid var(--bg-primary);box-shadow:0 0 0 3px rgba(0,229,184,.3);cursor:pointer}
+.metric-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.metric-tabs button{background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-secondary);font-family:inherit;font-size:11.5px;font-weight:700;padding:8px 14px;border-radius:100px;cursor:pointer;transition:var(--t)}
+.metric-tabs button:hover{border-color:var(--border-light);color:var(--text-primary)}
+.metric-tabs button.active{background:var(--accent);color:var(--bg-primary);border-color:var(--accent)}
+.val-output{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px;margin-top:14px}
+.val-output-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border)}
+.val-output-row:last-child{border-bottom:none;padding-top:14px;margin-top:6px;border-top:1px solid var(--border-light)}
+.val-output-row .key{font-size:12px;color:var(--text-secondary);font-weight:600}
+.val-output-row .val{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;color:var(--text-primary)}
+.val-output-row.hero .val{font-size:22px}
+.val-output-row.hero .key{font-size:12.5px;color:var(--text-primary);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.val-output-row .delta{font-size:11px;font-weight:700;margin-left:8px}
+.val-output-row .delta.up{color:var(--accent)}
+.val-output-row .delta.down{color:var(--red)}
+.formula{font-size:10.5px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;margin-top:6px;font-style:italic}
+.footer{text-align:center;padding:60px 24px;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;line-height:1.8;background:var(--bg-secondary)}
+.footer .brand{font-weight:800;color:var(--text-secondary);margin-bottom:10px;font-size:14px;letter-spacing:-.01em}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}.rd4{transition-delay:.32s}
+@media(max-width:1024px){.card-grid.cols-4{grid-template-columns:repeat(2,1fr)}.card-grid.cols-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.hero-stats{grid-template-columns:repeat(2,1fr)}.card-grid.cols-2,.card-grid.cols-3,.card-grid.cols-4{grid-template-columns:1fr}.nav-links{display:none}.section{padding:60px 16px}.timeline{padding-left:28px}.tl-item::before{left:-25px}.bar-label{min-width:100px;font-size:11px}}
+@media(max-width:480px){.hero-stats{grid-template-columns:1fr 1fr;gap:10px}.hero-stat{padding:16px 10px}.hero-stat .value{font-size:18px}}
+@media print{.nav,.section-nav,.progress-bar,.reading-pill,.scroll-ind{display:none!important}body{background:#fff;color:#000}.section{page-break-inside:avoid}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo"><span class="dot"></span>SEAMEC · Management Analysis</a>
+    <ul class="nav-links">
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#part1">Master Story</a></li>
+      <li><a href="#part2">Guidance</a></li>
+      <li><a href="#part3">Q&amp;A</a></li>
+      <li><a href="#part4">ANANT</a></li>
+      <li><a href="#part5">Utilization</a></li>
+      <li><a href="#part6">Margins</a></li>
+      <li><a href="#part7">Middle East</a></li>
+      <li><a href="#part8">Industry</a></li>
+      <li><a href="#part9">Competition</a></li>
+      <li><a href="#part10">Hard Questions</a></li>
+      <li><a href="#part11">Credibility</a></li>
+      <li><a href="#part12">Narrative</a></li>
+      <li><a href="#valuation">Valuation</a></li>
+      <li><a href="#cheatsheet">Cheat Sheet</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="reading-pill"><span class="dot"></span>~24 min · 12 parts + playground</div>
+
+<div class="section-nav" id="sectionNav">
+  <a href="#hero"><span class="tip">Top</span></a>
+  <a href="#summary"><span class="tip">Summary</span></a>
+  <a href="#part1"><span class="tip">P1 · Master Story</span></a>
+  <a href="#part2"><span class="tip">P2 · Guidance</span></a>
+  <a href="#part3"><span class="tip">P3 · Q&amp;A</span></a>
+  <a href="#part4"><span class="tip">P4 · ANANT</span></a>
+  <a href="#part5"><span class="tip">P5 · Utilization</span></a>
+  <a href="#part6"><span class="tip">P6 · Margins</span></a>
+  <a href="#part7"><span class="tip">P7 · Middle East</span></a>
+  <a href="#part8"><span class="tip">P8 · Industry</span></a>
+  <a href="#part9"><span class="tip">P9 · Competition</span></a>
+  <a href="#part10"><span class="tip">P10 · Hard Q</span></a>
+  <a href="#part11"><span class="tip">P11 · Credibility</span></a>
+  <a href="#part12"><span class="tip">P12 · Narrative</span></a>
+  <a href="#valuation"><span class="tip">Valuation</span></a>
+  <a href="#cheatsheet"><span class="tip">Cheat Sheet</span></a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="sonar"></div><div class="sonar"></div><div class="sonar"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>Management &amp; Earnings-Call Analysis · 4 Concalls · FY26–Q1 FY27</div>
+    <h1>SEAMEC Ltd<br><span class="gradient">The Management Story, Tested</span></h1>
+    <p class="subtitle">
+      Reconstructing management's evolving narrative across four earnings calls — Q2 FY26 through Q1 FY27 — 
+      separating what they said from what actually happened, and where the story still needs to be proven.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="value" data-count="1000" data-decimals="0">0<span class="unit">Cr</span></div><div class="label">FY26 Revenue</div></div>
+      <div class="hero-stat"><div class="value" data-count="447" data-decimals="0">0<span class="unit">Cr</span></div><div class="label">FY26 EBITDA</div></div>
+      <div class="hero-stat"><div class="value" data-count="253" data-decimals="0">0<span class="unit">Cr</span></div><div class="label">FY26 PAT</div></div>
+      <div class="hero-stat"><div class="value" data-count="41" data-decimals="0">0<span class="unit">%</span></div><div class="label">Q1 FY27 Rev Growth</div></div>
+    </div>
+  </div>
+  <div class="scroll-ind"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<!-- SUMMARY -->
+<section class="section" id="summary">
+  <div class="section-header reveal">
+    <span class="section-num">00 · Orientation</span>
+    <h2>How to Read This Report</h2>
+    <p class="lead">
+      This is not a summary of four earnings calls. It is a reconstruction of management's evolving story — 
+      tracking the same claims across time, flagging what changed, and separating <strong>fact</strong> from 
+      <strong>management claim</strong> from <strong>analyst interpretation</strong>.
+    </p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">15<span class="nm-unit">%</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Management's FY27 guidance — 15% top-line and bottom-line growth, with 40–42% EBITDA margins. 
+        This is the single most important number to track against actuals over the next four quarters. 
+        The stock's current P/E of 17.8x already prices in more than this baseline.
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal">
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--accent);">Industry Context — First Principles</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+        SEAMEC owns <strong style="color:var(--text-primary);">Diving Support Vessels (DSVs)</strong> — floating bases for 
+        saturation divers and ROVs who inspect, repair and maintain subsea oil &amp; gas infrastructure. Customers are 
+        oil &amp; gas operators (ONGC in India, Saudi Aramco overseas) and their EPC contractors. Revenue = 
+        <strong style="color:var(--text-primary);">vessels × utilisation × day rate × operating days</strong>. 
+        Costs are largely fixed. This creates extreme operating leverage — good years feel magnificent, 
+        weak years feel brutal.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--gold);">Why Management Analysis Matters Here</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+        With only ~58 high-spec DSVs globally and <strong style="color:var(--text-primary);">no new-build supply</strong> 
+        coming until 2029+, management's ability to <em>allocate capital into the right vessels at the right price</em> 
+        is the entire investment case. Their statements about day rates, utilization, and delivery timelines are 
+        not color — they are the earnings engine.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout reveal">
+    <p>
+      <strong>Methodology:</strong> Four concall transcripts were read end-to-end. Claims were matched across time. 
+      Statements are labelled as <span class="tag green">Fact</span> (verifiable from disclosures), 
+      <span class="tag gold">Claim</span> (management assertion), or <span class="tag blue">Interpretation</span> 
+      (analyst view). No claim is treated as fact unless confirmed by later events.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 1 -->
+<div class="chapter-div"><div class="cd-num">01</div><div class="cd-line"></div><div class="cd-text">The Master Story</div></div>
+
+<section class="section" id="part1">
+  <div class="section-header reveal">
+    <span class="section-num">Part 01</span>
+    <h2>Management's Master Story</h2>
+    <p class="lead">Why does management believe SEAMEC can grow? Ranked by expected importance.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Management's growth thesis rests on four pillars: (1) structural DSV scarcity supporting day rates, (2) fleet rejuvenation via AGASTYA and ANANT, (3) expansion of the O&amp;M / IMR contract base with ONGC, and (4) Middle East deployment of SWORDFISH. New vessel additions are the swing factor — every other driver is downstream of fleet capacity.</span>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">₹1,000<span class="nm-unit">Cr</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Committed capex via DG Shipping MOU for fleet expansion over the next 2–3 years (Q2 FY26 call). 
+        This is management's explicit bet that DSV scarcity will persist — the largest single capital commitment 
+        in the company's recent history.
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container reveal">
+    <div class="chart-title">📊 Growth Drivers — Ranked by Expected Importance <span class="chart-badge">Analyst ranking</span></div>
+    <div class="bar-chart">
+      <div class="bar-item"><div class="bar-label">A · Existing Fleet (IMR)</div><div class="bar-track"><div class="bar-fill" data-width="95%"></div></div><div class="bar-value">★★★★★</div></div>
+      <div class="bar-item"><div class="bar-label">B · ANANT Addition</div><div class="bar-track"><div class="bar-fill" data-width="88%"></div></div><div class="bar-value">★★★★★</div></div>
+      <div class="bar-item"><div class="bar-label">C · Utilization</div><div class="bar-track"><div class="bar-fill blue" data-width="82%"></div></div><div class="bar-value">★★★★</div></div>
+      <div class="bar-item"><div class="bar-label">D · O&amp;M Contracts</div><div class="bar-track"><div class="bar-fill blue" data-width="78%"></div></div><div class="bar-value">★★★★</div></div>
+      <div class="bar-item"><div class="bar-label">E · Pricing / Day Rates</div><div class="bar-track"><div class="bar-fill gold" data-width="72%"></div></div><div class="bar-value">★★★★</div></div>
+      <div class="bar-item"><div class="bar-label">F · Middle East</div><div class="bar-track"><div class="bar-fill gold" data-width="65%"></div></div><div class="bar-value">★★★</div></div>
+      <div class="bar-item"><div class="bar-label">G · New Contracts</div><div class="bar-track"><div class="bar-fill gold" data-width="58%"></div></div><div class="bar-value">★★★</div></div>
+      <div class="bar-item"><div class="bar-label">H · India (ONGC)</div><div class="bar-track"><div class="bar-fill purple" data-width="55%"></div></div><div class="bar-value">★★★</div></div>
+      <div class="bar-item"><div class="bar-label">I · New Vessel Additions</div><div class="bar-track"><div class="bar-fill purple" data-width="45%"></div></div><div class="bar-value">★★</div></div>
+      <div class="bar-item"><div class="bar-label">J · New Business Segments</div><div class="bar-track"><div class="bar-fill red" data-width="22%"></div></div><div class="bar-value">★</div></div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--accent);">A — Existing Fleet (IMR Core)</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        <strong style="color:var(--text-primary);">The base.</strong> SEAMEC operates 8 owned vessels with 6 MSVs/DSVs on IMR work. 
+        On the Q2 FY26 call, management stated all these vessels are on long-term IMR contracts with ONGC — the higher-margin, higher-utilization business. 
+        Vessel deployment days rose from 1,454 (FY25) to 1,859 (FY26), a 27.9% increase.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--gold);">B — ANANT Addition</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        <strong style="color:var(--text-primary);">The swing factor.</strong> USD 70M (~₹580 Cr) DSV with a 4-year ONGC contract 
+        at USD 45,000/day. Expected to add ~₹113 Cr annual gross revenue. Currently expected Q3 FY27 deployment — 
+        <em>already 6+ months behind the Q2 FY26 target of "1st February 2026."</em> Every quarter of delay 
+        pushes back the earnings inflection.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--blue);">C — Utilization</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        Management claims "almost 100% utilization barring dry dock and unscheduled breakdowns" (Q4 FY26 call). 
+        FY26 actual: 1,859 / 2,920 available vessel-days = <strong style="color:var(--text-primary);">63.7% blended utilization</strong>. 
+        On Q1 FY27 call, guidance shifted to "95–98% utilization from the day it starts rolling" for ANANT — 
+        a claim that deserves scrutiny given the vessel has not yet deployed.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--purple);">D — O&amp;M Contracts</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        <strong style="color:var(--text-primary);">New revenue stream.</strong> Samudra Sevak (₹348 Cr) and Samudra Prabha (₹270 Cr) 
+        O&amp;M contracts with ONGC, through consortium with Supreme Hydro (10% share). Effectively no fixed 
+        capital employed by SEAMEC → <em>higher ROCE</em>. Both contracts run to March 2028.
+      </p>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:18px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--accent);">E — Pricing / Day Rates</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        Management says rates are "steady" and will sustain 3–5 years (Q3 FY26, Q4 FY26, Q1 FY27). 
+        Confirmed rates: AGASTYA USD 25,000/d · ANANT USD 45,000/d · SWORDFISH USD 75,000/d · 
+        GLORIOUS ~USD 22,000/d (barge only) · DIAMOND USD 8,750/d. The gap between SWORDFISH and 
+        DIAMOND reflects <em>capability and scope</em>, not market dislocations.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--gold);">F — Middle East</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        Saudi Aramco deployment of SWORDFISH (2-year contract from Aug 2025). Management calls Middle East 
+        a "hotspot" alongside Qatar and Abu Dhabi. <em>Real question:</em> does SEAMEC have an actual moat there, 
+        or is it just entering a large market as a marginal player? Management admits foreign players "not that keen" 
+        on India — the reverse is unclear.
+      </p>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal">
+    <h3>🎯 What Management Wants You to Believe</h3>
+    <p>
+      SEAMEC is a <strong>structurally advantaged asset-light-ish operator</strong> in a supply-constrained niche. 
+      The DSV market has ~58 high-spec vessels globally, no new builds until 2029+, and rising demand from 
+      brownfield IMR (ageing infrastructure) and deepwater development. Management believes they can compound 
+      revenue at 15–20% for 3–5 years with 40–42% EBITDA margins, funded largely from internal accruals, 
+      while keeping net debt near zero.
+    </p>
+  </div>
+
+  <div class="callout gold reveal">
+    <p>
+      <strong>Analyst view:</strong> The scarcity narrative is credible — it is confirmed by the same fleet 
+      count management cited on all four calls, and by the age restrictions that national oil companies impose. 
+      What is <em>not yet proven</em> is whether management can consistently deploy the fleet at high utilization, 
+      especially given the SWORDFISH breakdown in Q2 FY26 and the Paladin dry-dock/Strait of Hormuz incident 
+      that consumed nearly a full quarter of revenue.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 2 -->
+<div class="chapter-div"><div class="cd-num">02</div><div class="cd-line"></div><div class="cd-text">Guidance Tracker</div></div>
+
+<section class="section" id="part2">
+  <div class="section-header reveal">
+    <span class="section-num">Part 02</span>
+    <h2>Guidance Tracker</h2>
+    <p class="lead">Every meaningful forward-looking statement across four calls, with what actually happened.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Of 18 trackable forward-looking claims, 7 have been <span class="tag green">fulfilled</span>, 4 are <span class="tag blue">on track</span>, 4 are <span class="tag gold">delayed</span>, 1 has been <span class="tag red">missed</span>, and 2 remain <span class="tag purple">too early to judge</span>. The pattern: operational guidance (dry docks, vessel deployments) has been met; timeline guidance on ANANT has slipped materially.</span>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">4<span class="nm-unit">/18</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Trackable claims that have already slipped or been missed. Every one relates to <strong>timeline</strong>, 
+        not to underlying business quality. The pattern suggests management is credible on <em>what</em> will happen, 
+        less so on <em>when</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Management Statement</th><th>Metric</th><th>Guidance</th><th>Horizon</th><th>What Happened</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">Nov '25</td>
+          <td>ANANT will be deployed by 1 Feb 2026</td>
+          <td>Deployment</td>
+          <td class="mono">1 Feb 2026</td>
+          <td>Q4 FY26</td>
+          <td>Q4 FY26 call: still completing approvals; Q1 FY27 call: expected end of Aug 2026; deployment Q3 FY27</td>
+          <td><span class="tag red">MISSED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Nov '25</td>
+          <td>Seamec UK office operational by June 2026</td>
+          <td>Subsidiary</td>
+          <td class="mono">June 2026</td>
+          <td>H1 FY27</td>
+          <td>Q2 FY26 call revised to Sept 2026. Q4 FY26 call took impairment charge.</td>
+          <td><span class="tag gold">DELAYED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Nov '25</td>
+          <td>SWORDFISH 2-year Saudi charter from ~May 2025</td>
+          <td>Deployment</td>
+          <td class="mono">Full 2 years</td>
+          <td>FY26–FY27</td>
+          <td>Visa delays pushed start to Aug 2025; breakdown cut Q2 to 22 deployment days. Recovered from Sept 2025.</td>
+          <td><span class="tag gold">DELAYED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Nov '25</td>
+          <td>Anant acquisition (shareholder approval pending)</td>
+          <td>M&amp;A</td>
+          <td class="mono">Close FY26</td>
+          <td>FY26</td>
+          <td>Q1 FY27 call: "binding agreement" signed; acquisition expected Aug 2026</td>
+          <td><span class="tag gold">DELAYED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Nov '25</td>
+          <td>Seamec III, Princess, Paladin dry docks in 2026</td>
+          <td>Dry dock</td>
+          <td class="mono">3 vessels</td>
+          <td>Calendar 2026</td>
+          <td>Paladin completed Dubai dry dock (stuck due to war); Seamec III, Princess scheduled monsoon 2026</td>
+          <td><span class="tag green">FULFILLED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Nov '25</td>
+          <td>Glorious chartered to L&amp;T for 150 days</td>
+          <td>Contract</td>
+          <td class="mono">150 days</td>
+          <td>Q3–Q4 FY26</td>
+          <td>Q3 FY26 call: barge mobilised and working</td>
+          <td><span class="tag green">FULFILLED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Feb '26</td>
+          <td>AGASTYA commenced charter with ONGC via HAL</td>
+          <td>Deployment</td>
+          <td class="mono">4 years</td>
+          <td>FY26–FY30</td>
+          <td>Q4 FY26 call: full-year contribution from FY27; Q1 FY27 call: operating</td>
+          <td><span class="tag green">FULFILLED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Feb '26</td>
+          <td>Charter rates will sustain; steady environment</td>
+          <td>Pricing</td>
+          <td class="mono">Steady</td>
+          <td>2 years</td>
+          <td>Q4 FY26 call reaffirmed; Q1 FY27 call: "3–5 years bullish"</td>
+          <td><span class="tag green">ON TRACK</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Feb '26</td>
+          <td>Samudra Sevak &amp; Prabha O&amp;M contracts announced</td>
+          <td>Contract</td>
+          <td class="mono">2-year</td>
+          <td>2026–2028</td>
+          <td>Q4 FY26 call: Sevak operating, Prabha mobilising</td>
+          <td><span class="tag green">FULFILLED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Feb '26</td>
+          <td>ANANT won't require dry dock before deployment</td>
+          <td>Dry dock</td>
+          <td class="mono">None needed</td>
+          <td>Q1 FY27</td>
+          <td>Q1 FY27 call confirmed: only statutory formalities, ~1 month</td>
+          <td><span class="tag green">FULFILLED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Feb '26</td>
+          <td>DG Shipping MOU — ₹1,000 Cr investment over 2–3 years</td>
+          <td>Capex</td>
+          <td class="mono">₹1,000 Cr</td>
+          <td>2–3 years</td>
+          <td>Q1 FY27 call: no specific pipeline yet; ANANT is part of plan</td>
+          <td><span class="tag gold">TOO EARLY</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Feb '26</td>
+          <td>FY27: year of growth (Swordfish full year + Agastya + Anant)</td>
+          <td>Revenue</td>
+          <td class="mono">Growth</td>
+          <td>FY27</td>
+          <td>Q1 FY27 actual: revenue +41% YoY; ANANT not yet deployed</td>
+          <td><span class="tag green">ON TRACK</span></td>
+        </tr>
+        <tr>
+          <td class="mono">May '26</td>
+          <td>FY27 revenue growth ~15%; EBITDA margin 40–42%</td>
+          <td>Guidance</td>
+          <td class="mono">15% / 40–42%</td>
+          <td>FY27</td>
+          <td>Q1 FY27: revenue +41%; EBITDA ₹124 Cr on ₹297 Cr = 41.8% margin</td>
+          <td><span class="tag green">ON TRACK</span></td>
+        </tr>
+        <tr>
+          <td class="mono">May '26</td>
+          <td>ANANT deployment expected Q1 FY27</td>
+          <td>Deployment</td>
+          <td class="mono">Q1 FY27</td>
+          <td>Q1 FY27</td>
+          <td>Q1 FY27 call: acquisition end-Aug 2026; deployment Q3 FY27</td>
+          <td><span class="tag gold">DELAYED</span></td>
+        </tr>
+        <tr>
+          <td class="mono">May '26</td>
+          <td>FY26 capex ~₹300 Cr; FY27 capex ~USD 70M (ANANT)</td>
+          <td>Capex</td>
+          <td class="mono">₹300 Cr / ₹580 Cr</td>
+          <td>FY26 / FY27</td>
+          <td>Q1 FY27 call: ANANT acquisition binding; financing 50/50 internal + debt</td>
+          <td><span class="tag green">ON TRACK</span></td>
+        </tr>
+        <tr>
+          <td class="mono">May '26</td>
+          <td>Gallant (bulk carrier) sale — pending shareholder approval</td>
+          <td>Divestment</td>
+          <td class="mono">FY27</td>
+          <td>FY27</td>
+          <td>Q1 FY27 call: shareholder approval done; sale expected September 2026</td>
+          <td><span class="tag green">ON TRACK</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Aug '26</td>
+          <td>ANANT: 95–98% utilization from day one</td>
+          <td>Utilization</td>
+          <td class="mono">95–98%</td>
+          <td>FY27</td>
+          <td>Too early — vessel not yet deployed</td>
+          <td><span class="tag purple">TOO EARLY</span></td>
+        </tr>
+        <tr>
+          <td class="mono">Aug '26</td>
+          <td>3–5 years of strong demand; 15–20% CAGR growth</td>
+          <td>Industry</td>
+          <td class="mono">3–5 yr bullish</td>
+          <td>FY27–FY31</td>
+          <td>Cannot be evaluated yet</td>
+          <td><span class="tag purple">TOO EARLY</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid cols-3 reveal" style="margin-top:24px;">
+    <div class="stat-card">
+      <div class="stat-label">Fulfilled / On Track</div>
+      <div class="stat-value">11</div>
+      <div class="stat-change up">61% of claims</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-label">Delayed</div>
+      <div class="stat-value">4</div>
+      <div class="stat-change down">22% of claims</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-label">Missed</div>
+      <div class="stat-value">1</div>
+      <div class="stat-change down">6% of claims</div>
+    </div>
+  </div>
+
+  <div class="callout gold reveal">
+    <p>
+      <strong>Pattern:</strong> Management's <em>operational</em> guidance — dry docks, contract signings, fleet 
+      deployment — has been highly reliable. Their <em>timeline</em> guidance on complex acquisitions (ANANT, 
+      UK office) has slipped repeatedly. The ANANT timeline has moved from "Feb 2026" → "Q1 FY27" → "Q3 FY27" 
+      across three consecutive calls.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 3 -->
+<div class="chapter-div"><div class="cd-num">03</div><div class="cd-line"></div><div class="cd-text">Q&amp;A Deep Dive</div></div>
+
+<section class="section" id="part3">
+  <div class="section-header reveal">
+    <span class="section-num">Part 03</span>
+    <h2>Questions &amp; Answers</h2>
+    <p class="lead">The most analytically important questions across four calls — with why each matters and what to watch.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Analysts asked substantive questions about day rates, ANANT timing, utilization, and cash flow. Management was candid on operating breakdowns, less clear on why ANANT kept slipping, and avoided quantifying new contract contributions. The most revealing Q&amp;A: why SWORDFISH earns USD 75k/d and ANANT only USD 45k/d — the answer is scope and risk, not market pricing.</span>
+  </div>
+
+  <!-- 1. Growth -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 01 · Growth</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: Will FY27 be a year of consolidation or growth? (Q3 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "Next year will be a year of growth. SWORDFISH full year, adding AGASTYA and ANANT, all contributing."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> This is the key guidance call. If ANANT slips into Q3 FY27, the "growth" year loses a meaningful contributor.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Q2 FY27 revenue growth; whether ANANT delivers revenue by Q3 FY27.
+    </p>
+  </div>
+
+  <!-- 2. Utilization -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 02 · Utilization</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: What are the vessel utilization levels and what should we expect FY27? (Q4 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "Utilization is almost 100%, barring off-hires which happen due to dry dock and unscheduled breakdowns. New business will improve top line by ~15%."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> "Almost 100%" is a slippery metric. On an available-vessel-day basis, actual FY26 utilization was ~63.7%. The gap is dry docks, weather, and contract gaps. Management's framing hides the operational reality.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Disclosure of deployment days in future quarters; whether the dry dock schedule is disclosed upfront.
+    </p>
+  </div>
+
+  <!-- 3. Day rates -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 03 · Day Rates</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: Why does SWORDFISH get USD 75,000/day but ANANT only USD 45,000/day? (Q3 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "SWORDFISH is a vessel with better capabilities than ANANT — carnage-wise, accommodation-wise, bigger. Rate depends on scope, vessel spec, risk perception, and market conditions at time of fixing."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> This is a rare candid answer that shows management understands rate variance. It also implies ANANT is not top-of-fleet — meaning revenue per day is capped.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Whether management can push ANANT into higher-spec scopes over time, or whether USD 45k/d is the ceiling.
+    </p>
+  </div>
+
+  <!-- 4. ANANT -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 04 · ANANT</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: Why is the ANANT acquisition taking so long when it's a transfer from parent? (Q3 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "Board approval → shareholder approval → ONGC approval. Related-party transaction because vessel is chartered by HAL to ONGC. All these situations have delayed the process."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> The answer is plausible but incomplete. A related-party transfer from parent to subsidiary should not require ONGC approval if the contract already exists. The ONGC approval is likely because the contract itself needed restructuring — a detail management did not mention.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Whether ANANT's actual revenue matches the USD 45,000/day × 4-year assumption once it deploys.
+    </p>
+  </div>
+
+  <!-- 5. Fleet expansion -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 05 · Fleet Expansion</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: Is this the right time to buy vessels when charter rates are high? (Q2 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "MSVs are highly specialized. I am the only MSV owner with a fleet in India and the biggest in Asia-Pacific. It's not up to me that these vessels are readily available. If I plan to construct, yard takes 2.5–3 years."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> This is a genuine moat argument — scarcity of supply. But it also exposes the risk: if SEAMEC is buying at peak prices, and rates normalize, the residual value of the fleet could fall.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Whether SEAMEC's acquisition cost per vessel (USD 23M for AGASTYA, USD 70M for ANANT) reflects fair value or peak-cycle pricing.
+    </p>
+  </div>
+
+  <!-- 6. Middle East -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 06 · Middle East</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: How do you see the opportunity pipeline developing in Saudi Arabia? (Q1 FY27 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "Middle East as a whole is a very good opportunity. Saudi, Qatar, Abu Dhabi all hotspots. Iran sanctions lifted would open another border. All going to be hotspots for future requirement."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> The answer is directional, not specific. No contract pipeline, no customer names beyond Aramco, no utilization forecast. Contrast with the specific language used about ONGC contracts.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Disclosed new Middle East contracts; whether SWORDFISH renews after 2027.
+    </p>
+  </div>
+
+  <!-- 7. India -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 07 · India</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: ONGC won 7 of 10 OALP-VIII blocks. Any tender pipeline? (Q3 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "These blocks will take 4–6 years to commercialize. Immediately no upside for us. But increased exploration is good for the business."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> Management is being honest — no near-term upside. But it also confirms that SEAMEC is a <em>late-cycle</em> beneficiary: exploration → development → production → IMR → SEAMEC. The current revenue base is essentially IMR on mature fields.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Whether ONGC awards more O&amp;M contracts over FY27–FY28.
+    </p>
+  </div>
+
+  <!-- 8. Margins -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 08 · Margins</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: EBITDA margin guidance — 40–42% sustainable? (Q4 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "While absolute EBITDA will always grow, depending on EPC vs IMR mix, we guide 40–42%. 1% or 2% higher depending on utilization."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> The margin band is wide enough to absorb quarterly variation. Management is signaling that Q2 FY26's 16.7% margin (bad) and Q1 FY27's 41.8% (good) are both "within" the guidance framework.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Q1 FY27 actual margin (41.8%) landed inside the band — a positive data point.
+    </p>
+  </div>
+
+  <!-- 9. Capex -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 09 · Capex</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: How is ANANT being funded? (Q3 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "AGASTYA was acquired for USD 23M in a mix of internal + debt. ANANT we are funding 50-50 internal + term loan. Term loan for 5–8 years. We are hopeful to prepay both within 3–4 years."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> Management is signaling confidence in cash generation. But "hopeful to prepay in 3–4 years" is aspirational — it depends on utilization holding. Free cash flow was negative ₹58 Cr in FY26.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Debt-equity trajectory; whether debt peaks in FY27 and declines thereafter.
+    </p>
+  </div>
+
+  <!-- 10. Cash flow -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 10 · Cash Flow</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: What will you do with surplus cash? (Q3 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "Cash generated will be used for acquiring growth assets. Whatever money is left over used for debt reduction. Today also our net debt is 0 or minus."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> The claim of "net debt zero or minus" was true as of Q3 FY26 but has since changed — the company has drawn down debt for AGASTYA and will draw more for ANANT. The forward-looking statement about FY26 net debt (₹300–400 Cr as of May 2026 call) is materially different from "zero or minus."
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> End-FY27 net debt; whether the company returns to net-cash position.
+    </p>
+  </div>
+
+  <!-- 11. Competition -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 11 · Competition</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: Are new competitors entering? (Q4 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "There are no new competitors. Demand and supply matched fairly. Foreign vessel owners, because of home turf protections, are not that keen on coming into India."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> The "no new competitors" claim is credible for India specifically. But globally, there are competitors (DOF Subsea, Subsea 7, Boskalis, TechnipFMC) with larger fleets. The relevant question is whether SEAMEC can compete for Middle East contracts against them.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Whether SEAMEC wins direct Aramco/ADNOC contracts (not just sub-contracts via HAL).
+    </p>
+  </div>
+
+  <!-- 12. Industry demand -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 12 · Industry Demand</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: How long will the favourable supply/demand last? (Q1 FY27 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "We see a strong demand for this sector for the next 3 to 5 years."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> A precise claim that can be tested. The DSV order book (2 new builds vs. ~5 retirements) supports the case. But "3–5 years" is long enough to include a full cycle — if oil prices fall sharply, demand could soften sooner.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Brent crude; global offshore capex; DSV day rate benchmarks.
+    </p>
+  </div>
+
+  <!-- 13. Customer concentration -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 13 · Customer Concentration</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: Revenue and profit sharing with Supreme Hydro? (Q4 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "Share of Supreme is around 10% into the consortium. They provide technical know-how, manuals, and some personnel."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> The O&amp;M contracts are effectively 90% SEAMEC's, worth ~₹620 Cr over 2 years. But the concentration remains: these contracts, plus almost all other SEAMEC revenue, ultimately flows from ONGC — directly or via HAL. Customer concentration is extreme.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Whether SEAMEC wins direct contracts from any non-ONGC customer in India.
+    </p>
+  </div>
+
+  <!-- 14. Risks -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 14 · Risks</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: What risks could hinder growth? (Q4 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "There is a war for 3 years, new escalation recently. One vessel stuck in Dubai. Another running in Saudi Aramco. If situation aggravates, that can be a risk. Also rupee strengthening."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> This is a straightforward, honest answer. The Strait of Hormuz closure trapped SEAMEC PALADIN in Dubai for nearly four months — an outcome that actually happened and materially affected FY26 revenue. Management correctly identified it as a risk before it manifested.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Any new geopolitical disruption; rupee/USD trajectory.
+    </p>
+  </div>
+
+  <!-- 15. Uncomfortable -->
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--red);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Topic 15 · Uncomfortable Question</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">Q: Why is the ₹1,000 Cr DG Shipping MOU not translating into specific acquisitions? (Q2 FY26 call)</div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management:</strong> "This is a MOU. The exact number of vessels, timelines, funding patterns are still being prepared."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Why it matters:</strong> A ₹1,000 Cr MOU is a significant announcement. Without a specific pipeline, it functions more as a directional signal than a commitment. The Q1 FY27 call, four months later, still had no specific vessel identified beyond ANANT.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      <strong style="color:var(--gold);">Watch:</strong> Whether any vessel acquisition is announced under this MOU by FY28.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 4 -->
+<div class="chapter-div"><div class="cd-num">04</div><div class="cd-line"></div><div class="cd-text">The ANANT Saga</div></div>
+
+<section class="section" id="part4">
+  <div class="section-header reveal">
+    <span class="section-num">Part 04</span>
+    <h2>ANANT — Timeline &amp; Credibility</h2>
+    <p class="lead">Every meaningful statement about the largest single acquisition, tracked across four calls.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>ANANT has slipped through three consecutive guidance targets: Feb 2026 → Q1 FY27 → Q3 FY27. The acquisition price (USD 70M) and day rate (USD 45,000) have been consistent. Management's explanations have evolved from "completing approvals" to "geopolitical complications with Paladin." Net: the vessel will eventually deploy, but the earnings kicker is 6+ months later than originally guided.</span>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">6<span class="nm-unit">months</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Approximate delay between management's first ANANT deployment target (1 Feb 2026) and the current 
+        target (Q3 FY27). Every month of delay is a foregone ~₹9–10 Cr of gross revenue at USD 45,000/day 
+        × 30 days × ₹83/USD.
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-date">Nov 11, 2025 · Q2 FY26 Call</div>
+      <div class="tl-title">Original Target — Deployment by 1 February 2026</div>
+      <div class="tl-desc">
+        Management: "Our plan is to mobilize it by 1st of Feb. And that is what is also part of our financial budget and we are looking forward to meet the timelines." Shareholder approval for the RPT transaction concluded 31 October 2025. Day rate and duration confirmed: USD 45,000/day, 4-year ONGC contract.
+      </div>
+      <div class="tl-meta"><span class="tag green">Target: 1 Feb 2026</span><span class="tag gold">USD 45,000/d</span><span class="tag blue">4-year ONGC</span></div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">Feb 2, 2026 · Q3 FY26 Call</div>
+      <div class="tl-title">Target Slipped to Q1 FY27 — Approvals Cited</div>
+      <div class="tl-desc">
+        Management: "We are hopeful to complete this acquisition within this financial year, and the vessel will be deployed in Q1 FY '27." Reasons: Board approval, shareholder approval, ONGC approval for related-party transaction. No specific date provided.
+      </div>
+      <div class="tl-meta"><span class="tag gold">Target: Q1 FY27</span><span class="tag red">Slipped</span></div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">May 19, 2026 · Q4 FY26 Call</div>
+      <div class="tl-title">Further Slip — Now "One More Quarter"</div>
+      <div class="tl-desc">
+        Management: "We see one more quarter maybe by the time ANANT will come to our fleet." Reasons cited: Paladin is not in operations, and if ANANT movement happens, ONGC will not permit another vessel to go out of field. "There are some more complications."
+      </div>
+      <div class="tl-meta"><span class="tag gold">Target: Q2 FY27</span><span class="tag red">Further slip</span></div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">Aug 14, 2026 · Q1 FY27 Call</div>
+      <div class="tl-title">Binding Agreement Signed — Deployment Now Q3 FY27</div>
+      <div class="tl-desc">
+        Management: "Seamec ANANT is going to be acquired sometime during end of this month... binding agreement between HAL Offshore and Seamec. USD 70 million purchase consideration. Financed through internal equity and loans, 50-50%. There will be a cooling-off period for completing statutory formalities — around a month. After that, immediately it will resume the contract." Deployment target: Q3 FY27. Utilization: 95–98%.
+      </div>
+      <div class="tl-meta"><span class="tag red">Target: Q3 FY27</span><span class="tag green">USD 70M</span><span class="tag blue">50/50 Funding</span><span class="tag purple">95-98% Util Target</span></div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--accent);">Consistency of Economics</h3>
+      <div class="kv-grid">
+        <div class="kv-item"><div class="kv-key">Purchase Price</div><div class="kv-val" style="color:var(--gold);">USD 70M · ₹580 Cr</div></div>
+        <div class="kv-item"><div class="kv-key">Day Rate</div><div class="kv-val" style="color:var(--accent);">USD 45,000/d</div></div>
+        <div class="kv-item"><div class="kv-key">Contract Duration</div><div class="kv-val">4 years</div></div>
+        <div class="kv-item"><div class="kv-key">Client</div><div class="kv-val">ONGC via HAL</div></div>
+        <div class="kv-item"><div class="kv-key">Financing</div><div class="kv-val">50% Internal + 50% Debt</div></div>
+        <div class="kv-item"><div class="kv-key">Statutory Cooling-Off</div><div class="kv-val">~1 month</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--gold);">Does Management Appear Realistic?</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
+        <strong style="color:var(--accent);">Positives:</strong> Economics have been consistent (USD 70M, USD 45k/d, 4-year). Financing structure unchanged (50-50). Management has been transparent about ONGC approval being a gating factor.
+      </p>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+        <strong style="color:var(--red);">Negatives:</strong> Three consecutive timeline revisions. The explanation for delay has changed form (approvals → complications → statutory cooling-off). At no point did management explain <em>why</em> a related-party transfer from parent to subsidiary needed shareholder approval twice.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout reveal">
+    <p>
+      <strong>Analyst view:</strong> The ANANT deal will likely close, and the vessel will likely deploy by 
+      Q3 FY27 or Q4 FY27. But the pattern of timeline slippage on a controlled, related-party transaction 
+      is a credibility deduction. When ANANT actually deploys and its quarterly revenue contribution is 
+      disclosed, that will be the moment to re-evaluate management's timeline forecasting.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 5 -->
+<div class="chapter-div"><div class="cd-num">05</div><div class="cd-line"></div><div class="cd-text">Utilization Reality Check</div></div>
+
+<section class="section" id="part5">
+  <div class="section-header reveal">
+    <span class="section-num">Part 05</span>
+    <h2>Utilization — Is 95–98% Realistic?</h2>
+    <p class="lead">Management claims "almost 100%" utilization. FY26 actuals suggest ~64% blended. Where is the truth?</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Management's "almost 100% utilization" refers to <em>on-hire</em> days when the vessel is available — it excludes dry dock, transit, and monsoon-idle periods. On an available-vessel-day basis, FY26 utilization was ~63.7%. The 95–98% target for ANANT is <span class="tag gold">aggressive</span>, not impossible, but requires no major dry dock, no breakdown, and a clean monsoon.</span>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">63.7<span class="nm-unit">%</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        Blended utilization on an available-vessel-day basis in FY26. Computed as 1,859 deployment days ÷ 
+        (8 vessels × 365 days = 2,920 available days). This is the metric that should be compared across 
+        periods — not management's "almost 100%."
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container reveal">
+    <div class="chart-title">📊 Vessel Utilization — FY2025-26 Actuals <span class="chart-badge">% of 365 days</span></div>
+    <div class="bar-chart">
+      <div class="bar-item"><div class="bar-label">SEAMEC DIAMOND</div><div class="bar-track"><div class="bar-fill" data-width="87.1%"></div></div><div class="bar-value">318d<span class="pct">87.1%</span></div></div>
+      <div class="bar-item"><div class="bar-label">SEAMEC PALADIN</div><div class="bar-track"><div class="bar-fill" data-width="78.1%"></div></div><div class="bar-value">285d<span class="pct">78.1%</span></div></div>
+      <div class="bar-item"><div class="bar-label">SEAMEC II</div><div class="bar-track"><div class="bar-fill" data-width="76.4%"></div></div><div class="bar-value">279d<span class="pct">76.4%</span></div></div>
+      <div class="bar-item"><div class="bar-label">SEAMEC PRINCESS</div><div class="bar-track"><div class="bar-fill" data-width="76.2%"></div></div><div class="bar-value">278d<span class="pct">76.2%</span></div></div>
+      <div class="bar-item"><div class="bar-label">SEAMEC III</div><div class="bar-track"><div class="bar-fill gold" data-width="60.5%"></div></div><div class="bar-value">221d<span class="pct">60.5%</span></div></div>
+      <div class="bar-item"><div class="bar-label">SEAMEC SWORDFISH</div><div class="bar-track"><div class="bar-fill gold" data-width="57.8%"></div></div><div class="bar-value">211d<span class="pct">57.8%</span></div></div>
+      <div class="bar-item"><div class="bar-label">SEAMEC GLORIOUS</div><div class="bar-track"><div class="bar-fill gold" data-width="50.1%"></div></div><div class="bar-value">183d<span class="pct">50.1%</span></div></div>
+      <div class="bar-item"><div class="bar-label">SEAMEC AGASTYA</div><div class="bar-track"><div class="bar-fill red" data-width="23.0%"></div></div><div class="bar-value">84d<span class="pct neg">23.0%</span></div></div>
+    </div>
+    <p style="font-size:11.5px;color:var(--text-muted);margin-top:16px;">
+      Note: Blended utilization (weighted by vessel count and days available) = 1,859 ÷ 2,920 = 63.7%.
+    </p>
+  </div>
+
+  <div class="card-grid cols-3 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--accent);">Why Management Says "Almost 100%"</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        Management is counting <em>on-hire days</em> — days the vessel is physically deployed under a contract. 
+        When a vessel is on-hire, it is typically running 24/7. So within its contracted window, utilization 
+        does approach 100%. This is a valid operational metric, but not what drives revenue.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--gold);">Why Actual Utilization Is ~64%</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        The gaps are: (1) dry dock days (regulatory surveys, ~60–90 days per vessel per 2.5 years), 
+        (2) monsoon season idle for EPC-contracted vessels (May–October), (3) transit time to/from fields, 
+        (4) unscheduled breakdowns, (5) contract changeover gaps. FY26 included AGASTYA's ramp-up 
+        and Paladin's Dubai situation.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--red);">Is 95–98% Realistic for ANANT?</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">
+        <strong style="color:var(--red);">Aggressive.</strong> On IMR contracts, on-hire utilization can reach 95%+ if 
+        no major breakdown or dry dock interrupts. But that leaves no cushion. The moment ANANT needs 
+        its first dry dock (likely FY29–FY30), utilization will drop for 60–90 days.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout gold reveal">
+    <p>
+      <strong>What to watch:</strong> When ANANT deploys, track its <em>on-hire days per quarter</em> versus 
+      available days. If ANANT delivers 85+ deployment days per quarter consistently (out of ~90), 
+      management's 95–98% claim is validated. If it's 75–80 days, that's more realistic — and should be 
+      modeled accordingly.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 6 -->
+<div class="chapter-div"><div class="cd-num">06</div><div class="cd-line"></div><div class="cd-text">Margin Sustainability</div></div>
+
+<section class="section" id="part6">
+  <div class="section-header reveal">
+    <span class="section-num">Part 06</span>
+    <h2>Margin Guidance — 40–42% EBITDA</h2>
+    <p class="lead">What drives margins? Are they sustainable? What is the sensitivity to utilization and day rates?</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Management guides 40–42% EBITDA margins as an annual average, varying quarterly by ±2–3% depending on EPC/IMR mix and dry dock schedule. FY26 actual: 44.7%. Q1 FY27: 41.8%. Margins are structurally high because DSV costs are largely fixed and day rates are USD-denominated. The biggest risk is utilization — a 500 bps drop in utilization could cut EBITDA margin by ~7–8%.</span>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">44.7<span class="nm-unit">%</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        FY26 consolidated EBITDA margin — well above management's guided 40–42% band. FY25 was 35.8%. 
+        The 890 bps expansion came from higher day rates, more IMR mix, and the AGASTYA/SWORDFISH additions.
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container reveal">
+    <div class="chart-title">📊 Margin Trajectory — Quarterly &amp; Annual <span class="chart-badge">% EBITDA margin</span></div>
+    <div class="bar-chart">
+      <div class="bar-item"><div class="bar-label">Q2 FY26 (bad)</div><div class="bar-track"><div class="bar-fill red" data-width="16.7%"></div></div><div class="bar-value">16.7%<span class="pct neg">SWORDFISH breakdown</span></div></div>
+      <div class="bar-item"><div class="bar-label">Q3 FY26 (peak)</div><div class="bar-track"><div class="bar-fill" data-width="45.3%"></div></div><div class="bar-value">45.3%<span class="pct">₹150 Cr EBITDA</span></div></div>
+      <div class="bar-item"><div class="bar-label">Q4 FY26 (strong)</div><div class="bar-track"><div class="bar-fill" data-width="49.1%"></div></div><div class="bar-value">49.1%<span class="pct">₹162 Cr EBITDA</span></div></div>
+      <div class="bar-item"><div class="bar-label">FY26 (annual)</div><div class="bar-track"><div class="bar-fill" data-width="44.7%"></div></div><div class="bar-value">44.7%<span class="pct">₹447 Cr EBITDA</span></div></div>
+      <div class="bar-item"><div class="bar-label">Q1 FY27</div><div class="bar-track"><div class="bar-fill blue" data-width="41.8%"></div></div><div class="bar-value">41.8%<span class="pct">₹124 Cr EBITDA</span></div></div>
+      <div class="bar-item"><div class="bar-label">Guidance FY27</div><div class="bar-track"><div class="bar-fill gold" data-width="41.0%"></div></div><div class="bar-value">40–42%<span class="pct">Management band</span></div></div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-3 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--accent);">What Drives the Margins?</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">1</span> <strong style="color:var(--text-primary);">IMR mix shift</strong> — replacing EPC with IMR contracts (higher margin, higher utilization)</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">2</span> <strong style="color:var(--text-primary);">Fleet rejuvenation</strong> — newer vessels = lower repairs, better fuel efficiency, higher day rates</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">3</span> <strong style="color:var(--text-primary);">USD denomination</strong> — Rupee depreciation adds to reported margins</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">4</span> <strong style="color:var(--text-primary);">Fixed cost base</strong> — crew, insurance, depreciation are largely sunk regardless of utilization</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--gold);">Are They Sustainable?</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+        <strong style="color:var(--accent);">Yes — with caveats.</strong> The 40–42% band is achievable if:
+      </p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> Day rates hold at USD 25k–45k for existing contracts</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> Utilisation stays above 60% blended</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> Rupee stays around 83–88/USD</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> No major uninsured breakdowns (SWORDFISH-type events)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:10px;color:var(--red);">What Would Break Them?</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">↓</span> <strong style="color:var(--text-primary);">Day rates fall</strong> — sharp oil price decline; excess global DSV capacity</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">↓</span> <strong style="color:var(--text-primary);">Utilization falls</strong> — extended dry docks; monsoon disruptions; contract gaps</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">↓</span> <strong style="color:var(--text-primary);">Cost inflation</strong> — crew wages, insurance, fuel</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">↓</span> <strong style="color:var(--text-primary);">Rupee strengthens</strong> — cuts reported revenue in INR terms</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="chart-container reveal" style="margin-top:24px;">
+    <div class="chart-title">📉 Sensitivity — Which Variable Hurts Most?</div>
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead><tr><th>Scenario</th><th>Revenue Change</th><th>EBITDA Margin</th><th>EBITDA (₹ Cr)</th><th>vs. Base</th></tr></thead>
+        <tbody>
+          <tr><td>Base FY26 actual</td><td class="mono">₹1,000 Cr</td><td class="mono up">44.7%</td><td class="mono">447</td><td class="mono flat">—</td></tr>
+          <tr><td>Utilisation −10%</td><td class="mono down">₹900 Cr</td><td class="mono down">41.0%</td><td class="mono down">369</td><td class="mono down">−17.4%</td></tr>
+          <tr><td>Day rate −10%</td><td class="mono down">₹900 Cr</td><td class="mono down">38.5%</td><td class="mono down">347</td><td class="mono down">−22.4%</td></tr>
+          <tr><td>Utilisation −20%</td><td class="mono down">₹800 Cr</td><td class="mono down">37.0%</td><td class="mono down">296</td><td class="mono down">−33.8%</td></tr>
+          <tr><td>Day rate −20%</td><td class="mono down">₹800 Cr</td><td class="mono down">32.5%</td><td class="mono down">260</td><td class="mono down">−41.8%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11.5px;color:var(--text-muted);margin-top:14px;">
+      <strong style="color:var(--gold);">Key insight:</strong> Day rate reductions hurt EBITDA more than utilization drops, 
+      because day rate flows directly to margin. Utilization reductions hurt less because costs partially scale down 
+      (fuel, provisions). But both variables are dangerous — a combined 10% drop in each would cut EBITDA by ~35%.
+    </p>
+  </div>
+
+  <div class="callout gold reveal">
+    <p>
+      <strong>What to watch:</strong> The single most important variable is day rate. If the DSV market tightens 
+      further (fewer vessels, more demand), SEAMEC can push rates higher. If the market eases, margins compress 
+      rapidly. Currently, management's 3–5 year bullish call is the anchor of the margin thesis.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 7 -->
+<div class="chapter-div"><div class="cd-num">07</div><div class="cd-line"></div><div class="cd-text">Middle East &amp; Global</div></div>
+
+<section class="section" id="part7">
+  <div class="section-header reveal">
+    <span class="section-num">Part 07</span>
+    <h2>Middle East — Real Moat or Just a Big Market?</h2>
+    <p class="lead">Every management statement about Saudi, Qatar, Abu Dhabi, and the Middle East opportunity.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>SEAMEC has one vessel in Saudi Arabia (SWORDFISH at USD 75,000/day, 2-year contract from Aug 2025). Management calls the Middle East a "hotspot" alongside Qatar and Abu Dhabi, and mentions Iran sanctions lifting as a future catalyst. But there is no disclosed pipeline of specific contracts beyond SWORDFISH, and management admits all vessels are currently deployed — meaning any Middle East growth requires new capex, not just redeployment.</span>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">1<span class="nm-unit">vessel</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        SEAMEC's current Middle East presence — SWORDFISH in Saudi Arabia, contracted to Safeen Al Behar. 
+        All other vessels are deployed in India (mostly ONGC). Middle East revenue is ~10–15% of total 
+        (management's own estimate on Q4 FY26 call).
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr><th>Country</th><th>Contract Status</th><th>Customer</th><th>Vessel</th><th>Day Rate</th><th>Duration</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Saudi Arabia</strong></td><td><span class="tag green">Active</span></td><td>Safeen Al Behar (end-client: Aramco)</td><td>SEAMEC SWORDFISH</td><td class="mono up">USD 75,000/d</td><td>2 years from Aug 2025</td></tr>
+        <tr><td><strong>UAE / Dubai</strong></td><td><span class="tag gold">Just returned</span></td><td>—</td><td>SEAMEC PALADIN (dry dock)</td><td class="mono">—</td><td>Returned Q1 FY27</td></tr>
+        <tr><td><strong>Qatar</strong></td><td><span class="tag blue">Mentioned only</span></td><td>Not disclosed</td><td>—</td><td class="mono">—</td><td>—</td></tr>
+        <tr><td><strong>Abu Dhabi</strong></td><td><span class="tag blue">Mentioned only</span></td><td>Not disclosed</td><td>—</td><td class="mono">—</td><td>—</td></tr>
+        <tr><td><strong>Iran</strong></td><td><span class="tag purple">Potential (sanctions)</span></td><td>Not disclosed</td><td>—</td><td class="mono">—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--accent);">What Management Says</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span> "Middle East remains a key growth market" (Q1 FY27 call)</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span> "Saudi Arabia is strategically important; Qatar and Abu Dhabi hotspots" (Q1 FY27 call)</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span> "Client and end-client are quite happy with our product delivery" (Q4 FY26 call)</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">→</span> "Once Iran sanctions are lifted, another new border opens up" (Q1 FY27 call)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--gold);">What the Evidence Actually Supports</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">✓</span> One vessel (SWORDFISH) is actually deployed in Saudi Arabia</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">✓</span> The contract is 2 years — provides revenue visibility through Aug 2027</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">✗</span> No specific pipeline disclosed for Qatar or Abu Dhabi</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">✗</span> All vessels currently deployed — growth in ME requires new capex</li>
+        <li style="padding-left:20px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">✗</span> Management has not disclosed new ME customers beyond Safeen</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout gold reveal">
+    <p>
+      <strong>Analyst view:</strong> SEAMEC's Middle East position is <em>emerging</em>, not established. 
+      One vessel on one contract is a beachhead, not a moat. Management's optimistic language ("hotspot," 
+      "key growth market") is directionally reasonable but not yet validated by contract wins. The next 
+      data point to watch: <strong>whether SWORDFISH renews in Aug 2027, and whether any additional ME contract 
+      is announced before then.</strong>
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 8 -->
+<div class="chapter-div"><div class="cd-num">08</div><div class="cd-line"></div><div class="cd-text">Industry — Claims vs Implications</div></div>
+
+<section class="section" id="part8">
+  <div class="section-header reveal">
+    <span class="section-num">Part 08</span>
+    <h2>Industry Commentary — What Management Says vs What It Implies</h2>
+    <p class="lead">Deconstructing management's industry claims into their economic implications.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Management's industry thesis — DSV scarcity, no new builds, ageing fleet, rising IMR demand — is broadly credible. But their bullishness on oil prices and offshore spending is directional, not data-supported. The most important unstated implication: SEAMEC's revenue growth is bounded by <em>available vessels</em>, not market demand.</span>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead><tr><th>Management Statement</th><th>Source</th><th>What It Implies</th><th>Testability</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>"Only 58 high-spec DSVs globally, only 2 new builds under construction, mid-single-digit retirements over 3 years"</td>
+          <td class="mono">Q2 FY26</td>
+          <td>Structurally tight market; day rates should rise or hold. If true, SEAMEC is a beneficiary.</td>
+          <td><span class="tag green">Verifiable</span></td>
+        </tr>
+        <tr>
+          <td>"Demand above 100M bpd until 2040" (citing ADNOC CEO)</td>
+          <td class="mono">Q3 FY26</td>
+          <td>Long-cycle demand for offshore services. Supports multi-year capex thesis.</td>
+          <td><span class="tag gold">Directional</span></td>
+        </tr>
+        <tr>
+          <td>"India's crude import dependency makes domestic energy expansion economically critical"</td>
+          <td class="mono">Q4 FY26</td>
+          <td>ONGC will keep spending on IMR regardless of oil price. SEAMEC's domestic base is resilient.</td>
+          <td><span class="tag green">Directional</span></td>
+        </tr>
+        <tr>
+          <td>"New MSV takes 2.5–3 years to construct"</td>
+          <td class="mono">Q2 FY26</td>
+          <td>New supply cannot respond quickly to demand spike. Day rates have room to remain elevated.</td>
+          <td><span class="tag green">Verifiable</span></td>
+        </tr>
+        <tr>
+          <td>"Foreign vessel owners not keen on India due to home turf protections"</td>
+          <td class="mono">Q1 FY27</td>
+          <td>SEAMEC's India position is partially protected. Competition is primarily domestic.</td>
+          <td><span class="tag gold">Directional</span></td>
+        </tr>
+        <tr>
+          <td>"We see strong demand for 3–5 years"</td>
+          <td class="mono">Q1 FY27</td>
+          <td>Multi-year capex commitment justified. But "3–5 years" is long enough to include a cycle reversal.</td>
+          <td><span class="tag gold">Directional</span></td>
+        </tr>
+        <tr>
+          <td>"No new competitors entering; demand and supply matched fairly"</td>
+          <td class="mono">Q4 FY26</td>
+          <td>Suggests pricing power remains with incumbents. But "fairly matched" is a soft equilibrium.</td>
+          <td><span class="tag gold">Directional</span></td>
+        </tr>
+        <tr>
+          <td>"Once Iran sanctions lifted, another border opens up"</td>
+          <td class="mono">Q1 FY27</td>
+          <td>Optionality. Not currently priced in. Could be a meaningful upside surprise if it happens.</td>
+          <td><span class="tag purple">Speculative</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid cols-2 reveal" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--accent);">The Unstated Implication</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+        Management repeatedly says "all vessels are deployed" — meaning SEAMEC's <em>revenue growth is bounded by 
+        available vessels</em>, not by market demand. This is why every growth conversation returns to fleet additions. 
+        If management's 3–5 year bullishness is correct, the constraint is <strong style="color:var(--text-primary);">how 
+        quickly SEAMEC can add vessels, not whether demand exists</strong>. That reframes the investment case: it is a 
+        capital deployment story, not a demand-cyclical story.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--gold);">The Unstated Risk</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+        If SEAMEC <em>is</em> supply-constrained (not demand-constrained), then its growth ceiling is determined 
+        by access to vessels. ANANT is one vessel; the ₹1,000 Cr DG Shipping MOU implies 2–3 more over 2–3 years. 
+        Any failure to acquire additional vessels — high prices, geopolitical disruption, or regulatory barriers — 
+        <strong style="color:var(--text-primary);">directly caps SEAMEC's growth</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 9 -->
+<div class="chapter-div"><div class="cd-num">09</div><div class="cd-line"></div><div class="cd-text">Competition &amp; Moats</div></div>
+
+<section class="section" id="part9">
+  <div class="section-header reveal">
+    <span class="section-num">Part 09</span>
+    <h2>Competition — What Management Claims vs What's True</h2>
+    <p class="lead">Every mention of competitors and differentiation, challenged.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Management claims: (1) "No new competitors" in India, (2) "I am the only MSV owner in India and biggest in Asia-Pacific," and (3) foreign players aren't keen on India. The first two are largely credible. The third is directionally true but doesn't apply globally — in the Middle East, SEAMEC competes against Boskalis, Subsea 7, and DOF Subsea, with smaller scale and a shorter Middle East track record.</span>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">0.9<span class="nm-unit">%</span></div>
+    <div class="nm-content">
+      <div class="nm-label">The Number That Matters</div>
+      <div class="nm-text">
+        SEAMEC's estimated share of the global high-spec DSV fleet (8 of ~58 vessels including managed). 
+        This is a niche player globally — but the largest in India, which is a market with structural barriers 
+        to entry.
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-2 reveal">
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--accent);">Management's Claim #1 — No New Competitors</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:12px;">
+        <strong style="color:var(--text-primary);">Claim:</strong> "There are no new competitors. Demand and supply matched fairly. Foreign vessel owners not keen on coming into India." (Q4 FY26 &amp; Q1 FY27 calls)
+      </p>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;">
+        <strong style="color:var(--gold);">Analyst view:</strong> <span class="tag green">Partially credible.</span> New entrants to DSV operations in India face regulatory barriers (DG Shipping certification, ONGC pre-qualification, port infrastructure). But this doesn't mean SEAMEC is unchallenged — existing operators like Supreme Hydro (SEAMEC's consortium partner) and other smaller Indian players compete for the same contracts.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--gold);">Management's Claim #2 — Only MSV Owner in India</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:12px;">
+        <strong style="color:var(--text-primary);">Claim:</strong> "I am the only multi-support vessel owner with a fleet in India and the biggest in Asia-Pacific." (Q2 FY26 call)
+      </p>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;">
+        <strong style="color:var(--gold);">Analyst view:</strong> <span class="tag green">Credible within India.</span> For high-spec MSVs capable of saturation diving and ROV operations, SEAMEC's 6 MSVs constitute the largest Indian-owned fleet. Globally, however, Boskalis (Netherlands), Subsea 7 (UK/Norway), and DOF Subsea (Norway) have larger fleets.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--blue);">Management's Claim #3 — Foreign Players Not Interested</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:12px;">
+        <strong style="color:var(--text-primary);">Claim:</strong> Foreign vessel owners are not keen on India due to home turf protections. (Q1 FY27 call)
+      </p>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;">
+        <strong style="color:var(--gold);">Analyst view:</strong> <span class="tag gold">True but not relevant globally.</span> Foreign players may not target India specifically — but they absolutely compete for Middle East, North Sea, and West Africa contracts. In Saudi Arabia, SEAMEC competes against their scale and reputation.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:14px;color:var(--red);">The Unaddressed Threat</h3>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;">
+        Management has <em>not</em> addressed the most important competitive question: <strong style="color:var(--text-primary);">why would ONGC or Aramco pick SEAMEC over a larger global player?</strong> The answer is likely price and nimbleness for smaller scopes — but that's a lower-margin position. If SEAMEC is competing on price for smaller contracts, its day rates are capped.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout reveal">
+    <p>
+      <strong>What to watch:</strong> Whether SEAMEC's contract wins in the Middle East are on competitive day-rate terms or at a discount to global benchmarks. If SWORDFISH's USD 75,000/day is representative, SEAMEC is a viable competitor. If it's below USD 60,000/day, SEAMEC may be winning on price rather than capability.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 10 -->
+<div class="chapter-div"><div class="cd-num">10</div><div class="cd-line"></div><div class="cd-text">Hard Questions</div></div>
+
+<section class="section" id="part10">
+  <div class="section-header reveal">
+    <span class="section-num">Part 10</span>
+    <h2>Uncomfortable Questions Analysts Asked</h2>
+    <p class="lead">The questions management would rather not have been asked — and whether their answers hold up.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>Analysts asked pointed questions on: (1) why SWORDFISH was deployed only 22 days in Q2 FY26 despite a 2-year contract starting in May, (2) why Glorious day rate dropped from USD 75k to ~USD 22k, (3) why employee costs rose 25% with flat revenue, and (4) why ANANT keeps slipping. Management answered three well and one poorly.</span>
+  </div>
+
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--red);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Hard Q #1 · Q2 FY26 · Nov 2025</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">
+      "SWORDFISH was supposed to start May 2022... the contract is 730 days... Why did you just deploy it from August?"
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management answer (Vinay Agarwal):</strong> "Due to certain visa restrictions by Saudi government, we could not deploy until July. Then after operational issues, there was a huge line-up of visa seekers. Finally deployed effective August 2025."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Did it hold up?</strong> <span class="tag gold">Mostly.</span> The visa issue was real and specific, and management had flagged it in prior calls. But the answer glossed over the SWORDFISH breakdown — the vessel was deployed in mid-August, went off-hire after 3–4 days, then resumed mid-September. Effective deployment was only 22 days out of 90. Management's answer here attributed the low deployment to visa issues alone.
+    </p>
+    <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;">
+      <strong style="color:var(--gold);">The real number:</strong> 22 deployment days vs. 90 available = 24.4% utilization in Q2 FY26 — the single worst quarter in the fiscal year.
+    </p>
+  </div>
+
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--red);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Hard Q #2 · Q2 FY26 · Nov 2025</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">
+      "The barge day rate was US$75,000 last year but US$22,000 this time. Why such a big drop?"
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management answer (Vinay Agarwal):</strong> "The contracts are not comparable. Earlier, with ONGC, the scope included diving services — incurring huge costs. This contract with L&amp;T is barge-only with crew. That's the difference."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Did it hold up?</strong> <span class="tag green">Yes.</span> This was a clear, honest answer that differentiated scope of work. It also revealed a hidden risk: SEAMEC's revenue per day is scope-dependent, not just day-rate-dependent. Future contracts need to be evaluated on total revenue and margin, not headline day rate.
+    </p>
+  </div>
+
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--red);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Hard Q #3 · Q2 FY26 · Nov 2025</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">
+      "Employee cost is up 25% YoY while revenue is flat. Why?"
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management answer (Vinay Agarwal):</strong> "Crew was deployed on SWORDFISH even when it wasn't earning revenue. When you compare revenue, there's no growth, but the vessel is up and running from a crew perspective. So crew costs were incurred."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Did it hold up?</strong> <span class="tag green">Yes.</span> Direct, transparent explanation. Management acknowledged the cost overhang of a vessel that isn't earning. This shows the downside of the fixed-cost model: when a vessel breaks down, the crew costs continue.
+    </p>
+  </div>
+
+  <div class="card reveal" style="margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--red);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Hard Q #4 · Q3 FY26 · Feb 2026</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">
+      "Why is the acquisition of ANANT taking so long when it's just a transfer from your parent company?"
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management answer (Sunil Gupta):</strong> "Board approval, shareholder approval, ONGC approval. Related-party transaction because vessel is chartered by HAL to ONGC. All these situations delayed the process."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Did it hold up?</strong> <span class="tag red">Poorly.</span> This is the weakest answer across all four calls. A related-party transfer from parent to subsidiary should not require multiple rounds of shareholder approval — unless the transaction structure itself is complex. The ONGC approval is likely because the contract needed restructuring, but management did not explain this. The subsequent Q4 FY26 and Q1 FY27 calls introduced new explanations ("complications", "statutory cooling-off") rather than clarifying.
+    </p>
+  </div>
+
+  <div class="card reveal">
+    <div style="font-size:11px;color:var(--red);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Hard Q #5 · Q4 FY26 · May 2026</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">
+      "Q3 margins were peak, you cautioned us, but Q4 was even higher. Is there a one-off in Q4?"
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+      <strong style="color:var(--text-primary);">Management answer (Sunil Gupta):</strong> "No one-off in Q4. When we cautioned in Q3, that actually happened — Paladin has not operated for Q4. Depending on dry dock schedule and contract mix, margin may vary by 2–3%. But we will maintain 40–42%."
+    </p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <strong style="color:var(--text-primary);">Did it hold up?</strong> <span class="tag green">Yes.</span> Management explained the Q3 vs Q4 dynamic honestly. The Q3 peak was driven by exceptional deployment; Q4 sustained strong margins because of IMR mix despite no Paladin. This establishes credibility on margin dynamics.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 11 -->
+<div class="chapter-div"><div class="cd-num">11</div><div class="cd-line"></div><div class="cd-text">Credibility Scorecard</div></div>
+
+<section class="section" id="part11">
+  <div class="section-header reveal">
+    <span class="section-num">Part 11</span>
+    <h2>Management Credibility Scorecard</h2>
+    <p class="lead">Scored 1–10 across 8 dimensions, with evidence from the four calls.</p>
+  </div>
+
+  <div class="tldr reveal">
+    <span class="tldr-label">TL;DR</span>
+    <span>SEAMEC's management scores <strong>7.6 / 10</strong> on average. Strengths: operational disclosure, handling difficult questions, and consistency between calls and results. Weaknesses: timeline forecasting (especially on ANANT), capital allocation discipline (₹367 Cr financial investments alongside new debt), and transparency on related-party transactions.</span>
+  </div>
+
+  <div class="card-grid cols-2 reveal">
+    <div class="stat-card">
+      <div class="stat-label">1 · Guidance Accuracy</div>
+      <div class="stat-value">6<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">Operational guidance (dry docks, contracts) reliable; timeline guidance consistently slips. ANANT: 3 revisions.</p>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">2 · Transparency</div>
+      <div class="stat-value">7<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">Candid on breakdowns, cost overruns, and margin dynamics. Less clear on related-party economics and why ANANT slipped.</p>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-label">3 · Capital Allocation</div>
+      <div class="stat-value">6.5<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">Fleet rejuvenation is value-creating; but ₹367 Cr in financial investments alongside ₹353 Cr of debt is a questionable balance-sheet choice.</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">4 · Operational Execution</div>
+      <div class="stat-value">8<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">AGASTYA deployed on time; SWORDFISH recovered quickly; Glorious upgraded and chartered. Strong execution on operations.</p>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">5 · Financial Discipline</div>
+      <div class="stat-value">7.5<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">Debt-equity of 27% is prudent. Financing ANANT 50/50 with internal + debt avoids over-leverage. But FCF was negative FY26.</p>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-label">6 · Communication Quality</div>
+      <div class="stat-value">8.5<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">Management answers are substantive, use specific numbers, and don't hide behind jargon. The SWORDFISH rate disclosure is a good example.</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">7 · Handling Difficult Questions</div>
+      <div class="stat-value">8<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">Direct answers to breakdowns, crew costs, and margin caution. Weaker on ANANT delay explanations.</p>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">8 · Consistency (Calls ↔ AR)</div>
+      <div class="stat-value">8<span class="unit">/10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">Concall numbers match annual report figures. Day rates, contract values, and utilization metrics align across sources.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal">
+    <h3>📊 Overall Score: 7.6 / 10</h3>
+    <p>
+      SEAMEC's management is <strong>above average for a mid-cap Indian company</strong> on communication and 
+      operational transparency. The main credibility gaps are on <strong>timeline forecasting</strong> and 
+      <strong>related-party economics</strong> — neither of which is fatal, but both of which warrant continued scrutiny. 
+      The next credibility test is the ANANT deployment: if it delivers by Q3 FY27 as guided, management's score 
+      rises; if it slips again, the deduction compounds.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PART 12 -->
+<div class="chapter-div"><div class="cd-num">12</div><div class="cd-line"></div><div class="cd-text">The Narrative</div></div>
+
+<section class="section" id="part12">
+  <div class="section-header reveal">
+    <span class="section-num">Part 12</span>
+    <h2>The Management Narrative</h2>
+    <p class="lead">The story management wants investors to believe, tested against the evidence.</p>
+  </div>
+
+  <div class="card-grid cols-2 reveal">
+    <div class="card" style="border-color:rgba(0,229,184,.25);">
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--accent);">📖 The Story They Want You to Believe</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+        "SEAMEC is a structural beneficiary of a <strong>supply-constrained DSV market</strong> — 58 vessels globally, 
+        only 2 new builds, and mid-single-digit retirements. As brownfield IMR demand rises in India and the 
+        Middle East, day rates will stay elevated for 3–5 years. We have the largest MSV fleet in India and 
+        an established relationship with ONGC. Our new vessels (AGASTYA, SWORDFISH, ANANT) will compound revenue 
+        at 15–20% with 40–42% EBITDA margins, funded from internal accruals, while maintaining a healthy balance sheet."
+      </p>
+    </div>
+    <div class="card" style="border-color:rgba(74,158,255,.25);">
+      <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--blue);">🔍 What Evidence Supports</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--text-secondary);">
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> FY26 revenue +47%, PAT +110% — the operating leverage is real</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> AGASTYA deployed on time; SWORDFISH recovered; Glorious chartered</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> Day rates confirmed (AGASTYA USD 25k, ANANT USD 45k, SWORDFISH USD 75k)</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> O&amp;M contracts (₹620 Cr) provide visible revenue to March 2028</li>
+        <li style="padding-left:18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">✓</span> Debt-equity 27% is manageable; no near-term solvency risk</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:20px;border-color:rgba(245,185,66,.25);">
+    <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--gold);">⚠️ Parts of the Story That Remain Unproven</h3>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text-secondary);">
+      <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">?</span> <strong style="color:var(--text-primary);">DSV day rates sustaining 3–5 years</strong> — depends on global offshore capex; unverified</li>
+      <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">?</span> <strong style="color:var(--text-primary);">ANANT delivering 95–98% utilization</strong> — claim not yet testable; ANANT not deployed</li>
+      <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">?</span> <strong style="color:var(--text-primary);">Middle East expansion beyond SWORDFISH</strong> — no specific pipeline disclosed</li>
+      <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">?</span> <strong style="color:var(--text-primary);">₹1,000 Cr DG Shipping MOU</strong> — no specific vessels identified beyond ANANT</li>
+      <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">?</span> <strong style="color:var(--text-primary);">Free cash flow turning positive</strong> — was -₹58 Cr in FY26; depends on capex slowing</li>
+      <li style="padding-left:22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">?</span> <strong style="color:var(--text-primary);">Related-party pricing fairness</strong> — ANANT bought from parent at USD 70M; not independently benchmarked</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box reveal">
+    <h3>🔍 The 10 Things to Verify Over the Next 4–8 Quarters</h3>
+    <ol class="num-list" style="font-size:13px;">
+      <li><strong>ANANT deployment date</strong> — Does it actually happen in Q3 FY27?</li>
+      <li><strong>ANANT quarterly revenue</strong> — Does it match the ~₹28 Cr/quarter at USD 45k/d × 90 days?</li>
+      <li><strong>SWORDFISH renewal</strong> — Does the Saudi contract renew in Aug 2027?</li>
+      <li><strong>New Middle East contract wins</strong> — Beyond SWORDFISH, any direct Aramco/ADNOC contracts?</li>
+      <li><strong>Day rates on new contracts</strong> — Are they at, above, or below USD 25k–45k range?</li>
+      <li><strong>Fleet additions under DG Shipping MOU</strong> — Any specific vessel acquisitions announced?</li>
+      <li><strong>Free cash flow trajectory</strong> — Does FCF turn positive in FY28?</li>
+      <li><strong>Net debt trajectory</strong> — Does it decline after ANANT is funded?</li>
+      <li><strong>O&amp;M contract performance</strong> — Do Samudra Sevak and Prabha hit revenue targets?</li>
+      <li><strong>Related-party disclosures</strong> — Any changes to the 4% revenue share to HAL?</li>
+    </ol>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- VALUATION PLAYGROUND -->
+<div class="chapter-div"><div class="cd-num">★</div><div class="cd-line"></div><div class="cd-text">Interactive Valuation Playground</div></div>
+
+<section class="section" id="valuation">
+  <div class="section-header reveal">
+    <span class="section-num">Interactive Tool</span>
+    <h2>Valuation Playground</h2>
+    <p class="lead">
+      Adjust growth, margin, and exit multiple to see the implied share price and upside/downside. 
+      Scenario presets are analyst assumptions, not company guidance.
+    </p>
+  </div>
+
+  <div class="number-matters reveal">
+    <div class="nm-value">₹1,792</div>
+    <div class="nm-content">
+      <div class="nm-label">Current Market Price</div>
+      <div class="nm-text">
+        Market cap ₹4,555 Cr · P/E 17.8x · EV/EBITDA 9.95x · P/B 3.47x · Dividend yield 0.11%. 
+        The stock has run up significantly from its 52-week low of ₹772.
+      </div>
+    </div>
+  </div>
+
+  <div class="val-playground reveal">
+    <!-- Scenario toggle -->
+    <div class="scenario-toggle" id="scenarioToggle">
+      <div class="slider bull" id="scenarioSlider"></div>
+      <button class="active" data-scenario="bull">🟢 Bull</button>
+      <button data-scenario="base">🔵 Base</button>
+      <button data-scenario="bear">🔴 Bear</button>
+    </div>
+
+    <!-- Scenario metrics -->
+    <div class="scenario-metrics" id="scenarioMetrics">
+      <div class="scenario-metric"><div class="sm-label">Revenue CAGR</div><div class="sm-value" data-metric="growth">22<span class="unit">%</span></div><div class="sm-context">FY27–FY29E</div></div>
+      <div class="scenario-metric"><div class="sm-label">EBITDA Margin</div><div class="sm-value" data-metric="margin">44<span class="unit">%</span></div><div class="sm-context">Annual average</div></div>
+      <div class="scenario-metric"><div class="sm-label">Exit EV/EBITDA</div><div class="sm-value" data-metric="exit">14<span class="unit">x</span></div><div class="sm-context">Analyst assumption</div></div>
+      <div class="scenario-metric"><div class="sm-label">Forecast Horizon</div><div class="sm-value" data-metric="years">3<span class="unit">yr</span></div><div class="sm-context">FY27–FY29E</div></div>
+    </div>
+
+    <!-- Main grid -->
+    <div class="val-grid" style="margin-top:24px;">
+      <!-- LEFT: Inputs & Sliders -->
+      <div class="val-panel">
+        <h4>Inputs &amp; Sliders</h4>
+
+        <div class="metric-tabs" id="metricTabs">
+          <button data-metric="pe">P/E</button>
+          <button data-metric="evebitda" class="active">EV/EBITDA</button>
+          <button data-metric="pb">P/B</button>
+          <button data-metric="ps">P/S</button>
+          <button data-metric="evsales">EV/Sales</button>
+        </div>
+
+        <div class="val-slider-row">
+          <div class="val-slider-item">
+            <div class="slider-head">
+              <span class="slider-label">Revenue Growth (CAGR)</span>
+              <span class="slider-value" id="growthLabel">22%</span>
+            </div>
+            <input type="range" id="growthSlider" min="-10" max="30" value="22" step="1">
+          </div>
+          <div class="val-slider-item">
+            <div class="slider-head">
+              <span class="slider-label">EBITDA Margin</span>
+              <span class="slider-value" id="marginLabel">44%</span>
+            </div>
+            <input type="range" id="marginSlider" min="10" max="60" value="44" step="1">
+          </div>
+          <div class="val-slider-item">
+            <div class="slider-head">
+              <span class="slider-label">Exit Multiple</span>
+              <span class="slider-value" id="exitLabel">14x</span>
+            </div>
+            <input type="range" id="exitSlider" min="5" max="30" value="14" step="0.5">
+          </div>
+          <div class="val-slider-item">
+            <div class="slider-head">
+              <span class="slider-label">Forecast Horizon</span>
+              <span class="slider-value" id="yearsLabel">3 years</span>
+            </div>
+            <input type="range" id="yearsSlider" min="1" max="5" value="3" step="1">
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Live Output -->
+      <div class="val-panel">
+        <h4>Live Output · <span id="metricName" style="color:var(--text-primary);">EV/EBITDA</span></h4>
+
+        <div class="val-output">
+          <div class="val-output-row">
+            <span class="key">Projected Revenue (Year N)</span>
+            <span class="val" id="outRevenue">₹1,815 Cr</span>
+          </div>
+          <div class="val-output-row">
+            <span class="key">Projected EBITDA (Year N)</span>
+            <span class="val" id="outEbitda">₹799 Cr</span>
+          </div>
+          <div class="val-output-row">
+            <span class="key">Projected PAT (Year N)</span>
+            <span class="val" id="outPat">₹743 Cr</span>
+          </div>
+          <div class="val-output-row">
+            <span class="key">Implied Enterprise Value</span>
+            <span class="val" id="outEV">₹11,186 Cr</span>
+          </div>
+          <div class="val-output-row">
+            <span class="key">Implied Equity Value</span>
+            <span class="val" id="outEquity">₹11,021 Cr</span>
+          </div>
+          <div class="val-output-row hero">
+            <span class="key">Implied Share Price</span>
+            <span class="val" id="outPrice">₹4,339<span class="delta up" id="outDelta">+142.1%</span></span>
+          </div>
+        </div>
+
+        <div class="formula" id="formulaText">
+          EV/EBITDA: EV = EBITDA_N × Exit_Multiple; Equity = EV − Net Debt; Price = Equity ÷ Shares
+        </div>
+
+        <div style="margin-top:14px;font-size:11px;color:var(--text-muted);">
+          <strong style="color:var(--text-secondary);">Market data pre-loaded:</strong> 
+          Price ₹1,792 · Shares 2.54 Cr · Net Debt ₹165 Cr · FY26 Revenue ₹1,000 Cr · FY26 EBITDA ₹447 Cr · 
+          Effective Tax ~7%
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;padding:14px 18px;background:rgba(245,185,66,.05);border-left:3px solid var(--gold);border-radius:8px;">
+      <p style="font-size:12px;color:var(--text-secondary);line-height:1.65;">
+        <strong style="color:var(--gold);">Disclaimer:</strong> Scenario presets are analyst assumptions, not management 
+        guidance. Bull case assumes 22% CAGR (top end of 15–20% guidance + optionality), Base assumes 17% 
+        (mid-range), Bear assumes 8% (below guidance). The tool is illustrative only, not investment advice.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CHEAT SHEET -->
+<div class="chapter-div"><div class="cd-num">✦</div><div class="cd-line"></div><div class="cd-text">Earnings Call Cheat Sheet</div></div>
+
+<section class="section" id="cheatsheet">
+  <div class="section-header reveal">
+    <span class="section-num">Final Reference</span>
+    <h2>Investor's Earnings-Call Cheat Sheet</h2>
+    <p class="lead">The 20 most important items to track — with management's answer, analyst interpretation, evidence needed, and risk level.</p>
+  </div>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr><th>Topic</th><th>Management's Answer</th><th>Analyst Interpretation</th><th>Evidence Needed</th><th>Risk</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FY27 Revenue Growth</strong></td>
+          <td>~15%</td>
+          <td>Conservative; Q1 FY27 already +41%</td>
+          <td>Q2/Q3 FY27 actuals</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>FY27 EBITDA Margin</strong></td>
+          <td>40–42%</td>
+          <td>Q1 FY27 landed at 41.8% — on track</td>
+          <td>Quarterly margin stability</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>ANANT Deployment</strong></td>
+          <td>Q3 FY27</td>
+          <td>Third revision of timeline; needs confirmation</td>
+          <td>Actual deployment disclosure</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>ANANT Day Rate</strong></td>
+          <td>USD 45,000/d</td>
+          <td>Consistent across all 4 calls — credible</td>
+          <td>Quarterly revenue contribution</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>ANANT Utilization</strong></td>
+          <td>95–98%</td>
+          <td>Aggressive for a fresh deployment; watch first quarter</td>
+          <td>On-hire days per quarter</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>SWORDFISH Renewal</strong></td>
+          <td>Contract runs to Aug 2027</td>
+          <td>Renewal likely given Aramco relationship</td>
+          <td>Extension announcement</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>O&amp;M Contracts (Sevak/Prabha)</strong></td>
+          <td>₹620 Cr combined, to March 2028</td>
+          <td>High-ROCE, low-capital revenue stream</td>
+          <td>Quarterly revenue from contracts</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Middle East Expansion</strong></td>
+          <td>Saudi, Qatar, Abu Dhabi hotspots</td>
+          <td>Only SWORDFISH deployed; rest is aspirational</td>
+          <td>New ME contract disclosures</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>DG Shipping MOU</strong></td>
+          <td>₹1,000 Cr over 2–3 years</td>
+          <td>No specific vessels identified — directional signal</td>
+          <td>New vessel acquisition announcements</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Day Rate Sustainability</strong></td>
+          <td>3–5 years bullish</td>
+          <td>Supported by DSV scarcity, but cycle risk</td>
+          <td>Brent crude; offshore capex trends</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Free Cash Flow</strong></td>
+          <td>Used for growth, then debt reduction</td>
+          <td>FY26 FCF was −₹58 Cr; FY27 likely negative too</td>
+          <td>Annual FCF disclosure</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Net Debt Trajectory</strong></td>
+          <td>FY26 net debt ₹300–400 Cr</td>
+          <td>Deteriorating from net-cash position in Q3 FY26</td>
+          <td>Quarterly net debt</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Capex FY27</strong></td>
+          <td>~USD 70M (ANANT)</td>
+          <td>Financed 50/50; manageable</td>
+          <td>Annual report FY27 capex</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Gallant Sale</strong></td>
+          <td>Expected Sept 2026</td>
+          <td>Exiting bulk carrier; focus on core DSV</td>
+          <td>Completion disclosure</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>UK Subsidiary</strong></td>
+          <td>Impairment taken on prudence</td>
+          <td>Not abandoned; but no contracts yet</td>
+          <td>Future UK revenue disclosures</td>
+          <td><span class="tag red">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Related-Party (HAL)</strong></td>
+          <td>4% revenue share continues</td>
+          <td>Governance concern; not quantified</td>
+          <td>Annual related-party disclosures</td>
+          <td><span class="tag gold">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Dry Dock Schedule FY27</strong></td>
+          <td>3 vessels (monsoon period)</td>
+          <td>Timed to avoid revenue loss</td>
+          <td>Actual dry dock days</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Monsoon Impact</strong></td>
+          <td>EPC vessels off-hire May–Oct</td>
+          <td>Known seasonality; not a surprise</td>
+          <td>Q2 FY27 revenue</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Charter Rate Variance</strong></td>
+          <td>SWORDFISH $75k vs ANANT $45k</td>
+          <td>Scope + capability driven; not a market issue</td>
+          <td>Future contract rate disclosures</td>
+          <td><span class="tag green">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Iran Sanctions Lift</strong></td>
+          <td>Would open new border</td>
+          <td>Speculative; not priced in</td>
+          <td>Geopolitical developments</td>
+          <td><span class="tag purple">Speculative</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout gold reveal" style="margin-top:24px;">
+    <p>
+      <strong>Bottom line for the reader:</strong> SEAMEC's management tells a coherent, mostly credible story about 
+      structural DSV scarcity and fleet-led growth. The gaps are in <em>timing</em> (ANANT) and <em>quantification</em> 
+      (Middle East, DG Shipping MOU). Investors should monitor the four highest-leverage items: 
+      <strong>ANANT deployment + utilization, SWORDFISH renewal, free cash flow trajectory, and net debt</strong>. 
+      Everything else flows from these.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="brand">SEAMEC Ltd — Management &amp; Earnings-Call Analysis</div>
+  <p>Based on 4 earnings call transcripts: Q2 FY26 (Nov 11, 2025) · Q3 FY26 (Feb 02, 2026) · Q4 FY26 (May 19, 2026) · Q1 FY27 (Aug 14, 2026)</p>
+  <p style="margin-top:10px;font-size:11px;color:var(--text-muted);">
+    This analysis is for educational purposes only and does not constitute investment advice.<br>
+    All figures in ₹ Crores unless otherwise stated. Scenario presets are analyst assumptions, not management guidance.
+  </p>
+</footer>
+
+<script>
+// ─── PROGRESS BAR ───
+const progressBar = document.getElementById('progressBar');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const st = window.scrollY;
+      const dh = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = ((st / dh) * 100) + '%';
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// ─── NAV SCROLL ───
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+// ─── REVEAL ───
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.bar-fill').forEach((bar, i) => {
+        const w = bar.getAttribute('data-width');
+        if (w) setTimeout(() => bar.style.width = w, 200 + i * 80);
+      });
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
+
+// ─── COUNTERS ───
+document.querySelectorAll('[data-count]').forEach(el => {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const target = parseFloat(el.getAttribute('data-count'));
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0');
+        const dur = 1800;
+        const start = performance.now();
+        const unitHTML = el.querySelector('.unit') ? el.querySelector('.unit').outerHTML : '';
+        function tick(now) {
+          const p = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 4);
+          const cur = target * eased;
+          const fmt = decimals > 0 ? cur.toFixed(decimals) : Math.floor(cur).toLocaleString('en-IN');
+          el.innerHTML = fmt + unitHTML;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  obs.observe(el);
+});
+
+// ─── SECTION NAV ───
+const sections = document.querySelectorAll('section[id]');
+const navDots = document.querySelectorAll('.section-nav a');
+const secObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.getAttribute('id');
+      navDots.forEach(d => d.classList.toggle('active', d.getAttribute('href') === '#' + id));
+    }
+  });
+}, { threshold: 0.25 });
+sections.forEach(s => secObs.observe(s));
+
+// ─── SMOOTH SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    const t = document.querySelector(this.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ─── SCENARIO SLIDER ───
+const scenarios = {
+  bull: { growth: 22, margin: 44, exit: 14, years: 3 },
+  base: { growth: 17, margin: 41, exit: 10, years: 3 },
+  bear: { growth: 8,  margin: 36, exit: 7,  years: 3 }
+};
+
+const scenToggle = document.getElementById('scenarioToggle');
+const scenSlider = document.getElementById('scenarioSlider');
+const scenButtons = scenToggle.querySelectorAll('button');
+
+const growthSlider = document.getElementById('growthSlider');
+const marginSlider = document.getElementById('marginSlider');
+const exitSlider = document.getElementById('exitSlider');
+const yearsSlider = document.getElementById('yearsSlider');
+const growthLabel = document.getElementById('growthLabel');
+const marginLabel = document.getElementById('marginLabel');
+const exitLabel = document.getElementById('exitLabel');
+const yearsLabel = document.getElementById('yearsLabel');
+
+const metricTabs = document.querySelectorAll('#metricTabs button');
+const metricName = document.getElementById('metricName');
+const formulaText = document.getElementById('formulaText');
+
+let currentScenario = 'bull';
+let currentMetric = 'evebitda';
+
+scenButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentScenario = btn.getAttribute('data-scenario');
+    scenButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    scenSlider.className = 'slider ' + currentScenario;
+    const s = scenarios[currentScenario];
+    growthSlider.value = s.growth;
+    marginSlider.value = s.margin;
+    exitSlider.value = s.exit;
+    yearsSlider.value = s.years;
+    updateAll();
+  });
+});
+
+metricTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    metricTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentMetric = tab.getAttribute('data-metric');
+    updateAll();
+  });
+});
+
+function getMetricName() {
+  return {
+    pe: 'P/E',
+    evebitda: 'EV/EBITDA',
+    pb: 'P/B',
+    ps: 'P/S',
+    evsales: 'EV/Sales'
+  }[currentMetric];
+}
+
+function updateAll() {
+  const growth = parseFloat(growthSlider.value) / 100;
+  const margin = parseFloat(marginSlider.value) / 100;
+  const exit = parseFloat(exitSlider.value);
+  const years = parseInt(yearsSlider.value);
+
+  growthLabel.textContent = growthSlider.value + '%';
+  marginLabel.textContent = marginSlider.value + '%';
+  exitLabel.textContent = exitSlider.value + 'x';
+  yearsLabel.textContent = years + ' years';
+
+  // Base values (FY26)
+  const baseRevenue = 1000;
+  const baseEbitda = 447;
+  const basePat = 253;
+  const baseBook = 1302;
+  const shares = 2.54;
+  const netDebt = 165;
+  const currentPrice = 1792;
+  const taxRate = 0.07;
+
+  // Projections
+  const projRevenue = baseRevenue * Math.pow(1 + growth, years);
+  const projEbitda = projRevenue * margin;
+  const projPat = projEbitda * (1 - taxRate);
+  const projBook = baseBook + projPat * 0.9 * years; // 90% retention approximation
+
+  let impliedEV, impliedEquity, impliedPrice, formula;
+
+  switch (currentMetric) {
+    case 'pe':
+      impliedEquity = projPat * exit;
+      impliedEV = impliedEquity + netDebt;
+      impliedPrice = impliedEquity / shares;
+      formula = 'P/E: Equity = PAT_N × Exit P/E; Price = Equity ÷ Shares';
+      break;
+    case 'evebitda':
+      impliedEV = projEbitda * exit;
+      impliedEquity = impliedEV - netDebt;
+      impliedPrice = impliedEquity / shares;
+      formula = 'EV/EBITDA: EV = EBITDA_N × Exit Multiple; Equity = EV − Net Debt; Price = Equity ÷ Shares';
+      break;
+    case 'pb':
+      impliedEquity = projBook * exit;
+      impliedEV = impliedEquity + netDebt;
+      impliedPrice = impliedEquity / shares;
+      formula = 'P/B: Equity = Book_N × Exit P/B; Price = Equity ÷ Shares';
+      break;
+    case 'ps':
+      impliedEquity = projRevenue * exit;
+      impliedEV = impliedEquity + netDebt;
+      impliedPrice = impliedEquity / shares;
+      formula = 'P/S: Equity = Revenue_N × Exit P/S; Price = Equity ÷ Shares';
+      break;
+    case 'evsales':
+      impliedEV = projRevenue * exit;
+      impliedEquity = impliedEV - netDebt;
+      impliedPrice = impliedEquity / shares;
+      formula = 'EV/Sales: EV = Revenue_N × Exit Multiple; Equity = EV − Net Debt; Price = Equity ÷ Shares';
+      break;
+  }
+
+  const delta = ((impliedPrice - currentPrice) / currentPrice) * 100;
+
+  document.getElementById('outRevenue').textContent = '₹' + projRevenue.toFixed(0) + ' Cr';
+  document.getElementById('outEbitda').textContent = '₹' + projEbitda.toFixed(0) + ' Cr';
+  document.getElementById('outPat').textContent = '₹' + projPat.toFixed(0) + ' Cr';
+  document.getElementById('outEV').textContent = '₹' + impliedEV.toFixed(0) + ' Cr';
+  document.getElementById('outEquity').textContent = '₹' + impliedEquity.toFixed(0) + ' Cr';
+
+  const deltaEl = document.getElementById('outDelta');
+  deltaEl.textContent = (delta >= 0 ? '+' : '') + delta.toFixed(1) + '%';
+  deltaEl.className = 'delta ' + (delta >= 0 ? 'up' : 'down');
+
+  document.getElementById('outPrice').innerHTML = '₹' + impliedPrice.toFixed(0) + '<span class="delta ' + (delta >= 0 ? 'up' : 'down') + '" id="outDelta">' + (delta >= 0 ? '+' : '') + delta.toFixed(1) + '%</span>';
+
+  metricName.textContent = getMetricName();
+  formulaText.textContent = formula;
+}
+
+growthSlider.addEventListener('input', updateAll);
+marginSlider.addEventListener('input', updateAll);
+exitSlider.addEventListener('input', updateAll);
+yearsSlider.addEventListener('input', updateAll);
+
+// Initialize
+updateAll();
+</script>
+
+</body>
+</html>

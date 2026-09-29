@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MM Forgings Ltd — Interactive Investment Research Terminal</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg2: #1a2332;
+  --bg3: #243044;
+  --text: #e7ecf3;
+  --text2: #a0aec0;
+  --accent: #3b82f6;
+  --accent2: #60a5fa;
+  --green: #34d399;
+  --red: #f87171;
+  --yellow: #fbbf24;
+  --orange: #fb923c;
+  --border: #2d3748;
+  --card: #1e293b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 14.5px;
+}
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Layout */
+.layout { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 260px;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  padding: 16px 0;
+}
+.sidebar h1 {
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 18px 16px;
+  color: var(--accent2);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.sidebar nav a {
+  display: block;
+  padding: 7px 18px;
+  color: var(--text2);
+  font-size: 13px;
+  border-left: 3px solid transparent;
+}
+.sidebar nav a:hover, .sidebar nav a.active {
+  background: var(--bg3);
+  color: var(--text);
+  border-left-color: var(--accent);
+  text-decoration: none;
+}
+.sidebar .section-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text2);
+  padding: 14px 18px 4px;
+  opacity: 0.7;
+}
+.main {
+  margin-left: 260px;
+  flex: 1;
+  padding: 24px 32px 80px;
+  max-width: 1200px;
+}
+header.top {
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+header.top h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+header.top .sub { color: var(--text2); font-size: 13px; }
+
+/* Cards & sections */
+.section { margin-bottom: 48px; scroll-margin-top: 20px; }
+.section h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+.section h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+  color: var(--accent2);
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.kpi {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.kpi .label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.04em; }
+.kpi .value { font-size: 20px; font-weight: 700; margin-top: 4px; }
+.kpi .note { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+/* Tags */
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.tag-green { background: rgba(52,211,153,0.15); color: var(--green); }
+.tag-red { background: rgba(248,113,113,0.15); color: var(--red); }
+.tag-yellow { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.tag-blue { background: rgba(59,130,246,0.15); color: var(--accent2); }
+.tag-orange { background: rgba(251,146,60,0.15); color: var(--orange); }
+.tag-gray { background: rgba(160,174,192,0.15); color: var(--text2); }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 10px 0 16px;
+}
+th, td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+th {
+  background: var(--bg3);
+  color: var(--text2);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+tr:hover td { background: rgba(59,130,246,0.05); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 18px;
+  padding-left: 16px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -21px; top: 6px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.tl-date { font-size: 11px; color: var(--accent2); font-weight: 600; }
+.tl-title { font-weight: 600; margin: 2px 0; }
+.tl-body { font-size: 13px; color: var(--text2); }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+.tab-btn {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.tab-btn.active, .tab-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Expandable */
+details {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+details summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: '+'; font-size: 18px; color: var(--text2); }
+details[open] summary::after { content: '−'; }
+details .content { padding: 0 16px 16px; border-top: 1px solid var(--border); }
+
+/* Source */
+.source {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 6px;
+  font-style: italic;
+}
+.warning {
+  background: rgba(248,113,113,0.08);
+  border-left: 3px solid var(--red);
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.note-box {
+  background: rgba(59,130,246,0.08);
+  border-left: 3px solid var(--accent);
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.chart-container {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 14px 0;
+  max-width: 700px;
+}
+.chart-container canvas { max-height: 280px; }
+
+/* Risk matrix */
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+.risk-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+}
+.risk-card h4 { margin-bottom: 6px; font-size: 14px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h1>MM Forgings Research</h1>
+    <nav>
+      <div class="section-label">Start Here</div>
+      <a href="#dashboard" class="active">Investment Dashboard</a>
+      <a href="#thesis">Bull / Base / Bear</a>
+      <a href="#conclusion">Final Conclusion</a>
+
+      <div class="section-label">Company Story</div>
+      <a href="#story">What the Company Does</a>
+      <a href="#timeline">Investment Timeline</a>
+      <a href="#capacity">Capacity & Capex</a>
+      <a href="#segments">Segments & End Markets</a>
+
+      <div class="section-label">Financials</div>
+      <a href="#financials">Financial Snapshot</a>
+      <a href="#valuation">Valuation</a>
+
+      <div class="section-label">Management & Calls</div>
+      <a href="#calls">Conference Call Center</a>
+      <a href="#crosscall">What Analysts Keep Asking</a>
+      <a href="#credibility">Guidance vs Reality</a>
+      <a href="#management">Management Assessment</a>
+
+      <div class="section-label">Risk & Quality</div>
+      <a href="#forensic">Forensic / QoE</a>
+      <a href="#risks">Key Risks</a>
+      <a href="#quality">Business Quality</a>
+      <a href="#killers">What Would Change My Mind</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <header class="top">
+      <h1>M M Forgings Ltd — Interactive Investment Research</h1>
+      <div class="sub">Document-only analysis · Data as of Aug 2026 · Sources: Conference Calls (Aug 2025 – Aug 2026), AR FY25-26, Forensic/Guidance/Growth Catalysts reports, valuation screenshots</div>
+    </header>
+
+    <!-- ===================== DASHBOARD ===================== -->
+    <section id="dashboard" class="section">
+      <h2>1. Investment Dashboard</h2>
+
+      <div class="card-grid">
+        <div class="kpi">
+          <div class="label">Market Cap (≈21 Aug 2026)</div>
+          <div class="value">₹3,151 Cr</div>
+          <div class="note">Screenshot provided by user</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Share Price</div>
+          <div class="value">₹653</div>
+          <div class="note">Screenshot</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Trailing P/E</div>
+          <div class="value">28.0×</div>
+          <div class="note">Screenshot</div>
+        </div>
+        <div class="kpi">
+          <div class="label">EV / EBITDA</div>
+          <div class="value">13.6×</div>
+          <div class="note">Screenshot</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Price / Sales</div>
+          <div class="value">1.91×</div>
+          <div class="note">Screenshot</div>
+        </div>
+        <div class="kpi">
+          <div class="label">ROCE (FY26)</div>
+          <div class="value">~9%</div>
+          <div class="note">Screenshot / Forensic: 9.38%</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Gross Debt</div>
+          <div class="value">≈₹1,235 Cr</div>
+          <div class="note">Screenshot</div>
+        </div>
+        <div class="kpi">
+          <div class="label">FY26 Revenue</div>
+          <div class="value">₹1,590 Cr</div>
+          <div class="note">Guidance Report / Calls</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Company Snapshot</h3>
+        <p><strong>What it does:</strong> Pure-play steel forging + machining company. Manufactures critical power-train and chassis components (crankshafts, axle beams, connecting rods, etc.) primarily for commercial vehicles, with meaningful export exposure (especially USA) and smaller passenger-vehicle / industrial share.</p>
+        <p style="margin-top:8px"><strong>Key mix (from management commentary & Business Overview):</strong></p>
+        <ul style="margin:6px 0 0 18px; color:var(--text2)">
+          <li>Commercial Vehicles: historically ~70–80% of sales (Q1 FY27 call: 71%)</li>
+          <li>Exports: mid-to-high 30s % (Q1 FY27: 36.5%; US ~18%)</li>
+          <li>Machined content: ~54% in FY26 (down from higher levels earlier)</li>
+        </ul>
+        <p style="margin-top:8px"><strong>Capacity:</strong> Installed base stated as ~150,000 tons (Forensic Report citing Dec 2025 management comment). Utilisation roughly 47–50% at that time. FY26 production ≈75,000 tons (Guidance Report).</p>
+        <p style="margin-top:8px"><strong>Flagship project:</strong> 16,500-ton press — repeatedly delayed; management targeted July–Aug 2026 / early FY27 commissioning.</p>
+        <p class="source">Sources: Business Overview, Forensic Report, Q1–Q3 FY26 & Q1 FY27 conference calls, valuation screenshots</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Investment Scorecard (Qualitative)</h3>
+        <table>
+          <thead><tr><th>Dimension</th><th>Assessment</th><th>Evidence Basis</th></tr></thead>
+          <tbody>
+            <tr><td>Business Quality</td><td><span class="tag tag-yellow">Moderate</span></td><td>Critical parts, switching costs exist, but highly cyclical (CV + US truck) and commodity-exposed.</td></tr>
+            <tr><td>Revenue Growth</td><td><span class="tag tag-yellow">Mixed / Recovering</span></td><td>FY26 soft; Q3 FY26 +11.3% YoY, Q1 FY27 +16% YoY. Management guiding ~20% for FY27.</td></tr>
+            <tr><td>Margin Profile</td><td><span class="tag tag-yellow">Pressure + Recovery hopes</span></td><td>Mix and cost pressures noted in calls; green power & utilisation seen as levers.</td></tr>
+            <tr><td>Return on Capital</td><td><span class="tag tag-red">Weak</span></td><td>ROCE fell from 14.45% (FY23) to 9.38% (FY26). Large unproductive capex.</td></tr>
+            <tr><td>Balance Sheet</td><td><span class="tag tag-yellow">Stretched</span></td><td>Debt ≈₹1,235 Cr; inter-company loans ₹202 Cr; no repayment history on subsidiary loans.</td></tr>
+            <tr><td>Cash-flow Quality</td><td><span class="tag tag-yellow">Below average</span></td><td>Cumulative CFO covered only 0.63× cumulative EBITDA over 9 years (Forensic).</td></tr>
+            <tr><td>Capital Allocation</td><td><span class="tag tag-red">Questionable</span></td><td>~50% of ₹1,000–1,200 Cr capex programme not yet earning; press delayed; EV sub still burning cash.</td></tr>
+            <tr><td>Management Credibility</td><td><span class="tag tag-yellow">Mixed</span></td><td>Some guidance met (exports better than feared), several capacity / margin / mix targets missed or delayed.</td></tr>
+            <tr><td>Valuation</td><td><span class="tag tag-yellow">Not cheap for quality</span></td><td>13.6× EV/EBITDA and 28× P/E with single-digit ROCE and execution risk.</td></tr>
+            <tr><td>Key Risks</td><td><span class="tag tag-red">Elevated</span></td><td>Capex execution, utilisation, debt, CV/US cycle, subsidiary burn, related-party loans.</td></tr>
+          </tbody>
+        </table>
+        <p class="source">Assessments are analytical judgments based solely on the cited source documents. No numerical scores invented beyond the qualitative tags.</p>
+      </div>
+    </section>
+
+    <!-- ===================== THESIS ===================== -->
+    <section id="thesis" class="section">
+      <h2>2. Bull / Base / Bear Framework</h2>
+      <div class="note-box">All scenarios use only numbers and directional statements present in the source documents. No invented growth rates or margins.</div>
+
+      <div class="card">
+        <h3 style="margin-top:0; color:var(--green)">Bull Case — “Press delivers + volumes recover”</h3>
+        <p><strong>What needs to go right (from documents):</strong></p>
+        <ul style="margin:6px 0 0 18px">
+          <li>16,500-ton press commissioned and ramps (management expectation + Growth Catalysts link several hundred crores potential revenue).</li>
+          <li>US Class 8 / truck recovery continues (language improved from Q2 FY26 low to Q3/Q1 FY27).</li>
+          <li>Domestic CV momentum sustains (Q1 FY27 call: CV market “running pretty hot”).</li>
+          <li>Management’s ~20% FY27 growth comment (Mar 2026 / Q3 call) is broadly achieved.</li>
+          <li>Green-power savings (~₹15 Cr annual potential cited in Growth Catalysts) materialise.</li>
+          <li>Product mix continues shift toward higher machined content.</li>
+        </ul>
+        <p style="margin-top:8px"><strong>Implication:</strong> Absolute EBITDA rises, ROCE begins climbing from ~9%, debt can start declining from operating cash flow. Market may maintain or expand current multiples.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0; color:var(--yellow)">Base Case — “Gradual improvement, press ramps slower”</h3>
+        <p><strong>Most reasonable reading of the evidence:</strong></p>
+        <ul style="margin:6px 0 0 18px">
+          <li>Press is commissioned but ramp-up takes longer than the optimistic end of guidance (consistent with past slippage).</li>
+          <li>Volume growth positive but closer to mid-teens / high-single digits than full 20%.</li>
+          <li>Margins improve modestly with utilisation and power savings; depreciation & interest remain a multi-quarter drag.</li>
+          <li>Abhinava Rizel continues to consume cash at similar rate for some time.</li>
+        </ul>
+        <p style="margin-top:8px"><strong>Implication:</strong> Earnings grow, but return ratios stay subdued longer. Valuation remains range-bound until clearer ROCE expansion appears.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0; color:var(--red)">Bear Case — “Further delays + end-market softness”</h3>
+        <p><strong>What can go wrong (supported by history in the documents):</strong></p>
+        <ul style="margin:6px 0 0 18px">
+          <li>Additional multi-quarter delay in press commissioning / slow ramp (history of timeline slippage).</li>
+          <li>US or domestic CV recovery stalls (Q2 FY26 experience shows how quickly inventory corrections hit).</li>
+          <li>Debt remains elevated; interest continues to pressure PAT.</li>
+          <li>Subsidiary cash burn continues without clear path to contribution.</li>
+        </ul>
+        <p style="margin-top:8px"><strong>Implication:</strong> Utilisation stays disappointing, ROCE remains low or declines, current ~13.6× EV/EBITDA looks optimistic → de-rating toward lower historical band.</p>
+      </div>
+    </section>
+
+    <!-- ===================== STORY ===================== -->
+    <section id="story" class="section">
+      <h2>3. What MM Forgings Actually Does</h2>
+      <div class="card">
+        <p>MM Forgings is a vertically integrated steel forger and machinist. It takes steel, forges it under high pressure into high-integrity components, and increasingly machines those components itself to capture more value.</p>
+        <p style="margin-top:8px">The core advantage of forging over casting is grain structure and fatigue strength — critical for safety and power-train parts that experience repeated stress (crankshafts, axle beams, connecting rods, steering knuckles, gear blanks).</p>
+        <p style="margin-top:8px"><strong>How money is made:</strong> Paid per part. Steel-price changes are generally passed through to customers (with lag). Higher machined content improves realisation and margins. Capacity utilisation is the single biggest swing factor because fixed costs (presses, power, labour, depreciation, interest) are high.</p>
+        <p style="margin-top:8px"><strong>Key subsidiaries (AR FY26 & Forensic):</strong></p>
+        <ul style="margin:6px 0 0 18px; color:var(--text2)">
+          <li><strong>DVS Industries</strong> — wholly-owned crankshaft machining subsidiary; NCLT-sanctioned amalgamation into parent (June 2026 scheme).</li>
+          <li><strong>Suvarchas Vidyut</strong> — wholly-owned electrical / alternator components start-up.</li>
+          <li><strong>Abhinava Rizel</strong> (88% owned) — EV powertrain (motors, controllers, gearboxes). Acquired Sep 2022 for ₹15.84 Cr equity. Outstanding loan ₹63.50 Cr as of 31 Mar 2026. Cash burn ~₹1 Cr/month as of Q3 FY26 call. First SOP / ramp-up stage as of Aug 2026 call.</li>
+        </ul>
+        <p class="source">Sources: Business Overview, Annual Report FY25-26, Forensic Report, conference calls</p>
+      </div>
+    </section>
+
+    <!-- ===================== TIMELINE ===================== -->
+    <section id="timeline" class="section">
+      <h2>4. Investment Timeline (Key Events from Sources)</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">May 2022 / Sep 2022</div>
+          <div class="tl-title">Abhinava Rizel incorporated & 88% acquired</div>
+          <div class="tl-body">Equity investment ₹15.84 Cr. Intent: EV powertrain play. Still early-stage years later.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">FY20 → FY26</div>
+          <div class="tl-title">Inter-corporate loans to subsidiaries rise ₹89.8 Cr → ₹202.1 Cr</div>
+          <div class="tl-body">No repayments commenced. Company continues to report “nil material RPTs” in AOC-2.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Last 5–6 years (to Dec 2025)</div>
+          <div class="tl-title">₹1,000–1,200 Cr capex programme</div>
+          <div class="tl-body">Management stated only 50–55% had started generating revenue. Utilisation ~47–50% on 150,000-ton base.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Aug 2025 (Q1 FY26 call)</div>
+          <div class="tl-title">Soft quarter; cautious tone</div>
+          <div class="tl-body">Sales pressure acknowledged. Press still future positive. No aggressive guidance.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Nov 2025 (Q2 FY26 call)</div>
+          <div class="tl-title">H1 weaker; US inventory correction</div>
+          <div class="tl-body">Low point of narrative. Abhinava still zero sales; close to first customer but magnet supply issues.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Feb 2026 (Q3 FY26 call)</div>
+          <div class="tl-title">Recovery language begins; +11.3% YoY sales</div>
+          <div class="tl-body">US sequential improvement. Cash burn at Abhinava ~₹1 Cr/month. Press still not commissioned. ~20% FY27 growth mentioned.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Mar 2026</div>
+          <div class="tl-title">Board approves QIP (allotment within 365 days)</div>
+          <div class="tl-body">Pending as of sources.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Jun 2026</div>
+          <div class="tl-title">DVS amalgamation NCLT-sanctioned</div>
+          <div class="tl-body">Scheme filed; not yet effective as of late sources.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Aug 2026 (Q1 FY27 call)</div>
+          <div class="tl-title">Stronger tone; +16% sales; Abhinava first SOP</div>
+          <div class="tl-body">CV & US described as recovering / hot. Press still key future driver. Abhinava into initial production / ramp-up.</div>
+        </div>
+      </div>
+      <p class="source">Compiled exclusively from conference-call transcripts, Forensic Report, Guidance Report, Annual Report excerpts.</p>
+    </section>
+
+    <!-- ===================== CAPACITY ===================== -->
+    <section id="capacity" class="section">
+      <h2>5. Capacity & Capex Analysis</h2>
+      <div class="warning"><strong>Key gap:</strong> Exact current installed capacity and precise utilisation % for the latest quarter are not stated as single definitive numbers across all transcripts. Forensic cites management (Dec 2025): ~150,000 tons installed, 47–50% utilisation.</div>
+
+      <div class="card">
+        <h3 style="margin-top:0">The 16,500-ton Press — Central Execution Question</h3>
+        <table>
+          <tr><th>Question</th><th>What sources say</th></tr>
+          <tr><td>What was announced?</td><td>Large hot-forging mechanical press described as among the world’s largest; expected to enable heavier crankshafts and higher volumes.</td></tr>
+          <tr><td>Expected revenue impact</td><td>Management (Q3 FY26 call): ~₹300 Cr turnover potential at full/optimum capacity from this press.</td></tr>
+          <tr><td>Timeline evolution</td><td>Originally expected later in calendar 2025 / early FY26 → slipped → July–Aug 2026 internal target (Forensic) → still spoken of as near-term in Aug 2026 call.</td></tr>
+          <tr><td>Current status (Aug 2026)</td><td>Not yet fully contributing commercial volumes at the time of the latest call; still positioned as future driver.</td></tr>
+          <tr><td>Investor implication</td><td>Every quarter of delay = depreciation + interest without corresponding revenue. This is the single largest swing factor for utilisation, ROCE and the bull case.</td></tr>
+        </table>
+        <p class="source">Sources: Growth Catalysts, Forensic Report, Q2/Q3 FY26 & Q1 FY27 conference calls</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Broader Capex Programme</h3>
+        <p>Management stated (Dec 2025, cited in Forensic) that only <strong>50–55%</strong> of the ₹1,000–1,200 Cr capex deployed over the last 5–6 years had started generating revenue. This is the core capital-allocation concern.</p>
+        <p style="margin-top:8px">Guidance Report tracks a related item: ₹700 Cr capex (FY25+FY26) was expected to deliver ₹600–700 Cr revenue delta (asset turn of 1). Actual revenue increase was far lower (₹65 Cr from ₹1,525 Cr to ₹1,590 Cr) — marked as <span class="tag tag-red">Missed</span>.</p>
+      </div>
+    </section>
+
+    <!-- ===================== SEGMENTS ===================== -->
+    <section id="segments" class="section">
+      <h2>6. Segments & End Markets</h2>
+      <div class="card">
+        <h3 style="margin-top:0">Reported Mix (Q1 FY27 call, Aug 2026)</h3>
+        <ul style="margin:6px 0 0 18px">
+          <li>Domestic 63.5% / Exports 36.5%</li>
+          <li>Geography of sales: India 63.5%, USA 18%, Europe 14%, South America 4%, others ~1%</li>
+          <li>End markets: Commercial Vehicles 71%, Passenger Vehicles 14%, Agri & Off-highway 14%, others 1%</li>
+          <li>Product form: 67% machined, 33% as-forged</li>
+        </ul>
+        <p class="source">Source: Q1 FY27 Earnings Conference Call, 17 August 2026</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">End-Market Implications</h3>
+        <p><strong>Commercial Vehicles (dominant):</strong> Highly cyclical. Management language improved from soft (Q1–Q2 FY26) to “running pretty hot” (Q1 FY27). Recovery is a key near-term swing factor.</p>
+        <p style="margin-top:8px"><strong>USA / Class 8 trucks:</strong> Major export market. Suffered inventory correction in 2025 (clearly visible in Q2 FY26 call). Sequential improvement noted from Q3 FY26 onward. Emission-norm / pre-buy dynamics mentioned by analysts; management cautious on policy certainty.</p>
+        <p style="margin-top:8px"><strong>EV transition:</strong> Abhinava Rizel is the explicit bet. Still pre-revenue / early SOP as of Aug 2026. Core forging business remains ICE / conventional CV-heavy for the foreseeable future based on disclosed mix.</p>
+        <p class="source">Sources: Conference calls Aug 2025 – Aug 2026, Business Overview</p>
+      </div>
+    </section>
+
+    <!-- ===================== FINANCIALS ===================== -->
+    <section id="financials" class="section">
+      <h2>7. Financial Snapshot</h2>
+      <div class="warning">Full multi-year audited P&L / cash-flow series is not extractable from the supplied Annual Report pages beyond the AGM notice and limited notes. Numbers below are taken only from management commentary in calls, Guidance Report and Forensic Report.</div>
+
+      <div class="card-grid">
+        <div class="kpi"><div class="label">FY26 Revenue</div><div class="value">₹1,590 Cr</div><div class="note">Guidance Report</div></div>
+        <div class="kpi"><div class="label">FY26 Production</div><div class="value">≈75,000 tons</div><div class="note">Guidance Report</div></div>
+        <div class="kpi"><div class="label">Q3 FY26 Sales growth</div><div class="value">+11.3% YoY</div><div class="note">Q3 call</div></div>
+        <div class="kpi"><div class="label">Q1 FY27 Sales</div><div class="value">₹427 Cr</div><div class="note">vs ₹369 Cr (+16%)</div></div>
+        <div class="kpi"><div class="label">Q1 FY27 EBITDA</div><div class="value">₹82 Cr (≈18–19%)</div><div class="note">Call remarks</div></div>
+        <div class="kpi"><div class="label">ROCE trend</div><div class="value">14.45% → 9.38%</div><div class="note">FY23 → FY26 (Forensic)</div></div>
+        <div class="kpi"><div class="label">Cumulative CFO / EBITDA (9 yrs)</div><div class="value">0.63×</div><div class="note">Forensic</div></div>
+        <div class="kpi"><div class="label">Inter-co loans (FY26)</div><div class="value">₹202 Cr</div><div class="note">Forensic / AR</div></div>
+      </div>
+
+      <div class="note-box">
+        <strong>Cash conversion concern (Forensic):</strong> Cumulative operating cash flow of ₹1,205 Cr covered only 0.63× of cumulative EBITDA of ₹1,916 Cr over nine years. This is a material quality-of-earnings observation.
+      </div>
+    </section>
+
+    <!-- ===================== VALUATION ===================== -->
+    <section id="valuation" class="section">
+      <h2>8. Valuation</h2>
+      <div class="card">
+        <p>Data from user-supplied screenshots (≈21–23 Aug 2026):</p>
+        <ul style="margin:8px 0 0 18px">
+          <li>Market Cap ≈ ₹3,151 Cr · Price ₹653</li>
+          <li>Trailing P/E ≈ 28.0×</li>
+          <li>EV / EBITDA ≈ 13.6×</li>
+          <li>Price / Sales ≈ 1.91×</li>
+          <li>ROCE ≈ 8.97–9.38%</li>
+          <li>Debt ≈ ₹1,235 Cr</li>
+        </ul>
+        <p style="margin-top:12px"><strong>Interpretation (analysis):</strong> At 13.6× EV/EBITDA the market is not pricing a deep-value turnaround nor a high-growth compounder. It is pricing a “show-me” story — prove that the new press and volume recovery can lift both absolute EBITDA and return ratios. The low ROCE is the clearest quantitative expression of the unproductive-capital problem. Historical multiple charts (from screenshots) show current levels sit in a middle-to-upper band of the company’s own past range, suggesting some recovery optimism is already embedded.</p>
+        <p class="source">Source: Valuation screenshots provided by user; ROCE cross-checked with Forensic Report</p>
+      </div>
+    </section>
+
+    <!-- ===================== CONFERENCE CALLS ===================== -->
+    <section id="calls" class="section">
+      <h2>9. Conference Call Intelligence Center</h2>
+      <p style="margin-bottom:14px; color:var(--text2)">This is the highest-priority section. Four main earnings calls + March 2026 comments. Focus is on Q&A, tone shifts, and what was left unresolved.</p>
+
+      <div class="tabs" id="call-tabs">
+        <button class="tab-btn active" data-tab="call1">Q1 FY26 · Aug 2025</button>
+        <button class="tab-btn" data-tab="call2">Q2 FY26 · Nov 2025</button>
+        <button class="tab-btn" data-tab="call3">Q3 FY26 · Feb 2026</button>
+        <button class="tab-btn" data-tab="call4">Q1 FY27 · Aug 2026</button>
+      </div>
+
+      <!-- CALL 1 -->
+      <div id="call1" class="tab-panel active">
+        <div class="card">
+          <h3 style="margin-top:0">Q1 FY26 (11 Aug 2025) — Cautious / Soft Patch</h3>
+          <p><strong>Management tone:</strong> Acknowledged near-term volume pressure. Sales lower YoY. No aggressive forward guidance. Large press still positioned as future positive.</p>
+          <p style="margin-top:8px"><strong>Key factual points from opening remarks / Q&A:</strong> Realisation per ton declined (product-mix driven). Tariff impact not directly borne yet; customers in wait-and-watch mode. US business relationship discussed in context of potential duty scenarios.</p>
+          <details>
+            <summary>Selected Analyst Questions & Takeaways</summary>
+            <div class="content">
+              <table>
+                <thead><tr><th>Topic</th><th>Question (summary)</th><th>Management Answer (summary)</th><th>Investor Takeaway</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>Realisation / Tariffs</td>
+                    <td>Why did sales per ton fall? Any tariff impact absorbed?</td>
+                    <td>Primarily product-mix change (₹206k → ₹192k/ton). No direct tariff reduction borne; customers cautious.</td>
+                    <td>Mix can swing reported realisation. Tariff risk acknowledged as potentially painful later if differentials persist.</td>
+                  </tr>
+                  <tr>
+                    <td>US / Duty scenarios</td>
+                    <td>How would higher Indian duties vs other countries affect dedicated supplier relationships?</td>
+                    <td>Short-term resistance possible; longer-term could “hurt really bad” if differentials remain. Reference to industry comments that current duty levels not sustainable standalone.</td>
+                    <td>Export competitiveness is a real risk if policy differentials widen. Management did not claim immunity.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <p class="source">Source: Q1 FY26 Earnings Conference Call transcript, 11 August 2025</p>
+        </div>
+      </div>
+
+      <!-- CALL 2 -->
+      <div id="call2" class="tab-panel">
+        <div class="card">
+          <h3 style="margin-top:0">Q2 FY26 (17 Nov 2025) — Low Point of Narrative</h3>
+          <p><strong>Management tone:</strong> More defensive. H1 turnover lower YoY. Explicit reference to US customer inventory corrections and temporary export slowdown. Domestic CV also soft.</p>
+          <p style="margin-top:8px"><strong>Abhinava update:</strong> Still zero sales. Close to first customer (acquired early May); magnet supply disruption from China forced redesign; sample parts expected end of month. Potential ₹20–30 Cr from that customer. Design strength on alternative-magnet / ferrite motors highlighted.</p>
+          <details>
+            <summary>Selected Analyst Questions & Takeaways</summary>
+            <div class="content">
+              <table>
+                <thead><tr><th>Topic</th><th>Question (summary)</th><th>Management Answer (summary)</th><th>Investor Takeaway</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>EV / Abhinava</td>
+                    <td>Status of first customer and sales?</td>
+                    <td>Very close; magnet disruption delayed; samples by month-end; ₹20–30 Cr potential; design capability now a strength.</td>
+                    <td>Still pre-revenue. Timeline already slipped once. First revenue still not in the bag.</td>
+                  </tr>
+                  <tr>
+                    <td>Capex discipline</td>
+                    <td>Future capex levels?</td>
+                    <td>Tightening; only productive assets; nominal ₹70–150 Cr range discussed in context of free cash after repayments.</td>
+                    <td>Acknowledgement that past deployment needs to become more selective.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <p class="source">Source: Q2 FY26 Post Results Conference Call transcript, 17 November 2025</p>
+        </div>
+      </div>
+
+      <!-- CALL 3 -->
+      <div id="call3" class="tab-panel">
+        <div class="card">
+          <h3 style="margin-top:0">Q3 FY26 (17 Feb 2026) — Recovery Language Begins</h3>
+          <p><strong>Management tone:</strong> Noticeably more constructive. Sales +11.3% YoY, sequential +7%. Volumes +3%. US sequential improvement after inventory rundown. Europe market-share gains. Gross-margin pressure from mix + power + labour; management confident of claw-back.</p>
+          <p style="margin-top:8px"><strong>Forward comments:</strong> Class 8 recovery + domestic CV pickup expected to support volumes next 12–18 months. 16,500-ton press expected to deliver ~₹300 Cr turnover (full capacity). Interest expected to fall toward ₹55 Cr run-rate. Green power / other initiatives ~₹15 Cr savings targeted. ~20% growth for next year mentioned in context of outlook.</p>
+          <p style="margin-top:8px"><strong>Abhinava:</strong> Cash burn ₹0.8–1.2 Cr/month (nominal ₹1 Cr). No EBITDA/breakeven prediction possible yet. Looking at 5-in-1 / 6-in-1 offerings via tie-ups. Still pursuing the ₹20–30 Cr order discussed earlier.</p>
+          <details>
+            <summary>Selected Analyst Questions & Takeaways (high importance)</summary>
+            <div class="content">
+              <table>
+                <thead><tr><th>Topic</th><th>Question (summary)</th><th>Management Answer (summary)</th><th>Investor Takeaway / Unresolved</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>Abhinava burn & strategy</td>
+                    <td>Current cash burn? Capabilities beyond motor design? EBITDA break-even? Strategic play?</td>
+                    <td>Burn ₹0.8–1.2 Cr/mo. Cannot predict EBITDA yet. Looking at multi-in-1 solutions via partnerships. Low-double-digit / ~15% EBITDA “wild guess” for electrical industry.</td>
+                    <td><strong>Unresolved:</strong> No revenue timeline, no breakeven path, no commitment on further funding needs. “Wild guess” language shows limited visibility.</td>
+                  </tr>
+                  <tr>
+                    <td>Press revenue</td>
+                    <td>₹300 Cr from new press — orders in place?</td>
+                    <td>Expected at full/optimum capacity; growth from it will come in months after commissioning.</td>
+                    <td>Still future. No firm order-book quantification attached to the press itself in the answer.</td>
+                  </tr>
+                  <tr>
+                    <td>Domestic underperformance vs peers</td>
+                    <td>Why weaker domestic vs peers? Market share loss?</td>
+                    <td>Some customers unhappy on deliveries up to Q1; supply-chain revamp done; sequential improvement expected.</td>
+                    <td>Admission of operational shortfall that cost sales. Execution issue acknowledged.</td>
+                  </tr>
+                  <tr>
+                    <td>Debt / Interest</td>
+                    <td>Net debt? Interest trajectory?</td>
+                    <td>Net debt ~₹1,065 Cr at Dec-end. Interest run-rate targeted toward ₹55 Cr (from ~₹80 Cr).</td>
+                    <td>Deleveraging still work-in-progress. Absolute debt remains high relative to current earnings power.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <p class="source">Source: Q3 FY26 Earnings Conference Call transcript, 17 February 2026</p>
+        </div>
+      </div>
+
+      <!-- CALL 4 -->
+      <div id="call4" class="tab-panel">
+        <div class="card">
+          <h3 style="margin-top:0">Q1 FY27 (17 Aug 2026) — Stronger Confidence</h3>
+          <p><strong>Management tone:</strong> Optimistic. Sales ₹427 Cr vs ₹369 Cr (+16%). EBITDA ₹82 Cr (~18–19% range). PBT +30% (ex one-time land sale). Domestic CV, tractor, passenger car “running pretty hot”; US growth visible. Mix: CV 71%, PV 14%, agri/off-highway 14%; machined 67%.</p>
+          <p style="margin-top:8px"><strong>Abhinava:</strong> First business received; initial phases of SOP / ramp-up stage. “Real good news.”</p>
+          <p style="margin-top:8px"><strong>Outlook:</strong> Targeting minimum 25,000 tons per quarter in coming 2–3 quarters, then 27k → 30k, aiming toward ~1.2 lakh tons utilisation over time. Most new orders are machined (higher capital intensity).</p>
+          <details>
+            <summary>Selected Analyst Questions & Takeaways</summary>
+            <div class="content">
+              <table>
+                <thead><tr><th>Topic</th><th>Question (summary)</th><th>Management Answer (summary)</th><th>Investor Takeaway</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>Abhinava progress</td>
+                    <td>Customer additions / pipeline update?</td>
+                    <td>First business in hand; initial SOP / production-sample ramp-up underway.</td>
+                    <td>Positive step vs prior “zero sales”. Still very early; revenue contribution not yet quantified.</td>
+                  </tr>
+                  <tr>
+                    <td>Tractor / front-axle</td>
+                    <td>Considering tractor axle / suspension assembly to offset demand shift?</td>
+                    <td>Not at this moment. Margin-dilutive; enough on plate with current growth, debottlenecking and cost work.</td>
+                    <td>Focus remains on core; not chasing every adjacent opportunity.</td>
+                  </tr>
+                  <tr>
+                    <td>Future growth capex</td>
+                    <td>₹400 Cr growth capex (media comment) — where directed?</td>
+                    <td>(Discussion of existing business leverage, machining, possible non-auto / non-ferrous exploration in broader context.)</td>
+                    <td>Capital intensity of machined orders is rising; funding needs remain a live issue (QIP also approved).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <p class="source">Source: Q1 FY27 Earnings Conference Call transcript, 17 August 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CROSS-CALL ===================== -->
+    <section id="crosscall" class="section">
+      <h2>10. What Analysts Keep Asking</h2>
+      <div class="card">
+        <p>Across the four main calls, the same clusters of questions recur:</p>
+        <table>
+          <thead><tr><th>Recurring Theme</th><th>Frequency / Persistence</th><th>What it signals</th></tr></thead>
+          <tbody>
+            <tr><td>16,500-ton press timeline & revenue contribution</td><td>High — every major call</td><td>Investors do not yet believe the asset is productive. Timeline credibility is low.</td></tr>
+            <tr><td>Abhinava Rizel — sales, burn, break-even, strategy</td><td>High — every call after it became material</td><td>Subsidiary is still a black box on revenue and funding path.</td></tr>
+            <tr><td>Utilisation / capacity ramp / tonnage targets</td><td>High</td><td>Core operating leverage thesis depends on this; current ~50% utilisation is the problem.</td></tr>
+            <tr><td>Debt trajectory & interest cost</td><td>High</td><td>Balance-sheet risk is front-of-mind given elevated absolute debt.</td></tr>
+            <tr><td>Export / US recovery durability</td><td>High</td><td>Cyclical exposure is understood; sustainability of the rebound is questioned.</td></tr>
+            <tr><td>Margin recovery path (mix, power, labour)</td><td>Medium-High</td><td>Investors want to know whether margin pressure is temporary or structural.</td></tr>
+            <tr><td>Domestic market-share / delivery performance</td><td>Medium</td><td>Operational execution gaps have already cost sales (admitted in Q3 call).</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:12px"><strong>What the repeated questioning tells us:</strong> The market is not arguing about the long-term need for forging capacity. It is arguing about <em>execution speed, capital productivity, and whether the heavy spending of the last 5–6 years will earn an acceptable return</em>. The questions that keep coming back are the ones management has not yet closed with hard evidence.</p>
+      </div>
+    </section>
+
+    <!-- ===================== CREDIBILITY ===================== -->
+    <section id="credibility" class="section">
+      <h2>11. Management Guidance vs Reality Tracker</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th>Guidance Item</th><th>When Stated</th><th>Expected</th><th>Actual / Status (from sources)</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>16,500-ton press commissioning</td><td>Multiple calls; Forensic cites Jul–Aug 2026 target</td><td>Operational by mid/late 2026</td><td>Still not fully contributing commercial volumes as of Aug 2026 call</td>
+              <td><span class="tag tag-orange">Delayed / Ongoing</span></td>
+            </tr>
+            <tr>
+              <td>FY27 revenue growth ~20%</td><td>Q3 FY26 call / Mar 2026</td><td>FY27</td><td>Horizon not yet reached</td>
+              <td><span class="tag tag-blue">Pending</span></td>
+            </tr>
+            <tr>
+              <td>Tonnage into six-figure (100k+ tons)</td><td>Q3 FY26 call</td><td>With current orders, subject to macro</td><td>FY26 ≈75k tons; FY27 not complete</td>
+              <td><span class="tag tag-blue">Pending</span></td>
+            </tr>
+            <tr>
+              <td>₹700 Cr capex → ₹600–700 Cr revenue delta</td><td>Q4 FY25 call (per Guidance Report)</td><td>Asset turn ≈1</td><td>Revenue rose only ₹65 Cr (₹1,525 → ₹1,590 Cr)</td>
+              <td><span class="tag tag-red">Missed</span></td>
+            </tr>
+            <tr>
+              <td>Export sales sluggish 10–15% down in FY26</td><td>Q4 FY25 call</td><td>FY26</td><td>Actual decline ≈3.6% (₹563 → ₹543 Cr)</td>
+              <td><span class="tag tag-green">Better than guided</span></td>
+            </tr>
+            <tr>
+              <td>Machined mix → 60% then 65–70%</td><td>Q4 FY22 call</td><td>FY23 / eventual</td><td>FY26 mix 54%; target unmet</td>
+              <td><span class="tag tag-red">Missed</span></td>
+            </tr>
+            <tr>
+              <td>DVS merger in 2–3 months (from Nov 2025)</td><td>Q2 FY26 call</td><td>~Jan–Feb 2026</td><td>NCLT sanctioned Jun 2026; not yet effective</td>
+              <td><span class="tag tag-orange">Partial / Delayed</span></td>
+            </tr>
+            <tr>
+              <td>Abhinava first revenue / production</td><td>Multiple calls</td><td>Imminent from Nov 2025 onward</td><td>First SOP / ramp-up only by Aug 2026</td>
+              <td><span class="tag tag-orange">Delayed</span></td>
+            </tr>
+            <tr>
+              <td>Interest cost reduction toward ₹55 Cr run-rate</td><td>Q3 FY26 call</td><td>FY27</td><td>Horizon not complete; directionally consistent with intent</td>
+              <td><span class="tag tag-blue">Ongoing</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:12px"><strong>Pattern (analysis):</strong> Management has delivered better-than-feared on some near-term volume/export items, but has a clear history of timeline slippage on large physical projects (press, Abhinava production, DVS merger effectiveness) and has missed multi-year mix and asset-turn targets. The bias has been toward optimistic timelines on capacity and new ventures.</p>
+        <p class="source">Compiled from Guidance Report (StockScans) cross-checked against original conference-call transcripts and Forensic Report.</p>
+      </div>
+    </section>
+
+    <!-- ===================== FORENSIC ===================== -->
+    <section id="forensic" class="section">
+      <h2>12. Forensic / Quality of Earnings</h2>
+      <div class="card">
+        <h3 style="margin-top:0">Scorecard (Forensic Report, as of Jul 2026)</h3>
+        <p>Overall 5.7 / 10 — Minor Findings. Earnings Quality 5/10 · Balance Sheet Integrity 5/10 · Promoter/Governance/RPT 6/10 · Audit/Structure/Disclosure 7/10.</p>
+        <p style="margin-top:8px">Seven consecutive years of unqualified audit opinions and clean CARO reports. No fraud, wilful default, or statutory dues arrears reported.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Major Observations (document language preserved)</h3>
+        <ol style="margin:8px 0 0 18px">
+          <li><strong>Unproductive capital (Major):</strong> Nearly half of ₹1,000–1,200 Cr capex programme not yet earning. Utilisation ~47–50% on 150k-ton base. 16,500-ton press “not even up yet” in physical terms (Dec 2025). ROCE 14.45% → 9.38%. Cumulative CFO only 0.63× cumulative EBITDA over 9 years.</li>
+          <li><strong>Inter-corporate loans (Major):</strong> Loans to subsidiaries ₹89.8 Cr (FY20) → ₹202.1 Cr (FY26). No repayments commenced. Three subsidiaries: DVS, Suvarchas Vidyut, Abhinava Rizel. Yet Form AOC-2 reports nil material RPTs every year.</li>
+          <li><strong>Abhinava Rizel (Major):</strong> Burning ~₹1 Cr/month with no disclosed revenue or breakeven timeline (as of Q3 FY26). Production had not commenced as of FY25.</li>
+        </ol>
+        <p style="margin-top:12px"><strong>Classification (this analysis):</strong></p>
+        <ul style="margin:6px 0 0 18px">
+          <li>Unproductive capital & low cash conversion → <span class="tag tag-orange">Confirmed concern</span> (directly from management statements + Forensic calculation).</li>
+          <li>Subsidiary loans with zero repayment history while reported as “immaterial” → <span class="tag tag-orange">Potential concern / Requires monitoring</span>.</li>
+          <li>Audit record → <span class="tag tag-green">No evidence of concern</span> on statutory audit quality.</li>
+        </ul>
+        <p class="source">Source: M_M_Forgings_Ltd_Forensic_Report.pdf (StockScans, Jul 2026). Claims cross-checked against AR notes and call transcripts where possible.</p>
+      </div>
+    </section>
+
+    <!-- ===================== RISKS ===================== -->
+    <section id="risks" class="section">
+      <h2>13. Key Risks Map</h2>
+      <div class="risk-grid">
+        <div class="risk-card">
+          <h4>Capex Execution / Press Delay <span class="tag tag-red">High Impact</span></h4>
+          <p style="font-size:13px;color:var(--text2)">Mechanism: Depreciation + interest without revenue → depressed ROCE and earnings. Already visible in 9% ROCE and 0.63× cash conversion.</p>
+        </div>
+        <div class="risk-card">
+          <h4>CV + US Truck Cyclicality <span class="tag tag-red">High Impact</span></h4>
+          <p style="font-size:13px;color:var(--text2)">71%+ CV exposure. Q2 FY26 showed how quickly US inventory correction hits. Recovery language is recent; durability unproven.</p>
+        </div>
+        <div class="risk-card">
+          <h4>Elevated Debt + Interest <span class="tag tag-orange">Medium-High</span></h4>
+          <p style="font-size:13px;color:var(--text2)">≈₹1,235 Cr debt. Interest reduction is a management target, not yet fully delivered. Limits flexibility if volumes disappoint.</p>
+        </div>
+        <div class="risk-card">
+          <h4>Subsidiary Cash Burn (Abhinava) <span class="tag tag-orange">Medium</span></h4>
+          <p style="font-size:13px;color:var(--text2)">~₹1 Cr/month with no revenue until very recently. Equity + loans already material. Further funding needs possible.</p>
+        </div>
+        <div class="risk-card">
+          <h4>Inter-company Loans / RPT Optics <span class="tag tag-yellow">Medium</span></h4>
+          <p style="font-size:13px;color:var(--text2)">₹202 Cr loans, zero repayment history, yet “nil material RPT” disclosures. Governance optics risk even if legally compliant.</p>
+        </div>
+        <div class="risk-card">
+          <h4>Margin Pressure (mix / power / labour) <span class="tag tag-yellow">Medium</span></h4>
+          <p style="font-size:13px;color:var(--text2)">Repeatedly cited in calls. Recovery depends on utilisation, green power, and mix — all of which have lagged targets before.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== QUALITY ===================== -->
+    <section id="quality" class="section">
+      <h2>14. Business Quality Assessment</h2>
+      <div class="card">
+        <p><strong>Is this a good business?</strong></p>
+        <p style="margin-top:8px">Forging of safety-critical and power-train parts carries real switching costs once a supplier is qualified on a platform. That is a moderate moat. Vertical integration into machining further raises the barrier for pure-play competitors.</p>
+        <p style="margin-top:8px">However, the business remains highly cyclical (CV + US truck), capital intensive, and exposed to steel and power costs. Pricing power is limited on a pass-through basis; volume and utilisation drive most of the P&L swing.</p>
+        <p style="margin-top:8px"><strong>Overall quality assessment:</strong> <span class="tag tag-yellow">Moderate</span> — solid industrial franchise with genuine technical barriers, but returns have been diluted by heavy, slow-to-earn capital expenditure and cyclical end markets. Quality will only improve if the installed capacity starts generating acceptable ROCE.</p>
+      </div>
+    </section>
+
+    <!-- ===================== MANAGEMENT ===================== -->
+    <section id="management" class="section">
+      <h2>15. Management Assessment (Evidence-Based)</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th>Dimension</th><th>Evidence from Sources</th><th>Assessment</th></tr></thead>
+          <tbody>
+            <tr><td>Capital allocation</td><td>Large multi-year programme with ~50% still unproductive; press delayed; EV sub still cash-consuming</td><td>Weak on recent large projects</td></tr>
+            <tr><td>Guidance accuracy</td><td>Mix of hits (exports better than feared) and misses/delays (press, machined mix, asset turn, Abhinava timeline)</td><td>Optimistic bias on timelines</td></tr>
+            <tr><td>Communication on difficult topics</td><td>Admitted delivery problems that cost domestic sales (Q3 call); acknowledged cash burn; did not over-promise on Abhinava EBITDA</td><td>Reasonably transparent on some issues</td></tr>
+            <tr><td>Debt management</td><td>Absolute debt remains high; interest reduction is a stated priority; QIP approved</td><td>Work in progress</td></tr>
+            <tr><td>Related-party / subsidiary funding</td><td>Growing loans with no repayment; “nil material RPT” disclosures continue</td><td>Optics concern</td></tr>
+          </tbody>
+        </table>
+        <p class="source">Based solely on conference-call behaviour, Guidance Report tracking, Forensic observations and AR notes.</p>
+      </div>
+    </section>
+
+    <!-- ===================== KILLERS ===================== -->
+    <section id="killers" class="section">
+      <h2>16. What Would Change My Mind</h2>
+      <div class="card">
+        <h3 style="margin-top:0; color:var(--green)">Strengthen the thesis</h3>
+        <ul style="margin:6px 0 0 18px">
+          <li>Clear statement that the 16,500-ton press is commissioned <em>and</em> producing commercial volumes with quantified revenue contribution.</li>
+          <li>Sequential ROCE improvement out of single digits.</li>
+          <li>Absolute debt beginning to decline from operating cash flow (not just refinancing).</li>
+          <li>Abhinava recognising meaningful revenue and reducing cash burn.</li>
+          <li>Utilisation visibly moving toward 70%+ on the expanded base.</li>
+          <li>Consistent delivery on the ~20% growth commentary without further downward revision.</li>
+        </ul>
+        <h3 style="color:var(--red)">Weaken / kill the thesis</h3>
+        <ul style="margin:6px 0 0 18px">
+          <li>Another multi-quarter delay on the press with vague new dates.</li>
+          <li>Soft commentary on US Class 8 or domestic CV that reverses the recent recovery language.</li>
+          <li>Further rise in absolute debt or in subsidiary funding needs.</li>
+          <li>Margin pressure that management continues to call “temporary” for multiple additional quarters.</li>
+          <li>Any new governance or related-party development beyond what is already disclosed.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== CONCLUSION ===================== -->
+    <section id="conclusion" class="section">
+      <h2>17. Final Investment Conclusion</h2>
+      <div class="card">
+        <p><strong>1. Investment thesis in one sentence:</strong> A capital-intensive forging franchise with genuine technical barriers that has spent heavily on capacity; the investment works only if the new press and volume recovery convert unproductive capital into rising ROCE and free cash flow.</p>
+
+        <p style="margin-top:12px"><strong>2. Strongest arguments FOR:</strong></p>
+        <ul style="margin:4px 0 0 18px">
+          <li>Critical, high-switching-cost components in CV power-train / chassis.</li>
+          <li>Recent sequential improvement in sales and management tone (Q3 FY26 → Q1 FY27).</li>
+          <li>Large press, if successfully ramped, offers material revenue and operating leverage (management cites ~₹300 Cr potential).</li>
+          <li>Green-power and interest-cost initiatives provide identifiable margin levers.</li>
+        </ul>
+
+        <p style="margin-top:12px"><strong>3. Strongest arguments AGAINST:</strong></p>
+        <ul style="margin:4px 0 0 18px">
+          <li>ROCE already compressed to ~9%; half the recent large capex still unproductive.</li>
+          <li>Repeated timeline slippage on the flagship press and on Abhinava production.</li>
+          <li>Elevated debt, weak historical cash conversion (0.63×), and ongoing subsidiary cash burn.</li>
+          <li>Current valuation (13.6× EV/EBITDA, 28× P/E) already embeds recovery optimism.</li>
+        </ul>
+
+        <p style="margin-top:12px"><strong>4. What management has promised vs delivered:</strong> Promised capacity-led growth and mix improvement; delivered partial volume recovery but persistent delays on the physical assets that were supposed to drive the next leg of earnings. Guidance credibility is mixed with a clear optimistic bias on large-project timelines.</p>
+
+        <p style="margin-top:12px"><strong>5. Biggest unresolved questions:</strong></p>
+        <ul style="margin:4px 0 0 18px">
+          <li>When will the 16,500-ton press generate its first meaningful commercial revenue, and at what run-rate?</li>
+          <li>Will ROCE exit single digits within the next 4–6 quarters?</li>
+          <li>Can absolute debt start declining while still funding machined-content growth and any further Abhinava needs?</li>
+        </ul>
+
+        <p style="margin-top:12px"><strong>6. What needs to happen over the next 2–3 years:</strong> Press fully ramped, utilisation materially higher, ROCE rising, debt stabilising or falling, Abhinava either contributing or ring-fenced without further large parent funding.</p>
+
+        <p style="margin-top:12px"><strong>7. What could permanently impair the thesis:</strong> Prolonged low utilisation of the new capacity, a multi-year CV/US downturn before returns improve, or a significant further rise in leverage / related-party exposure.</p>
+
+        <p style="margin-top:16px; font-size:16px"><strong>Overall assessment:</strong> <span class="tag tag-yellow" style="font-size:14px">Requires More Evidence</span></p>
+        <p style="margin-top:8px">This is a classic “show-me” industrial situation. The assets are largely in place or nearly in place; the earnings power and return on capital are not yet visible. The conference-call narrative has improved from the Q2 FY26 low, but physical delivery of the large press remains the single most important swing factor. At current multiples, the margin of safety for further execution slippage is limited.</p>
+        <p class="source">Conclusion derived strictly from the evidence in the supplied conference calls, Forensic Report, Guidance Report, Business Overview, Annual Report excerpts and valuation screenshots. No external data used.</p>
+      </div>
+    </section>
+
+    <footer style="margin-top:48px; padding-top:16px; border-top:1px solid var(--border); font-size:12px; color:var(--text2)">
+      <p>MM Forgings Ltd — Interactive Investment Research Terminal · Document-only analysis · Generated for personal research use · August 2026</p>
+      <p style="margin-top:4px">All figures and statements are taken from the source documents provided by the user. Gaps are explicitly flagged. This is not investment advice.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+// Tab switching for conference calls
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.sidebar nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
