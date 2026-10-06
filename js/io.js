@@ -36,7 +36,10 @@ const IO = (() => {
 
   const cell = v => {
     if (v === null || v === undefined) return '';
-    const s = String(v);
+    let s = String(v);
+    // Neutralise formula-like text while keeping actual numeric exports numeric.
+    if (typeof v === 'string' && /^[\s\uFEFF]*[=+@-]/.test(s)) s = "'" + s;
+    if (typeof v === 'string' && /^[\t\r\n]/.test(s)) s = "'" + s;
     return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   };
   function toCSV(headers, rows) {

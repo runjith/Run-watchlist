@@ -2043,6 +2043,9 @@ input[type="date"].nb-input { color-scheme: dark; font-family: var(--mono); font
 .ipo-apps .pf-row > span:not(:first-child):not([data-k="Result"]):not([data-k="Settled"]) { text-align: right; }
 .ipo-apps .pf-row > span[data-k="Settled"] { text-align: center; }
 .ipo-apps .pf-row small { display: block; }
+/* IPO rows do not use the trade row's hover selector. Keep their actions visible. */
+.ipo-apps .tx__act .text-btn,
+.ipo-people .tx__act .text-btn { opacity: 1; }
 .ipo-app.is-open { background: linear-gradient(90deg, rgba(255,255,255,0.022), transparent 70%); }
 .ipo-app.is-settled > span[data-k="Due back"] { color: var(--faint); }
 .ipo-app__edit { grid-column: 1 / -1; padding: 12px 0 8px; }
@@ -2082,3 +2085,16 @@ input[type="date"].nb-input { color-scheme: dark; font-family: var(--mono); font
   .ipo-tool__k { flex-basis: auto; }
   .seg__btn { padding: 8px 14px; }
 }
+
+/* Explicit sharing surfaces */
+.guest-companies { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 16px; }
+.guest-card { border: 1px solid var(--line); padding: 22px; margin: 16px 0; overflow-wrap: anywhere; }
+.guest-card h3, .guest-card summary { font-family: var(--serif); font-size: 24px; margin-bottom: 12px; }
+.guest-card summary { cursor: pointer; }
+.sharing-form { display: grid; gap: 16px; max-width: 900px; margin: 22px 0; }
+.sharing-form .btn { justify-self: start; }
+.sharing-checks { display: flex; flex-wrap: wrap; gap: 20px; }
+.shared-research-text { white-space: pre-wrap; line-height: 1.8; }
+.research-reader { position: fixed; inset: 2vh 2vw; width: 96vw; height: 96vh; max-width: none; max-height: none; background: var(--bg); color: var(--text); border: 1px solid var(--line); padding: 18px; z-index: 100; }
+.research-reader::backdrop { background: #000b; }
+.research-reader iframe { width: 100%; height: calc(100% - 55px); background: white; border: 0; margin-top: 15px; }

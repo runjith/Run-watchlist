@@ -1,0 +1,11 @@
+{
+  "name": "run-watchlist",
+  "private": true,
+  "scripts": {
+    "test": "node tests/security-db.cjs && node tests/ui.cjs && node tests/router.cjs && node tests/data.cjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "jsdom": "30.1.2"
+  }
+}

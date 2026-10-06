@@ -194,7 +194,7 @@ const Workspace = (() => {
         <p class="ws-meta">${esc(meta)}</p>
       </div>
       <div class="ws-head__actions">
-        ${c.researchFile ? `<a class="btn btn--sm" href="${esc(c.researchFile)}" target="_blank" rel="noopener">Open research <span aria-hidden="true">↗</span></a>` : ''}
+        ${c.researchFile ? `<a class="btn btn--sm" href="#" data-act="open-research">Open research <span aria-hidden="true">↗</span></a>` : ''}
         ${statusBtn}
         <button class="text-btn" type="button" data-act="toggle-lists" aria-expanded="${!!W.showLists}">Lists${(W.data.lists || []).filter(l => l.member).length ? ' · ' + W.data.lists.filter(l => l.member).length : ''}</button>
         <button class="text-btn" type="button" data-act="edit-company">Edit details</button>
@@ -473,13 +473,13 @@ const Workspace = (() => {
         <div class="file__line">
           <span class="file__type">${esc(RUN.label('DOC_TYPES', f.docType))}</span>
           <div class="file__main">
-            <a class="file__name" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.fileName)} <span aria-hidden="true">↗</span></a>
+            <a class="file__name" href="${esc(UI.safeHttps(f.url))}" target="_blank" rel="noopener noreferrer">${esc(f.fileName)} <span aria-hidden="true">↗</span></a>
             ${f.description ? `<p class="file__desc">${esc(f.description)}</p>` : ''}
           </div>
           <span class="file__date">${f.docDate ? fmtDate(f.docDate) : 'Added ' + fmtDate(U().tsToLocalDate(f.uploadedAt))}</span>
           <span class="file__size file__host">${esc(hostLabel(f.url))}</span>
           <span class="file__actions">
-            <a class="text-btn" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Open</a>
+            <a class="text-btn" href="${esc(UI.safeHttps(f.url))}" target="_blank" rel="noopener noreferrer">Open</a>
             <button class="text-btn" type="button" data-act="file-edit" aria-expanded="${open}">${open ? 'Close' : 'Edit'}</button>
           </span>
         </div>
@@ -1432,7 +1432,7 @@ const Workspace = (() => {
 
     // Open a private file: refresh the signed link if it is getting old.
     if (t.dataset.fileOpen !== undefined && !t.dataset.act) {
-      const stale = !W.fileUrls[t.dataset.fileOpen] || Date.now() - W.fileUrlsAt > 45 * 60 * 1000;
+      const stale = !W.fileUrls[t.dataset.fileOpen] || Date.now() - W.fileUrlsAt > 4 * 60 * 1000;
       if (stale) {
         e.preventDefault();
         const win = window.open('', '_blank');
@@ -1453,6 +1453,7 @@ const Workspace = (() => {
   }
 
   const HANDLERS = {
+    'open-research'(t, c) { return openResearch(c.researchFile); },
     jump(t) {
       const s = document.getElementById('ws-' + t.dataset.sec);
       if (s) window.scrollTo({ top: s.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });

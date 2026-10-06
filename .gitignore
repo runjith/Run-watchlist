@@ -1,0 +1,6 @@
+node_modules/
+.env
+.env.*
+*-backup*.json
+*original-research*.zip
+private-research/
