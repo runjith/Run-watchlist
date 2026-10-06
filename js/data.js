@@ -17,52 +17,8 @@
       Change a label here if you prefer different wording.
    ============================================================ */
 
-const STARTER_COMPANIES = [
-  {
-    slug: "helios-industrial",
-    name: "Helios Industrial Systems",
-    ticker: "HELIO",
-    sector: "Industrials",
-    description: "Precision motion control and grid-scale automation systems.",
-    researchStatus: "researched",
-    researchFile: "research/helios-industrial.html",
-    addedOn: "2026-09-24",
-    summary: "Order book inflected in Q2 on grid capex. Margin recovery is the open question."
-  },
-  {
-    slug: "seamac-concall",
-    name: "Seamac — Conference Call Analysis",
-    ticker: "SEAMECLTD",
-    sector: "Offshore & Marine Services",
-    description: "Earnings conference call and management guidance analysis.",
-    researchStatus: "researched",
-    researchFile: "research/seamac-concall.html",
-    addedOn: "2026-09-11",
-    summary: "Management commentary on vessel charter day rates, dry-docking schedule, and order book execution."
-  },
-  {
-    slug: "seamac-ar26",
-    name: "Seamac — Annual Report FY26",
-    ticker: "SEAMECLTD",
-    sector: "Offshore & Marine Services",
-    description: "Annual Report FY26 deep fundamental and operational analysis.",
-    researchStatus: "researched",
-    researchFile: "research/seamac-ar26.html",
-    addedOn: "2026-09-11",
-    summary: "Deep dive into fleet utilization, offshore exploration capex cycles, debt reduction, and return metrics."
-  },
-  {
-    slug: "mm-forgings",
-    name: "MM Forgings",
-    ticker: "MMFL",
-    sector: "Auto Components",
-    description: "Interactive investment research terminal and valuation study.",
-    researchStatus: "researched",
-    researchFile: "research/mm-forgings.html",
-    addedOn: "2026-08-23",
-    summary: "High-pressure forgings, export demand cycles, and EV drivetrain component roadmap."
-  }
-];
+// Private companies belong in Supabase, never in public JavaScript.
+const STARTER_COMPANIES = [];
 
 /* Kept for anything that still refers to the old name. */
 const COMPANIES = STARTER_COMPANIES;

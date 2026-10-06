@@ -11,14 +11,14 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({
 const fmtDate = s => {
   if (!s) return '';
   const d = new Date(String(s).slice(0, 10) + 'T00:00:00');
-  if (isNaN(d)) return s;
+  if (isNaN(d)) return '';
   return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 };
 
 const fmtShortDate = s => {
   if (!s) return '';
   const d = new Date(String(s).slice(0, 10) + 'T00:00:00');
-  if (isNaN(d)) return s;
+  if (isNaN(d)) return '';
   const sameYear = d.getFullYear() === new Date().getFullYear();
   return d.toLocaleDateString('en-GB', sameYear ? { day: '2-digit', month: 'short' } : { day: '2-digit', month: 'short', year: 'numeric' });
 };
@@ -36,6 +36,17 @@ const relativeDays = s => {
 };
 
 const UI = {
+  researchPath(value) {
+    const path = String(value || '').trim();
+    if (!path) return '';
+    if (/^private:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(path)) return path;
+    if (/^research\/[a-z0-9][a-z0-9_-]*\.html$/i.test(path)) return path;
+    throw new Error('Use a private research document or a research/filename.html path.');
+  },
+  safeHttps(value) {
+    try { const u = new URL(value); return u.protocol === 'https:' && !u.username && !u.password ? u.href : '#'; }
+    catch { return '#'; }
+  },
   money: (v, cur) => RUN.money(v, cur),
 
   num(v) {

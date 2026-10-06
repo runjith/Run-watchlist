@@ -18,10 +18,37 @@
    Research documents are standalone HTML files in research/.
    They are opened, never rewritten.
    ------------------------------------------------------------ */
-function openResearch(path) {
-  if (!path) return false;
-  window.open(path, '_blank', 'noopener');
-  return true;
+async function openResearch(path) {
+  try {
+    if (DataLayer.access.role() !== 'owner') throw new Error('Owner access required.');
+    path = UI.researchPath(path);
+    if (!path) return false;
+    if (!path.startsWith('private:')) throw new Error('This document needs to be moved to the private archive. Open Guest access → Private research documents to upload it.');
+    const userId = DataLayer.auth.user().id;
+    const url = await DataLayer.files.researchUrl(path.slice(8));
+    const response = await fetch(url, { referrerPolicy: 'no-referrer' });
+    if (!response.ok) throw new Error('Could not open this document.');
+    const parsed = new DOMParser().parseFromString(await response.text(), 'text/html');
+    parsed.querySelectorAll('script,iframe,object,embed,base,meta,link,form').forEach(n => n.remove());
+    parsed.querySelectorAll('*').forEach(n => {
+      for (const a of [...n.attributes]) {
+        if (/^on/i.test(a.name) || ['srcdoc','action','formaction','srcset','ping','target','download'].includes(a.name)) n.removeAttribute(a.name);
+        if (a.name === 'href' && !a.value.startsWith('#')) n.removeAttribute(a.name);
+        if (a.name === 'src' && !a.value.startsWith('data:image/')) n.removeAttribute(a.name);
+      }
+    });
+    const html = parsed.documentElement.outerHTML;
+    if (DataLayer.auth.user()?.id !== userId) return false;
+    const dialog = document.createElement('dialog'); dialog.className = 'research-reader';
+    const close = document.createElement('button'); close.type = 'button'; close.className = 'btn btn--sm'; close.textContent = 'Close research';
+    const frame = document.createElement('iframe'); frame.title = 'Private research document';
+    frame.setAttribute('sandbox', ''); frame.referrerPolicy = 'no-referrer';
+    // Opaque sandbox + no scripts, forms, network or top navigation. Documents
+    // are content, never executable code in the signed-in app's origin.
+    frame.srcdoc = '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'; img-src data:; base-uri \'none\'; form-action \'none\';">' + html;
+    close.onclick = () => dialog.close(); dialog.onclose = () => dialog.remove();
+    dialog.append(close,frame); document.body.append(dialog); dialog.showModal(); return true;
+  } catch (err) { UI.error(err); return false; }
 }
 
 /* ------------------------------------------------------------
@@ -1211,7 +1238,7 @@ const HeroField = (function () {
   async function refreshLabels() {
     ensureSize();
     try {
-      if (!(typeof DataLayer !== "undefined" && DataLayer.auth.isSignedIn())) { setItems(FALLBACK); return; }
+      if (!(typeof DataLayer !== "undefined" && DataLayer.auth.isSignedIn() && DataLayer.access.role() === 'owner')) { setItems(FALLBACK); return; }
       const d = await DataLayer.desk();
       const t = d.today, soon = DataLayer.util.addDays(t, 14);
       const out = [];
@@ -1327,10 +1354,7 @@ const CompanyForm = (() => {
       };
       const status = $('companyStatus').value || 'watch';
       if (!input.name) { $('companyName').focus(); return; }
-      if (input.researchFile && /^https?:|^\/\/|\.\./i.test(input.researchFile)) {
-        UI.toast('Research file should be a path inside the project, e.g. research/acme.html', 'error');
-        return;
-      }
+      try { input.researchFile = UI.researchPath(input.researchFile); } catch (err) { UI.error(err); return; }
       const btn = $('modalSubmit');
       await UI.busy(btn, async () => {
         try {
@@ -1425,10 +1449,11 @@ const SignIn = (() => {
       const u = A.user();
       el.innerHTML = head('Account', 'You are signed in.', `Signed in as <strong>${esc(u.email || '')}</strong>.`) + `
         <div class="signin__row">
-          <a class="btn btn--solid" href="#/desk"><span>Open the Desk</span></a>
+          <a class="btn btn--solid" href="${DataLayer.access.role() === 'owner' ? '#/desk' : '#/sharing'}"><span>${DataLayer.access.role() === 'owner' ? 'Open the Desk' : 'Shared research'}</span></a>
+          ${DataLayer.access.role() === 'owner' ? '<a class="btn" href="#/sharing">Guest access</a>' : ''}
           <button class="btn" type="button" id="signOutBtn"><span>Sign out</span></button>
         </div>
-        ${backupBlock()}`;
+        ${A.isSignedIn() && DataLayer.access.role() === 'owner' ? backupBlock() : ''}`;
       document.getElementById('signOutBtn').addEventListener('click', () => App.signOut());
       bindBackup();
       return;
@@ -1459,7 +1484,7 @@ const SignIn = (() => {
       });
       return;
     }
-    el.innerHTML = head('Private workspace', 'Sign in.', 'Your research, valuations, decisions and documents are private. Only you can read or change them.') + `
+    el.innerHTML = head('Private workspace', 'Sign in.', 'Sign in to your account. Guests can read only the information explicitly shared with them.') + `
       <form class="signin__form" id="signinForm">
         <div class="form-group"><label for="signinEmail">Email</label><input type="email" id="signinEmail" autocomplete="username" required></div>
         <div class="form-group"><label for="signinPw">Password</label><input type="password" id="signinPw" autocomplete="current-password" required></div>
@@ -1528,9 +1553,10 @@ const App = (() => {
     '/researched': 'researched',
     '/sectors': 'sectors',
     '/about': 'about',
-    '/signin': 'signin'
+    '/signin': 'signin',
+    '/sharing': 'sharing'
   };
-  const PRIVATE = ['watchlist', 'desk', 'portfolio', 'ipos', 'researched', 'sectors', 'company'];
+  const PRIVATE = ['watchlist', 'desk', 'portfolio', 'ipos', 'researched', 'sectors', 'company', 'sharing'];
   const TITLES = {
     home: 'RUN WATCHLIST — Track what matters. Research what changes.',
     watchlist: 'Watchlist — RUN Watchlist', desk: 'Desk — RUN Watchlist', portfolio: 'Portfolio — RUN Watchlist', ipos: 'IPOs — RUN Watchlist', researched: 'Researched — RUN Watchlist',
@@ -1538,7 +1564,9 @@ const App = (() => {
   };
 
   function parse() {
-    const h = decodeURIComponent(location.hash.replace(/^#/, '')) || '/';
+    let h;
+    try { h = decodeURIComponent(location.hash.replace(/^#/, '')) || '/'; }
+    catch { h = '/'; }
     if (STATIC[h] !== undefined) return { view: STATIC[h], key: h || '/' };
     let m = h.match(/^\/company\/([^/]+)(?:\/([a-z]+))?\/?$/);
     if (m) return { view: 'company', slug: m[1], sec: m[2] || null, key: '/company/' + m[1] };
@@ -1568,7 +1596,9 @@ const App = (() => {
       SignIn.setReturn(location.hash);
       view = 'signin';
     }
-    const key = view === r.view ? r.key : '/signin';
+    if (DataLayer.auth.isSignedIn() && DataLayer.access.role() !== 'owner' && !['signin','about'].includes(view)) view = 'sharing';
+    if (current?.view === 'sharing' && view !== 'sharing') Sharing.stop();
+    const key = view === r.view ? r.key : '/' + view;
 
     document.querySelectorAll('[data-nav]').forEach(a => {
       const nav = view === 'company' ? 'watchlist' : view;
@@ -1606,6 +1636,7 @@ const App = (() => {
       if (view === 'researched') await Views.renderResearchedView();
       if (view === 'sectors') await Views.renderSectorsView();
       if (view === 'signin') SignIn.render();
+      if (view === 'sharing') await Sharing.render();
       if (view === 'company') {
         await Workspace.render(r.slug, r.sec);
         const c = Workspace.current();
@@ -1640,6 +1671,13 @@ const App = (() => {
 
   function renderAccount() {
     const A = DataLayer.auth;
+    const restricted = A.isSignedIn() && DataLayer.access.role() !== 'owner';
+    document.querySelectorAll('nav a, .mobile-menu a').forEach(a => {
+      if (a.hasAttribute('data-account')) return;
+      const href = a.getAttribute('href');
+      a.hidden = restricted && !['#/sharing', '#/about', '#/signin', '#/'].includes(href);
+    });
+    document.querySelectorAll('[data-nav="sharing"]').forEach(a => { a.hidden = !A.isSignedIn(); a.textContent = restricted ? 'Shared research' : 'Guest access'; });
     document.querySelectorAll('[data-account]').forEach(el => {
       if (A.mode() === 'local') { el.hidden = true; return; }
       el.hidden = false;
@@ -1659,16 +1697,15 @@ const App = (() => {
 
   async function signOut() {
     if (typeof Workspace !== "undefined") Workspace.clearDirty();
-    await DataLayer.auth.signOut();
-    SignIn.reset();
-    await afterAuthChange();
-    UI.toast('Signed out');
-    if (location.hash === '#/' || location.hash === '') await navigate(true);
-    else location.hash = '#/';
+    try { await DataLayer.auth.signOut(); } catch (err) { UI.error(err); return; }
+    // Reload discards every private DOM node and in-flight view closure.
+    location.replace(location.pathname + location.search + '#/signin');
+    location.reload();
   }
 
   async function afterAuthChange() {
     DataLayer.invalidate();
+    await DataLayer.access.refresh();
     renderAccount();
   }
 
@@ -1748,6 +1785,7 @@ const App = (() => {
     Views.initDemo();
     CompanyForm.init();
     DataLayer.auth.onChange(async (event) => {
+      if (event === 'SIGNED_OUT' || event === 'ACCOUNT_CHANGED') { Sharing.stop(); location.reload(); return; }
       await afterAuthChange();
       if (event === 'PASSWORD_RECOVERY') { location.hash = '#/signin'; return; }
       await navigate(true);

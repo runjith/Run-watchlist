@@ -1,3 +1,5 @@
+> **Security update (6 October 2026):** Follow [UPDATE_GUIDE.md](UPDATE_GUIDE.md) for the new owner registration, private research archive and guest access. See [SECURITY_REVIEW.md](SECURITY_REVIEW.md) for findings and remaining live checks. Older instructions below about public research HTML and starter data are superseded.
+
 # RUN Watchlist — Setup & Daily Use Guide
 
 Written for someone who does not program. Follow the parts in order the

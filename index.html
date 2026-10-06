@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src https://syvmtbilijekilsffzik.supabase.co wss://syvmtbilijekilsffzik.supabase.co; frame-src 'self' blob:; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RUN WATCHLIST — Track what matters. Research what changes.</title>
 <meta name="description" content="A personal equity research workspace. Companies I track, research I've written, and what changed since the last review.">
@@ -34,6 +36,7 @@
     <a href="#/desk" data-nav="desk">Desk</a>
     <a href="#/researched" data-nav="researched">Researched</a>
     <a href="#/sectors" data-nav="sectors">Sectors</a>
+    <a href="#/sharing" data-nav="sharing" hidden>Guest access</a>
     <a href="#/about" data-nav="about">About</a>
     <a href="#/signin" class="nav__account" data-account data-nav="signin" hidden>Sign in</a>
   </nav>
@@ -50,6 +53,7 @@
     <a href="#/desk" data-nav="desk"><em>04</em><span>Desk</span></a>
     <a href="#/researched" data-nav="researched"><em>05</em><span>Researched</span></a>
     <a href="#/sectors" data-nav="sectors"><em>06</em><span>Sectors</span></a>
+    <a href="#/sharing" data-nav="sharing" hidden>Guest access</a>
     <a href="#/about" data-nav="about"><em>07</em><span>About</span></a>
   </nav>
   <a href="#/signin" class="mobile-menu__account" data-account hidden>Sign in</a>
@@ -316,6 +320,8 @@
   </section>
 
   <!-- ============ SIGN IN ============ -->
+  <section class="view" data-view="sharing" hidden><div class="wrap view__wrap"><div id="sharingRoot"></div></div></section>
+
   <section class="view" data-view="signin" hidden>
     <div class="wrap view__wrap">
       <div class="signin" id="signinBody"></div>
@@ -483,7 +489,7 @@
 </footer>
 
 <!-- Scripts: Supabase JS library, config, vocabularies, helpers, data layer, views, app -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="vendor/supabase-2.117.2.js" integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/data.js" defer></script>
 <script src="js/ui.js" defer></script>
@@ -495,6 +501,7 @@
 <script src="js/desk.js" defer></script>
 <script src="js/portfolio-view.js" defer></script>
 <script src="js/ipo-view.js" defer></script>
+<script src="js/sharing.js" defer></script>
 <script src="js/app.js" defer></script>
 </body>
 </html>

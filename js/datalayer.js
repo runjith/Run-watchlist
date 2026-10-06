@@ -125,15 +125,24 @@ const DataLayer = (() => {
      ---------------------------------------------------------- */
   const SupabaseStore = {
     async list(table, opts = {}) {
-      let q = client.from(table).select(opts.select || '*');
-      for (const [k, v] of Object.entries(opts.eq || {})) q = q.eq(k, v);
-      for (const [k, v] of Object.entries(opts.neq || {})) q = q.neq(k, v);
-      for (const [k, v] of Object.entries(opts.in || {})) q = q.in(k, v);
-      for (const o of (opts.order || [])) q = q.order(o.col, { ascending: !!o.asc, nullsFirst: false });
-      if (opts.limit) q = q.limit(opts.limit);
-      const { data, error } = await q;
-      if (error) throw friendly(error);
-      return data || [];
+      const rows = [];
+      const pageSize = 1000;
+      for (let offset = 0; ; ) {
+        let q = client.from(table).select(opts.select || '*', { count: 'exact' });
+        for (const [k, v] of Object.entries(opts.eq || {})) q = q.eq(k, v);
+        for (const [k, v] of Object.entries(opts.neq || {})) q = q.neq(k, v);
+        for (const [k, v] of Object.entries(opts.in || {})) q = q.in(k, v);
+        for (const o of (opts.order || [])) q = q.order(o.col, { ascending: !!o.asc, nullsFirst: false });
+        q = q.order('id', { ascending: true });
+        const size = opts.limit ? Math.min(pageSize, opts.limit - offset) : pageSize;
+        if (size <= 0) break;
+        const { data, error, count } = await q.range(offset, offset + size - 1);
+        if (error) throw friendly(error);
+        rows.push(...(data || []));
+        if (!data || !data.length || (count != null && rows.length >= count) || (opts.limit && rows.length >= opts.limit)) break;
+        offset += data.length;
+      }
+      return rows;
     },
     async insert(table, row) {
       const { data, error } = await client.from(table).insert(row).select().single();
@@ -152,7 +161,7 @@ const DataLayer = (() => {
       return data;
     },
     async remove(table, id) {
-      const { error } = await client.from(table).delete().eq('id', id);
+      const { error } = await client.from(table).delete().eq('id', id).select('id').single();
       if (error) throw friendly(error);
     }
   };
@@ -207,7 +216,7 @@ const DataLayer = (() => {
     },
     save() {
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(this.db)); }
-      catch (e) { console.warn('[RUN] Could not save to this browser:', e); }
+      catch (e) { this.db = null; throw new Error('Could not save in this browser. Storage may be full. Free space and try again.'); }
     },
     t(name) { this.load(); return (this.db.tables[name] = this.db.tables[name] || []); },
     match(r, opts) {
@@ -292,7 +301,7 @@ const DataLayer = (() => {
       });
       if (error) throw friendly(error);
     },
-    async urls(paths, expiresIn = 3600) {
+    async urls(paths, expiresIn = 300) {
       if (!paths.length) return {};
       const { data, error } = await client.storage.from(BUCKET).createSignedUrls(paths, expiresIn);
       if (error) throw friendly(error);
@@ -302,7 +311,7 @@ const DataLayer = (() => {
     },
     async url(path, { download = false, fileName = null } = {}) {
       const opts = download ? { download: fileName || true } : undefined;
-      const { data, error } = await client.storage.from(BUCKET).createSignedUrl(path, 3600, opts);
+      const { data, error } = await client.storage.from(BUCKET).createSignedUrl(path, 300, opts);
       if (error) throw friendly(error);
       return data.signedUrl;
     },
@@ -358,6 +367,9 @@ const DataLayer = (() => {
      4. DOMAIN API
      ---------------------------------------------------------- */
   let user = null;
+  let accessRole = 'none';
+  let accessError = '';
+  let sessionGeneration = 0;
   let cache = {};
   const invalidate = () => { cache = {}; };
   const cached = (key, fn) => {
@@ -368,9 +380,16 @@ const DataLayer = (() => {
   function requireUser() {
     if (mode === 'error') throw friendly({ message: configError });
     if (!user) throw friendly({ message: 'Please sign in first.' });
+    if (mode === 'supabase' && accessRole !== 'owner') throw friendly({ message: 'Owner access required.' });
   }
 
-  async function list(table, opts) { requireUser(); return (await store().list(table, opts)).map(rowIn); }
+  async function list(table, opts) {
+    requireUser();
+    const generation = sessionGeneration;
+    const rows = await store().list(table, opts);
+    if (generation !== sessionGeneration) throw new Error('Account changed. Please refresh.');
+    return rows.map(rowIn);
+  }
   async function add(table, obj) {
     requireUser();
     return rowIn(await store().insert(table, rowOut({ ownerId: user.id, ...obj })));
@@ -439,7 +458,7 @@ const DataLayer = (() => {
       sector: String(input.sector || '').trim() || 'Uncategorised',
       description: String(input.description || '').trim(),
       summary: String(input.summary || '').trim() || null,
-      researchFile: String(input.researchFile || '').trim() || null,
+      researchFile: UI.researchPath(input.researchFile) || null,
       researchStatus: status,
       researchStartedOn: status !== 'watch' ? today() : null,
       researchCompletedOn: status === 'researched' ? today() : null,
@@ -461,6 +480,7 @@ const DataLayer = (() => {
     for (const k of allowed) if (k in input) {
       let v = input[k] == null ? '' : String(input[k]).trim();
       if (k === 'ticker') v = v.toUpperCase();
+      if (k === 'researchFile') v = UI.researchPath(v);
       fields[k] = (k === 'summary' || k === 'researchFile') ? (v || null) : v;
     }
     const c = await patch('companies', id, fields);
@@ -1166,8 +1186,13 @@ const DataLayer = (() => {
     'ipo_persons', 'ipo_categories', 'ipos', 'ipo_applications'];
   async function backup() {
     requireUser();
-    const out = { app: 'RUN Watchlist', version: 3, exportedAt: nowISO(), account: user.email || null, tables: {} };
-    for (const t of BACKUP_TABLES) out.tables[t] = await store().list(t, {});
+    const out = { app: 'RUN Watchlist', version: 4, exportedAt: nowISO(), account: user.email || null, tables: {} };
+    const tables = mode === 'supabase' ? [...BACKUP_TABLES, 'guest_access', 'shared_companies', 'shared_research'] : BACKUP_TABLES;
+    const generation = sessionGeneration;
+    for (const t of tables) {
+      out.tables[t] = await store().list(t, {});
+      if (generation !== sessionGeneration) throw new Error('Account changed. Please refresh.');
+    }
     return out;
   }
 
@@ -1407,10 +1432,13 @@ const DataLayer = (() => {
         const { data } = await client.auth.getSession();
         user = data && data.session ? data.session.user : null;
       } catch (e) { user = null; }
+      await refreshAccess();
       client.auth.onAuthStateChange((event, session) => {
         const before = user ? user.id : null;
         user = session ? session.user : null;
         if (event === 'PASSWORD_RECOVERY') recovering = true;
+        if (before && user && before !== user.id) event = 'ACCOUNT_CHANGED';
+        if (before !== (user ? user.id : null)) { accessRole = 'none'; sessionGeneration++; }
         if (before !== (user ? user.id : null) || event === 'PASSWORD_RECOVERY' || event === 'SIGNED_OUT') {
           invalidate();
           // Run listeners outside the auth callback (Supabase recommends this).
@@ -1419,6 +1447,7 @@ const DataLayer = (() => {
       });
     } else if (mode === 'local') {
       user = { id: 'local', email: 'this browser' };
+      accessRole = 'owner';
       LocalStore.load();
       if (!LocalStore.db.seeded) {
         LocalStore.db.seeded = true;
@@ -1427,6 +1456,67 @@ const DataLayer = (() => {
       }
     }
   }
+
+  async function refreshAccess() {
+    accessError = '';
+    if (mode === 'local') { accessRole = 'owner'; return; }
+    if (!user || !client) { accessRole = 'none'; return; }
+    const id = user.id;
+    const { data, error } = await client.from('workspace_owners').select('user_id').eq('user_id', id);
+    if (!user || user.id !== id) return;
+    if (error) { accessRole = 'error'; accessError = 'Access setup is incomplete or unavailable. Please apply the security update and register the owner in Supabase.'; return; }
+    accessRole = data.length ? 'owner' : 'guest';
+  }
+
+  async function sharedList(table) {
+    if (!user || mode !== 'supabase') throw new Error('Sign in to the connected workspace first.');
+    const generation = sessionGeneration;
+    const rows = await SupabaseStore.list(table, { order: [{ col: table === 'guest_access' ? 'created_at' : 'updated_at', asc: false }] });
+    if (generation !== sessionGeneration) throw new Error('Account changed. Please refresh.');
+    return rows.map(rowIn);
+  }
+  const sharing = {
+    async read() {
+      const [companies, research] = await Promise.all([sharedList('shared_companies'), sharedList('shared_research')]);
+      return { companies, research };
+    },
+    async manage() {
+      requireUser();
+      const [companies, research, guests, originals] = await Promise.all([
+        sharedList('shared_companies'), sharedList('shared_research'), sharedList('guest_access'),
+        list('companies', { select: 'id,name,ticker,sector,research_status,research_file', order: [{ col: 'name', asc: true }] })
+      ]);
+      return { companies, research, guests, originals };
+    },
+    async grant(email, label) {
+      requireUser();
+      const { data, error } = await client.rpc('run_grant_guest', { guest_email: email, display_label: label });
+      if (error) throw friendly(error);
+      return data;
+    },
+    async permissions(id, v) {
+      requireUser();
+      return patch('guest_access', id, { canWatchlist: !!v.canWatchlist, canResearch: !!v.canResearch, active: !!v.active,
+        expiresAt: v.expiresAt ? new Date(v.expiresAt).toISOString() : null });
+    },
+    async revoke(id) { requireUser(); await del('guest_access', id); },
+    async publishCompany(companyId) {
+      requireUser();
+      const c = await companyById(companyId);
+      if (!c) throw new Error('Company not found.');
+      const { error } = await client.from('shared_companies').upsert({ owner_id: user.id, company_id: c.id,
+        name: c.name, ticker: c.ticker, sector: c.sector, research_status: c.researchStatus }, { onConflict: 'owner_id,company_id' });
+      if (error) throw friendly(error);
+    },
+    async publishResearch(companyId, title, body) {
+      requireUser();
+      if (!title.trim() || !body.trim()) throw new Error('Enter the title and research you want guests to read.');
+      const { error } = await client.from('shared_research').upsert({ owner_id: user.id, company_id: companyId,
+        title: title.trim(), body: body.trim() }, { onConflict: 'owner_id,company_id' });
+      if (error) throw friendly(error);
+    },
+    async unpublish(kind, id) { requireUser(); await del(kind === 'company' ? 'shared_companies' : 'shared_research', id); }
+  };
 
   const auth = {
     mode: () => mode,
@@ -1440,13 +1530,18 @@ const DataLayer = (() => {
       const { data, error } = await client.auth.signInWithPassword({ email: String(email).trim(), password });
       if (error) throw friendly(error);
       user = data.user;
+      sessionGeneration++;
+      await refreshAccess();
       invalidate();
       return user;
     },
     async signOut() {
       if (mode !== 'supabase') return;
-      await client.auth.signOut();
+      const { error } = await client.auth.signOut();
+      if (error) throw friendly(error);
       user = null;
+      accessRole = 'none';
+      sessionGeneration++;
       invalidate();
     },
     async sendPasswordReset(email) {
@@ -1501,7 +1596,8 @@ const DataLayer = (() => {
       addCompany are kept so the original views keep working.)
      ---------------------------------------------------------- */
   return {
-    init, auth, prices, invalidate,
+    init, auth, prices, invalidate, sharing,
+    access: { role: () => accessRole, error: () => accessError, refresh: refreshAccess },
     isSupabase: () => mode === 'supabase',
     mode: () => mode,
     util: { today, addDays, daysBetween, tsToLocalDate, num, slugify },
@@ -1525,7 +1621,11 @@ const DataLayer = (() => {
     recordDecision,
     facts, catalysts, risks, questions, tasks,
     reviews: { schedule: scheduleReview, cancel: cancelReview, complete: completeReview },
-    files: { upload: uploadFile, update: updateFile, remove: deleteFile, urls: fileUrls, url: fileUrl },
+    files: { async researchUrl(id) {
+      const rows = await list('research_files', { eq: { id } });
+      if (!rows[0] || !rows[0].storagePath) throw new Error('Private document not found.');
+      return fileUrl(rows[0].storagePath);
+    }, upload: uploadFile, update: updateFile, remove: deleteFile, urls: fileUrls, url: fileUrl },
     updates: { add: addUpdate, remove: deleteUpdate },
     links: { add: addLink, update: updateLink },
     storageUsage,
